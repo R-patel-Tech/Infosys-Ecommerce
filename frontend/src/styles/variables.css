@@ -1,0 +1,14 @@
+:root {
+  --text: #526071;
+  --text-h: #0f172a;
+  --bg: #eef4f8;
+  --surface: rgba(255, 255, 255, 0.92);
+  --border: rgba(148, 163, 184, 0.24);
+  --accent: #0f766e;
+  --accent-strong: #0284c7;
+  --danger: #b91c1c;
+  --success: #166534;
+  --shadow: 0 24px 60px rgba(15, 23, 42, 0.12);
+  --sans: 'Segoe UI', system-ui, sans-serif;
+  --mono: ui-monospace, Consolas, monospace;
+}

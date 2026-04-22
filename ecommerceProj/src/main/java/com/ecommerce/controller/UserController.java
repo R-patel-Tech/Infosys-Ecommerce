@@ -1,20 +1,34 @@
 package com.ecommerce.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import com.ecommerce.dto.LoginRequest;
 import com.ecommerce.entity.User;
 import com.ecommerce.service.UserService;
+import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/users")
+@CrossOrigin(origins = "http://localhost:5173")
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
 
     @PostMapping("/register")
-    public User register(@RequestBody User user) {
+    public User registerUser(@Valid @RequestBody User user) {
         return userService.registerUser(user);
     }
-    
+
+    @PostMapping("/login")
+    public String loginUser(@Valid @RequestBody LoginRequest request) {
+        return userService.loginUser(request.getEmail(), request.getPassword());
+    }
 }
