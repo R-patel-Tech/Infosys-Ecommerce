@@ -1,8 +1,8 @@
-package com.ecommerce.service;
+package com.ecommerce.Service;
 
 import com.ecommerce.entity.User;
 import com.ecommerce.repository.UserRepository;
-import com.ecommerce.security.JwtUtil;
+import com.ecommerce.Security.JwtUtil;
 import java.util.Optional;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;

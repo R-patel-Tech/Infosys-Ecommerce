@@ -1,4 +1,4 @@
-package com.ecommerce.security;
+package com.ecommerce.Security;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.JwtException;

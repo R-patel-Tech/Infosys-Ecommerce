@@ -8,7 +8,7 @@ const initialState = {
   password: '',
 }
 
-function Login({ onSwitch }) {
+function Login({ onSwitch, onLoginSuccess }) {
   const [formData, setFormData] = useState(initialState)
   const [feedback, setFeedback] = useState({ type: '', message: '' })
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -38,6 +38,8 @@ function Login({ onSwitch }) {
 
       if (token) {
         sessionStorage.setItem('authToken', token)
+        onLoginSuccess?.()
+        return
       }
 
       setFeedback({
