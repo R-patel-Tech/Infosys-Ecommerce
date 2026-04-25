@@ -1,6 +1,7 @@
 :root {
   --text: #526071;
   --text-h: #0f172a;
+  --text-muted: #64748b;
   --bg: #eef4f8;
   --surface: rgba(255, 255, 255, 0.92);
   --border: rgba(148, 163, 184, 0.24);
@@ -11,4 +12,15 @@
   --shadow: 0 24px 60px rgba(15, 23, 42, 0.12);
   --sans: 'Segoe UI', system-ui, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
+
+  /* Additional colors for modern UI */
+  --primary: #667eea;
+  --primary-dark: #5a67d8;
+  --secondary: #764ba2;
+  --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --card-bg: #ffffff;
+  --input-bg: #ffffff;
+  --input-border: #e2e8f0;
+  --input-focus: rgba(2, 132, 199, 0.1);
+  --social-border: #d1d5db;
 }
