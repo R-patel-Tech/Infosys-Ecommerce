@@ -18,14 +18,33 @@ async function parseResponse(response) {
   return data
 }
 
-export async function post(path, payload) {
-  const response = await fetch(`${API_BASE_URL}${path}`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(payload),
-  })
+export async function get(path) {
+  try {
+    const response = await fetch(`${API_BASE_URL}${path}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
 
-  return parseResponse(response)
+    return parseResponse(response)
+  } catch {
+    throw new Error('Unable to reach the product API. Make sure the backend is running.')
+  }
+}
+
+export async function post(path, payload) {
+  try {
+    const response = await fetch(`${API_BASE_URL}${path}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    })
+
+    return parseResponse(response)
+  } catch {
+    throw new Error('Unable to reach the API server. Make sure the backend is running.')
+  }
 }

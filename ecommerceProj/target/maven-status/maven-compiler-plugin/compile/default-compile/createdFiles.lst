@@ -1,9 +1,8 @@
+com\ecommerce\specification\ProductSpecifications.class
 com\ecommerce\entity\Product.class
 com\ecommerce\controller\ProductController.class
 com\ecommerce\Security\JwtAuthenticationFilter.class
-com\ecommerce\Service\ProductService.class
 com\ecommerce\dto\LoginRequest.class
-com\ecommerce\dto\ProductDTO.class
 com\ecommerce\repository\ProductRepository.class
 com\ecommerce\repository\UserRepository.class
 com\ecommerce\EcommerceProjApplication.class

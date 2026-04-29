@@ -32,6 +32,8 @@ public class Product {
 
     private String category;
 
+    private String imageUrl;
+
     @NotNull(message = "Stock quantity is required")
     private Integer stockQuantity;
 
@@ -43,11 +45,12 @@ public class Product {
     public Product() {
     }
 
-    public Product(String name, String description, BigDecimal price, String category, Integer stockQuantity) {
+    public Product(String name, String description, BigDecimal price, String category, String imageUrl, Integer stockQuantity) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.category = category;
+        this.imageUrl = imageUrl;
         this.stockQuantity = stockQuantity;
     }
 
@@ -89,6 +92,14 @@ public class Product {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public Integer getStockQuantity() {

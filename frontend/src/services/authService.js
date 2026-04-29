@@ -3,11 +3,11 @@ import { post } from './api.js'
 const AUTH_TOKEN_KEY = 'authToken'
 
 export function loginUser(credentials) {
-  return post('/api/users/login', credentials)
+  return post('/users/login', credentials)
 }
 
 export function registerUser(payload) {
-  return post('/api/users/register', payload)
+  return post('/users/register', payload)
 }
 
 export function getAuthToken() {

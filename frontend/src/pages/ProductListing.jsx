@@ -20,55 +20,70 @@ function formatPrice(price) {
   return Number.isFinite(value) ? `$${value.toFixed(2)}` : 'Price unavailable'
 }
 
-function Dashboard({ onLogout, onShowProducts }) {
+function ProductListing({ onBack }) {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
 
   useEffect(() => {
+    let isMounted = true
+
     async function fetchProducts() {
       setLoading(true)
       setError('')
+
       try {
         const data = await get('/products')
+
+        if (!isMounted) {
+          return
+        }
+
         setProducts(normalizeProducts(data))
       } catch (err) {
+        if (!isMounted) {
+          return
+        }
+
         setError(err.message || 'Unable to load products.')
       } finally {
-        setLoading(false)
+        if (isMounted) {
+          setLoading(false)
+        }
       }
     }
 
     fetchProducts()
+
+    return () => {
+      isMounted = false
+    }
   }, [])
 
   return (
     <main className="page-shell dashboard-shell">
-      <section className="dashboard-card">
+      <section className="dashboard-card product-page-card">
         <div className="dashboard-header">
           <div>
-            <p className="eyebrow">Protected dashboard</p>
-            <h1>Welcome back</h1>
+            <p className="eyebrow">Product listing</p>
+            <h1>Featured products</h1>
+            <p className="dashboard-copy">Products are loaded dynamically from the API.</p>
           </div>
-
-          <div className="dashboard-actions">
-            <Button onClick={onShowProducts}>Browse products</Button>
-            <Button onClick={onLogout}>Logout</Button>
-          </div>
+          <Button onClick={onBack}>Back</Button>
         </div>
 
         <div className="product-listing">
           <div className="product-listing-header">
-            <h2>Product Catalog</h2>
-            <p className="product-count">{products.length} products found</p>
+            <h2>Available items</h2>
+            {!loading && !error ? <p className="product-count">{products.length} items</p> : null}
           </div>
 
           {loading ? (
-            <p>Loading products...</p>
+            <p className="product-state">Loading products...</p>
           ) : error ? (
-            <p className="alert alert-error">{error}</p>
+            <p className="product-state product-state-error">{error}</p>
           ) : products.length === 0 ? (
-            <p>No products available.</p>
+            <p className="product-state">No products available right now.</p>
           ) : (
             <div className="product-grid">
               {products.map((product, index) => {
@@ -93,7 +108,9 @@ function Dashboard({ onLogout, onShowProducts }) {
                       </span>
                       <span className="product-price">{formatPrice(product.price)}</span>
                     </div>
-                    <p className="product-stock">Stock: {product.stockQuantity ?? product.stock ?? 'N/A'}</p>
+                    <p className="product-stock">
+                      Stock: {product.stockQuantity ?? product.stock ?? 'N/A'}
+                    </p>
                   </article>
                 )
               })}
@@ -105,4 +122,4 @@ function Dashboard({ onLogout, onShowProducts }) {
   )
 }
 
-export default Dashboard
+export default ProductListing
