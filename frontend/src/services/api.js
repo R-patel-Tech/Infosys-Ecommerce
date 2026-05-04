@@ -1,5 +1,11 @@
 import { API_BASE_URL } from '../config.js'
 
+const AUTH_TOKEN_KEY = 'authToken'
+
+function getAuthToken() {
+  return sessionStorage.getItem(AUTH_TOKEN_KEY) || ''
+}
+
 async function parseResponse(response) {
   const contentType = response.headers.get('content-type') || ''
   let data
@@ -20,10 +26,12 @@ async function parseResponse(response) {
 
 export async function get(path) {
   try {
+    const token = getAuthToken()
     const response = await fetch(`${API_BASE_URL}${path}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
       },
     })
 
@@ -35,10 +43,30 @@ export async function get(path) {
 
 export async function post(path, payload) {
   try {
+    const token = getAuthToken()
     const response = await fetch(`${API_BASE_URL}${path}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
+      body: JSON.stringify(payload),
+    })
+
+    return parseResponse(response)
+  } catch {
+    throw new Error('Unable to reach the API server. Make sure the backend is running.')
+  }
+}
+
+export async function put(path, payload) {
+  try {
+    const token = getAuthToken()
+    const response = await fetch(`${API_BASE_URL}${path}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
       },
       body: JSON.stringify(payload),
     })

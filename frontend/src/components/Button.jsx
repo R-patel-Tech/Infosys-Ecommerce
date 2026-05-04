@@ -1,5 +1,10 @@
-function Button({ children, className = '', ...props }) {
-  const resolvedClassName = ['button', className].filter(Boolean).join(' ')
+function Button({ children, className = '', variant = 'primary', size = 'medium', ...props }) {
+  const resolvedClassName = [
+    'button',
+    `button-${variant}`,
+    `button-${size}`,
+    className
+  ].filter(Boolean).join(' ')
 
   return (
     <button className={resolvedClassName} {...props}>

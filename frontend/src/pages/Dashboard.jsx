@@ -20,7 +20,7 @@ function formatPrice(price) {
   return Number.isFinite(value) ? `$${value.toFixed(2)}` : 'Price unavailable'
 }
 
-function Dashboard({ onLogout, onShowProducts }) {
+function Dashboard({ onLogout, onShowProducts, onShowAdmin }) {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
@@ -53,6 +53,7 @@ function Dashboard({ onLogout, onShowProducts }) {
 
           <div className="dashboard-actions">
             <Button onClick={onShowProducts}>Browse products</Button>
+            <Button onClick={onShowAdmin}>Product admin</Button>
             <Button onClick={onLogout}>Logout</Button>
           </div>
         </div>

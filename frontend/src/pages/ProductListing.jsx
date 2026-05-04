@@ -20,7 +20,7 @@ function formatPrice(price) {
   return Number.isFinite(value) ? `$${value.toFixed(2)}` : 'Price unavailable'
 }
 
-function ProductListing({ onBack }) {
+function ProductListing({ onBack, onShowDetails }) {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
@@ -91,7 +91,7 @@ function ProductListing({ onBack }) {
                 const imageSrc = getProductImage(product)
 
                 return (
-                  <article className="product-card" key={key}>
+                  <article className="product-card" key={key} onClick={() => onShowDetails(product.productId ?? product.id)}>
                     <div className="product-media">
                       <img
                         className="product-image"
