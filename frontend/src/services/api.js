@@ -21,6 +21,10 @@ async function parseResponse(response) {
     throw new Error(data.error || data.message || 'Request failed. Please try again.')
   }
 
+  if (typeof data === 'string') {
+    data = { message: data }
+  }
+
   return data
 }
 
@@ -36,8 +40,8 @@ export async function get(path) {
     })
 
     return parseResponse(response)
-  } catch {
-    throw new Error('Unable to reach the product API. Make sure the backend is running.')
+  } catch (error) {
+    throw new Error(error?.message || 'Unable to reach the product API. Make sure the backend is running.')
   }
 }
 
@@ -54,8 +58,8 @@ export async function post(path, payload) {
     })
 
     return parseResponse(response)
-  } catch {
-    throw new Error('Unable to reach the API server. Make sure the backend is running.')
+  } catch (error) {
+    throw new Error(error?.message || 'Unable to reach the API server. Make sure the backend is running.')
   }
 }
 
@@ -72,7 +76,7 @@ export async function put(path, payload) {
     })
 
     return parseResponse(response)
-  } catch {
-    throw new Error('Unable to reach the API server. Make sure the backend is running.')
+  } catch (error) {
+    throw new Error(error?.message || 'Unable to reach the API server. Make sure the backend is running.')
   }
 }

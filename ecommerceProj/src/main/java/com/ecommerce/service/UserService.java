@@ -1,8 +1,9 @@
-package com.ecommerce.Service;
+package com.ecommerce.service;
 
 import com.ecommerce.entity.User;
 import com.ecommerce.repository.UserRepository;
 import com.ecommerce.Security.JwtUtil;
+import jakarta.annotation.PostConstruct;
 import java.util.Optional;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,18 @@ public class UserService {
         this.jwtUtil = jwtUtil;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+    }
+
+    @PostConstruct
+    public void init() {
+        if (userRepository.count() == 0) {
+            User user = new User();
+            user.setName("Test User");
+            user.setEmail("test@example.com");
+            user.setPassword(passwordEncoder.encode("password"));
+            user.setPhone("1234567890");
+            userRepository.save(user);
+        }
     }
 
     public User registerUser(User user) {

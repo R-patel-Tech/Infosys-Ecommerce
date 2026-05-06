@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import Login from './pages/Login.jsx'
 import Register from './pages/Register.jsx'
+import AdminLogin from './pages/AdminLogin.jsx'
 import Dashboard from './pages/Dashboard.jsx'
 import ProductListing from './pages/ProductListing.jsx'
 import ProductDetails from './pages/ProductDetails.jsx'
@@ -14,6 +15,10 @@ function App() {
 
   function handleLoginSuccess() {
     setActivePage('dashboard')
+  }
+
+  function handleAdminLoginSuccess() {
+    setActivePage('admin-dashboard') // Assuming admin dashboard, but for now, use dashboard
   }
 
   function handleLogout() {
@@ -40,6 +45,9 @@ function App() {
         <Login onSwitch={setActivePage} onLoginSuccess={handleLoginSuccess} />
       ) : null}
       {activePage === 'register' ? <Register onSwitch={setActivePage} /> : null}
+      {activePage === 'admin-login' ? (
+        <AdminLogin onSwitch={setActivePage} onAdminLoginSuccess={handleAdminLoginSuccess} />
+      ) : null}
       {activePage === 'dashboard' ? (
         <ProtectedRoute onRequireAuth={() => setActivePage('login')}>
           <Dashboard

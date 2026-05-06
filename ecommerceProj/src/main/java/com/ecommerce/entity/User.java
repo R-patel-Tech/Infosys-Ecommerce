@@ -5,9 +5,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "users")
@@ -39,8 +36,7 @@ public class User {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Cart cart;
 
-    public User() {
-    }
+    public User() {}
 
     public User(String name, String email, String password, String phone) {
         this.name = name;
@@ -96,3 +92,4 @@ public class User {
     public void setCart(Cart cart) {
         this.cart = cart;
     }
+}

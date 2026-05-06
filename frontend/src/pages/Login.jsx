@@ -35,7 +35,7 @@ function Login({ onSwitch, onLoginSuccess }) {
 
     try {
       const data = await loginUser(formData)
-      const token = data.message || data.token
+      const token = data.token || data.message || data
 
       if (token) {
         sessionStorage.setItem('authToken', token)
@@ -145,6 +145,16 @@ function Login({ onSwitch, onLoginSuccess }) {
               onClick={() => onSwitch('register')}
             >
               Sign up
+            </button>
+          </p>
+          <p>
+            Admin access?{' '}
+            <button
+              type="button"
+              className="auth-link"
+              onClick={() => onSwitch('admin-login')}
+            >
+              Admin Login
             </button>
           </p>
         </div>

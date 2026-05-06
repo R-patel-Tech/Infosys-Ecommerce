@@ -2,8 +2,10 @@ package com.ecommerce.controller;
 
 import com.ecommerce.dto.LoginRequest;
 import com.ecommerce.entity.User;
-import com.ecommerce.Service.UserService;
+import com.ecommerce.service.UserService;
 import jakarta.validation.Valid;
+import java.util.Map;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/users")
-@CrossOrigin(origins = "http://localhost:5173")
 public class UserController {
 
     private final UserService userService;
@@ -29,8 +30,9 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String loginUser(@Valid @RequestBody LoginRequest request) {
-        return userService.loginUser(request.getEmail(), request.getPassword());
+    public ResponseEntity<Map<String, String>> loginUser(@Valid @RequestBody LoginRequest request) {
+        String token = userService.loginUser(request.getEmail(), request.getPassword());
+        return ResponseEntity.ok(Map.of("token", token));
     }
 
     @GetMapping("/dashboard")
