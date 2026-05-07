@@ -30,9 +30,8 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Map<String, String>> loginUser(@Valid @RequestBody LoginRequest request) {
-        String token = userService.loginUser(request.getEmail(), request.getPassword());
-        return ResponseEntity.ok(Map.of("token", token));
+    public ResponseEntity<Map<String, Object>> loginUser(@Valid @RequestBody LoginRequest request) {
+        return ResponseEntity.ok(userService.loginUser(request.getEmail(), request.getPassword()));
     }
 
     @GetMapping("/dashboard")

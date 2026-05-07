@@ -39,6 +39,9 @@ function Login({ onSwitch, onLoginSuccess }) {
 
       if (token) {
         sessionStorage.setItem('authToken', token)
+        if (data?.userId != null) {
+          sessionStorage.setItem('userId', String(data.userId))
+        }
         onLoginSuccess?.()
         return
       }

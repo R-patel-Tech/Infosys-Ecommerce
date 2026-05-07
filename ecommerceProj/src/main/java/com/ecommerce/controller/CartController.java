@@ -2,123 +2,62 @@ package com.ecommerce.controller;
 
 import com.ecommerce.entity.Cart;
 import com.ecommerce.entity.CartItem;
-import com.ecommerce.entity.Product;
-import com.ecommerce.entity.User;
-import com.ecommerce.repository.CartRepository;
-import com.ecommerce.repository.ProductRepository;
-import com.ecommerce.repository.UserRepository;
+import com.ecommerce.service.CartService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-
-import java.math.BigDecimal;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/cart")
 @CrossOrigin(origins = "http://localhost:5173")
 public class CartController {
 
-    private final CartRepository cartRepository;
-    private final ProductRepository productRepository;
-    private final UserRepository userRepository;
+    private final CartService cartService;
 
-    public CartController(CartRepository cartRepository, ProductRepository productRepository, UserRepository userRepository) {
-        this.cartRepository = cartRepository;
-        this.productRepository = productRepository;
-        this.userRepository = userRepository;
+    public CartController(CartService cartService) {
+        this.cartService = cartService;
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Cart> addToCart(@Valid @RequestBody AddToCartRequest request) {
-        User user = getCurrentUser();
-        if (user == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
+    public ResponseEntity<CartItem> addToCart(@Valid @RequestBody AddToCartRequest request) {
+        CartItem updatedCartItem = cartService.addToCart(
+            request.getUserId(),
+            request.getProductId(),
+            request.getQuantity()
+        );
 
-        Optional<Product> productOpt = productRepository.findById(request.getProductId());
-        if (productOpt.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok(updatedCartItem);
+    }
 
-        Product product = productOpt.get();
-
-        // Check stock availability
-        if (product.getStockQuantity() == null || product.getStockQuantity() <= 0) {
-            return ResponseEntity.badRequest().build(); // Out of stock
-        }
-
-        // Find or create active cart
-        Cart cart = cartRepository.findByUserAndStatus(user, Cart.CartStatus.ACTIVE)
-                .orElseGet(() -> {
-                    Cart newCart = new Cart(user);
-                    return cartRepository.save(newCart);
-                });
-
-        // Find existing cart item or create new
-        Optional<CartItem> existingItem = cart.getItems().stream()
-                .filter(item -> item.getProduct().getProductId().equals(request.getProductId()))
-                .findFirst();
-
-        if (existingItem.isPresent()) {
-            // Update quantity
-            CartItem item = existingItem.get();
-            int newQuantity = item.getQuantity() + request.getQuantity();
-            if (newQuantity > product.getStockQuantity()) {
-                return ResponseEntity.badRequest().build(); // Insufficient stock
-            }
-            item.setQuantity(newQuantity);
-        } else {
-            // Create new item
-            if (request.getQuantity() > product.getStockQuantity()) {
-                return ResponseEntity.badRequest().build(); // Insufficient stock
-            }
-            CartItem newItem = new CartItem(cart, product, request.getQuantity());
-            cart.getItems().add(newItem);
-        }
-
-        // Recalculate total amount
-        BigDecimal total = cart.getItems().stream()
-                .map(CartItem::getSubtotal)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
-        cart.setTotalAmount(total);
-
-        Cart savedCart = cartRepository.save(cart);
-        return ResponseEntity.ok(savedCart);
+    @GetMapping("/{userId}")
+    public ResponseEntity<CartService.CartSummaryResponse> getCart(@PathVariable Integer userId) {
+        return ResponseEntity.ok(cartService.getCartSummaryByUserId(userId));
     }
 
     @GetMapping
-    public ResponseEntity<Cart> getCart() {
-        User user = getCurrentUser();
-        if (user == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
-
-        Optional<Cart> cart = cartRepository.findByUserAndStatus(user, Cart.CartStatus.ACTIVE);
-        if (cart.isPresent()) {
-            return ResponseEntity.ok(cart.get());
-        } else {
-            // Return empty cart for new users
-            Cart emptyCart = new Cart(user);
-            return ResponseEntity.ok(emptyCart);
-        }
+    public ResponseEntity<CartService.CartSummaryResponse> getCartByQuery(@RequestParam Integer userId) {
+        return getCart(userId);
     }
 
-    private User getCurrentUser() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.getPrincipal() instanceof org.springframework.security.core.userdetails.User) {
-            String email = ((org.springframework.security.core.userdetails.User) authentication.getPrincipal()).getUsername();
-            return userRepository.findByEmail(email).orElse(null);
-        }
-        return null;
+    @PutMapping("/update")
+    public ResponseEntity<CartItem> updateCart(@Valid @RequestBody UpdateCartRequest request) {
+        return ResponseEntity.ok(
+            cartService.updateCartItemQuantity(request.getCartId(), request.getQuantity())
+        );
+    }
+
+    @DeleteMapping("/remove/{cartId}")
+    public ResponseEntity<RemoveCartResponse> removeFromCart(@PathVariable Integer cartId) {
+        CartService.CartSummaryResponse updatedCart = cartService.removeCartItem(cartId);
+        return ResponseEntity.ok(new RemoveCartResponse("Cart item removed successfully.", updatedCart));
     }
 
     public static class AddToCartRequest {
+        @NotNull(message = "User ID is required")
+        private Integer userId;
+
         @NotNull(message = "Product ID is required")
         private Integer productId;
 
@@ -134,12 +73,63 @@ public class CartController {
             this.productId = productId;
         }
 
+        public Integer getUserId() {
+            return userId;
+        }
+
+        public void setUserId(Integer userId) {
+            this.userId = userId;
+        }
+
         public Integer getQuantity() {
             return quantity;
         }
 
         public void setQuantity(Integer quantity) {
             this.quantity = quantity;
+        }
+    }
+
+    public static class UpdateCartRequest {
+        @NotNull(message = "Cart ID is required")
+        private Integer cartId;
+
+        @NotNull(message = "Quantity is required")
+        @Min(value = 1, message = "Quantity must be at least 1")
+        private Integer quantity;
+
+        public Integer getCartId() {
+            return cartId;
+        }
+
+        public void setCartId(Integer cartId) {
+            this.cartId = cartId;
+        }
+
+        public Integer getQuantity() {
+            return quantity;
+        }
+
+        public void setQuantity(Integer quantity) {
+            this.quantity = quantity;
+        }
+    }
+
+    public static class RemoveCartResponse {
+        private final String message;
+        private final CartService.CartSummaryResponse cart;
+
+        public RemoveCartResponse(String message, CartService.CartSummaryResponse cart) {
+            this.message = message;
+            this.cart = cart;
+        }
+
+        public String getMessage() {
+            return message;
+        }
+
+        public CartService.CartSummaryResponse getCart() {
+            return cart;
         }
     }
 }

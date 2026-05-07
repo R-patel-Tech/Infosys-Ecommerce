@@ -11,13 +11,19 @@ function saveAuthToken(token) {
 export async function loginUser(credentials) {
   const data = await post('/users/login', credentials)
   const token = data?.token
+  const userId = data?.userId
 
   if (!token) {
     throw new Error('Login failed: invalid server response.')
   }
 
   saveAuthToken(token)
-  return { token }
+
+  if (userId != null && userId !== '') {
+    sessionStorage.setItem('userId', String(userId))
+  }
+
+  return { token, userId }
 }
 
 export function registerUser(payload) {
@@ -34,4 +40,5 @@ export function isAuthenticated() {
 
 export function logout() {
   sessionStorage.removeItem(AUTH_TOKEN_KEY)
+  sessionStorage.removeItem('userId')
 }

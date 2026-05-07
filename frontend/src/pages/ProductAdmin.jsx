@@ -29,6 +29,38 @@ function formatPrice(price) {
   return Number.isFinite(value) ? `$${value.toFixed(2)}` : 'Price unavailable'
 }
 
+function formatShortNumber(value) {
+  if (!Number.isFinite(value)) {
+    return '0'
+  }
+
+  return value >= 1000 ? `${Math.round(value / 100) / 10}k` : String(value)
+}
+
+function getProductKey(product) {
+  return product.productId ?? product.id ?? null
+}
+
+function getInventoryStats(products) {
+  const totalProducts = products.length
+  const lowStockProducts = products.filter((product) => {
+    const stock = Number(product.stockQuantity ?? product.stock ?? 0)
+    return Number.isFinite(stock) && stock <= 5
+  }).length
+
+  const categories = new Set(
+    products
+      .map((product) => product.category?.trim())
+      .filter(Boolean)
+  )
+
+  return {
+    totalProducts,
+    lowStockProducts,
+    categoryCount: categories.size,
+  }
+}
+
 function ProductAdmin({ onBack }) {
   const [products, setProducts] = useState([])
   const [formData, setFormData] = useState(initialFormState)
@@ -38,6 +70,7 @@ function ProductAdmin({ onBack }) {
   const [feedback, setFeedback] = useState('')
   const [editingProduct, setEditingProduct] = useState(null)
   const [clearingAll, setClearingAll] = useState(false)
+  const stats = getInventoryStats(products)
 
   async function loadProducts() {
     setLoading(true)
@@ -186,6 +219,11 @@ function ProductAdmin({ onBack }) {
   }
 
   async function handleDelete(productId) {
+    if (!productId) {
+      setError('Unable to delete this product because its id is missing.')
+      return
+    }
+
     if (!window.confirm('Are you sure you want to delete this product?')) {
       return
     }
@@ -194,13 +232,17 @@ function ProductAdmin({ onBack }) {
     setFeedback('')
 
     try {
-      await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api'}/products/${productId}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api'}/products/${productId}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
           ...(sessionStorage.getItem('authToken') ? { Authorization: `Bearer ${sessionStorage.getItem('authToken')}` } : {}),
         },
       })
+
+      if (!response.ok) {
+        throw new Error('Unable to delete product.')
+      }
 
       setProducts((current) => current.filter((product) => (product.productId ?? product.id) !== productId))
       setFeedback('Product deleted successfully.')
@@ -219,13 +261,17 @@ function ProductAdmin({ onBack }) {
     setFeedback('')
 
     try {
-      await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api'}/products`, {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api'}/products`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
           ...(sessionStorage.getItem('authToken') ? { Authorization: `Bearer ${sessionStorage.getItem('authToken')}` } : {}),
         },
       })
+
+      if (!response.ok) {
+        throw new Error('Unable to clear products.')
+      }
 
       setProducts([])
       setFeedback('All products cleared successfully.')
@@ -237,217 +283,283 @@ function ProductAdmin({ onBack }) {
   }
 
   return (
-    <main className="page-shell detail-shell">
-      <section className="dashboard-card admin-shell">
-        <div className="dashboard-header">
-          <div>
-            <p className="eyebrow">Admin</p>
-            <h1>Product management</h1>
+    <main className="page-shell admin-page-shell">
+      <section className="admin-workspace">
+        <header className="admin-hero">
+          <div className="admin-hero-copy">
+            <p className="eyebrow">Admin console</p>
+            <h1>Catalog studio</h1>
             <p className="dashboard-copy">
-              Create new products and review what is already in the catalog.
+              Curate products, update inventory, and keep the storefront polished from one focused workspace.
             </p>
           </div>
 
-          <div className="dashboard-actions">
-            <Button type="button" onClick={onBack}>
+          <div className="admin-hero-actions">
+            <Button type="button" variant="secondary" onClick={onBack}>
               Back
             </Button>
+            <Button type="button" onClick={loadProducts} disabled={loading}>
+              {loading ? 'Refreshing...' : 'Refresh'}
+            </Button>
+            {products.length > 0 ? (
+              <Button
+                type="button"
+                onClick={handleClearAll}
+                disabled={clearingAll}
+                variant="danger"
+              >
+                {clearingAll ? 'Clearing...' : 'Clear All'}
+              </Button>
+            ) : null}
           </div>
+        </header>
+
+        <div className="admin-stat-grid">
+          <article className="admin-stat-card">
+            <span className="admin-stat-label">Products</span>
+            <strong className="admin-stat-value">{formatShortNumber(stats.totalProducts)}</strong>
+            <span className="admin-stat-meta">Total items in the catalog</span>
+          </article>
+          <article className="admin-stat-card">
+            <span className="admin-stat-label">Low stock</span>
+            <strong className="admin-stat-value">{formatShortNumber(stats.lowStockProducts)}</strong>
+            <span className="admin-stat-meta">Needs attention soon</span>
+          </article>
+          <article className="admin-stat-card">
+            <span className="admin-stat-label">Categories</span>
+            <strong className="admin-stat-value">{formatShortNumber(stats.categoryCount)}</strong>
+            <span className="admin-stat-meta">Distinct groups across products</span>
+          </article>
         </div>
 
-        <div className="admin-layout">
-          <form className="admin-form" onSubmit={editingProduct ? handleUpdate : handleSubmit}>
-            <div className="admin-form-header">
-              <h2>{editingProduct ? 'Edit product' : 'Add product'}</h2>
-              <p>Fields marked with an asterisk are required by the backend.</p>
-              {editingProduct && (
-                <Button type="button" onClick={handleCancelEdit} variant="secondary">
+        {error ? <p className="product-state product-state-error">{error}</p> : null}
+        {feedback ? <p className="product-state product-state-success">{feedback}</p> : null}
+
+        <div className="admin-grid">
+          <aside className="admin-editor-panel">
+            <div className="admin-panel-top">
+              <div>
+                <p className="eyebrow">Catalog editor</p>
+                <h2>{editingProduct ? 'Edit product' : 'Add product'}</h2>
+                <p className="admin-panel-subtitle">
+                  Fields marked with an asterisk are required by the backend.
+                </p>
+              </div>
+
+              {editingProduct ? (
+                <Button type="button" onClick={handleCancelEdit} variant="secondary" size="small">
                   Cancel Edit
                 </Button>
-              )}
+              ) : null}
             </div>
 
-            <div className="form-group">
-              <label className="form-label" htmlFor="name">
-                Product name *
-              </label>
-              <input
-                id="name"
-                className="form-input"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                placeholder="Example product"
-              />
-            </div>
-
-            <div className="form-group">
-              <label className="form-label" htmlFor="description">
-                Description
-              </label>
-              <textarea
-                id="description"
-                className="form-input admin-textarea"
-                name="description"
-                value={formData.description}
-                onChange={handleChange}
-                placeholder="Short product description"
-                rows="4"
-              />
-            </div>
-
-            <div className="form-row">
+            <form className="admin-form-modern" onSubmit={editingProduct ? handleUpdate : handleSubmit}>
               <div className="form-group">
-                <label className="form-label" htmlFor="price">
-                  Price *
+                <label className="form-label" htmlFor="name">
+                  Product name *
                 </label>
                 <input
-                  id="price"
+                  id="name"
                   className="form-input"
-                  type="number"
-                  min="0"
-                  step="0.01"
-                  name="price"
-                  value={formData.price}
+                  name="name"
+                  value={formData.name}
                   onChange={handleChange}
-                  placeholder="19.99"
+                  placeholder="Example product"
                 />
               </div>
 
               <div className="form-group">
-                <label className="form-label" htmlFor="stockQuantity">
-                  Stock quantity *
+                <label className="form-label" htmlFor="description">
+                  Description
                 </label>
-                <input
-                  id="stockQuantity"
-                  className="form-input"
-                  type="number"
-                  min="0"
-                  step="1"
-                  name="stockQuantity"
-                  value={formData.stockQuantity}
+                <textarea
+                  id="description"
+                  className="form-input admin-textarea"
+                  name="description"
+                  value={formData.description}
                   onChange={handleChange}
-                  placeholder="25"
-                />
-              </div>
-            </div>
-
-            <div className="form-row">
-              <div className="form-group">
-                <label className="form-label" htmlFor="category">
-                  Category
-                </label>
-                <input
-                  id="category"
-                  className="form-input"
-                  name="category"
-                  value={formData.category}
-                  onChange={handleChange}
-                  placeholder="Accessories"
+                  placeholder="Short product description"
+                  rows="5"
                 />
               </div>
 
-              <div className="form-group">
-                <label className="form-label" htmlFor="imageUrl">
-                  Image URL
-                </label>
-                <input
-                  id="imageUrl"
-                  className="form-input"
-                  name="imageUrl"
-                  value={formData.imageUrl}
-                  onChange={handleChange}
-                  placeholder="https://example.com/image.jpg"
-                />
+              <div className="form-row">
+                <div className="form-group">
+                  <label className="form-label" htmlFor="price">
+                    Price *
+                  </label>
+                  <input
+                    id="price"
+                    className="form-input"
+                    type="number"
+                    min="0"
+                    step="0.01"
+                    name="price"
+                    value={formData.price}
+                    onChange={handleChange}
+                    placeholder="19.99"
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label" htmlFor="stockQuantity">
+                    Stock quantity *
+                  </label>
+                  <input
+                    id="stockQuantity"
+                    className="form-input"
+                    type="number"
+                    min="0"
+                    step="1"
+                    name="stockQuantity"
+                    value={formData.stockQuantity}
+                    onChange={handleChange}
+                    placeholder="25"
+                  />
+                </div>
               </div>
-            </div>
 
-            <Button type="submit" disabled={submitting}>
-              {submitting ? 'Saving...' : editingProduct ? 'Update Product' : 'Create Product'}
-            </Button>
+              <div className="form-row">
+                <div className="form-group">
+                  <label className="form-label" htmlFor="category">
+                    Category
+                  </label>
+                  <input
+                    id="category"
+                    className="form-input"
+                    name="category"
+                    value={formData.category}
+                    onChange={handleChange}
+                    placeholder="Accessories"
+                  />
+                </div>
 
-            {error ? <p className="product-state product-state-error">{error}</p> : null}
-            {feedback ? <p className="product-state">{feedback}</p> : null}
-          </form>
-
-          <div className="admin-panel">
-            <div className="product-listing-header">
-              <div>
-                <h2>Catalog preview</h2>
-                <p className="product-count">{products.length} products</p>
+                <div className="form-group">
+                  <label className="form-label" htmlFor="imageUrl">
+                    Image URL
+                  </label>
+                  <input
+                    id="imageUrl"
+                    className="form-input"
+                    name="imageUrl"
+                    value={formData.imageUrl}
+                    onChange={handleChange}
+                    placeholder="https://example.com/image.jpg"
+                  />
+                </div>
               </div>
-              <div className="admin-actions">
-                <Button type="button" onClick={loadProducts} disabled={loading}>
-                  Refresh
+
+              <div className="admin-form-actions">
+                <Button type="submit" disabled={submitting}>
+                  {submitting ? 'Saving...' : editingProduct ? 'Update Product' : 'Create Product'}
                 </Button>
-                {products.length > 0 && (
-                  <Button
-                    type="button"
-                    onClick={handleClearAll}
-                    disabled={clearingAll}
-                    variant="danger"
-                  >
-                    {clearingAll ? 'Clearing...' : 'Clear All'}
-                  </Button>
-                )}
               </div>
+            </form>
+          </aside>
+
+          <section className="admin-catalog-panel">
+            <div className="admin-panel-top">
+              <div>
+                <p className="eyebrow">Preview board</p>
+                <h2>Product library</h2>
+                <p className="admin-panel-subtitle">
+                  {products.length} products synced from the backend.
+                </p>
+              </div>
+              <span className={`admin-status ${loading ? 'is-loading' : 'is-ready'}`}>
+                {loading ? 'Syncing' : 'Live'}
+              </span>
             </div>
 
             {loading ? (
-              <p className="product-state">Loading products...</p>
+              <div className="admin-loading-grid" aria-label="Loading products">
+                {Array.from({ length: 4 }).map((_, index) => (
+                  <article className="admin-skeleton-card" key={index}>
+                    <div className="admin-skeleton-media" />
+                    <div className="admin-skeleton-line short" />
+                    <div className="admin-skeleton-line" />
+                    <div className="admin-skeleton-line" />
+                    <div className="admin-skeleton-actions">
+                      <div className="admin-skeleton-pill" />
+                      <div className="admin-skeleton-pill" />
+                    </div>
+                  </article>
+                ))}
+              </div>
             ) : products.length === 0 ? (
-              <p className="product-state">No products available yet.</p>
+              <div className="admin-empty-state">
+                <h3>No products available yet</h3>
+                <p>Add your first product on the left to start building the catalog.</p>
+              </div>
             ) : (
-              <div className="product-grid">
+              <div className="admin-product-grid">
                 {products.map((product, index) => {
-                  const key = product.productId ?? product.id ?? `${product.name ?? 'product'}-${index}`
+                  const key = getProductKey(product) ?? `${product.name ?? 'product'}-${index}`
                   const imageSrc = getProductImage(product)
+                  const stock = Number(product.stockQuantity ?? product.stock ?? 0)
+                  const isLowStock = Number.isFinite(stock) && stock <= 5
+                  const productId = product.productId ?? product.id
 
                   return (
-                    <article className="product-card admin-product-card" key={key}>
-                      <div className="product-media">
+                    <article className="admin-product-card" key={key}>
+                      <div className="admin-product-media">
                         <img
-                          className="product-image"
+                          className="product-image admin-product-image"
                           src={imageSrc}
                           alt={product.name ?? 'Product image'}
                           loading="lazy"
                         />
-                      </div>
-                      <h3>{product.name ?? 'Unnamed product'}</h3>
-                      <p>{product.description || 'No description available.'}</p>
-                      <div className="product-meta">
-                        <span className="product-category">
-                          {product.category || 'Uncategorized'}
+                        <span className={`admin-chip ${isLowStock ? 'warning' : 'success'}`}>
+                          {isLowStock ? 'Low stock' : 'In stock'}
                         </span>
-                        <span className="product-price">{formatPrice(product.price)}</span>
                       </div>
-                      <p className="product-stock">
-                        Stock: {product.stockQuantity ?? product.stock ?? 'N/A'}
-                      </p>
-                      <div className="product-actions">
-                        <Button
-                          type="button"
-                          onClick={() => handleEdit(product)}
-                          size="small"
-                          variant="secondary"
-                        >
-                          Edit
-                        </Button>
-                        <Button
-                          type="button"
-                          onClick={() => handleDelete(product.productId ?? product.id)}
-                          size="small"
-                          variant="danger"
-                        >
-                          Delete
-                        </Button>
+
+                      <div className="admin-product-body">
+                        <div className="admin-product-heading">
+                          <div>
+                            <h3>{product.name ?? 'Unnamed product'}</h3>
+                            <p className="admin-product-description">
+                              {product.description || 'No description available.'}
+                            </p>
+                          </div>
+                          <span className="product-price">{formatPrice(product.price)}</span>
+                        </div>
+
+                        <div className="admin-product-meta">
+                          <span className="product-category">
+                            {product.category || 'Uncategorized'}
+                          </span>
+                          <span className="product-stock">
+                            Stock: {product.stockQuantity ?? product.stock ?? 'N/A'}
+                          </span>
+                        </div>
+
+                        <div className="admin-product-actions">
+                          <Button
+                            type="button"
+                            onClick={() => handleEdit(product)}
+                            size="small"
+                            variant="secondary"
+                          >
+                            Edit
+                          </Button>
+                          <Button
+                            type="button"
+                            onClick={() => handleDelete(productId)}
+                            size="small"
+                            variant="danger"
+                            disabled={!productId}
+                          >
+                            Delete
+                          </Button>
+                        </div>
                       </div>
                     </article>
                   )
                 })}
               </div>
             )}
-          </div>
+          </section>
         </div>
       </section>
     </main>

@@ -1,0 +1,253 @@
+0 verbose cli C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\npm\bin\npm-cli.js
+1 info using npm@10.9.2
+2 info using node@v22.13.0
+3 silly config load:file:C:\Program Files\nodejs\node_modules\npm\npmrc
+4 silly config load:file:C:\Users\91907\git\repository\frontend\.npmrc
+5 silly config load:file:C:\Users\91907\.npmrc
+6 silly config load:file:C:\Users\91907\AppData\Roaming\npm\etc\npmrc
+7 verbose title npm install react-router-dom
+8 verbose argv "install" "react-router-dom" "--cache" ".npm-cache"
+9 verbose logfile logs-max:10 dir:C:\Users\91907\git\repository\frontend\.npm-cache\_logs\2026-05-07T01_44_53_425Z-
+10 verbose logfile C:\Users\91907\git\repository\frontend\.npm-cache\_logs\2026-05-07T01_44_53_425Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly packumentCache heap:4345298944 maxSize:1086324736 maxEntrySize:543162368
+13 silly idealTree buildDeps
+14 silly fetch manifest react-router-dom@*
+15 silly packumentCache full:https://registry.npmjs.org/react-router-dom cache-miss
+16 http fetch GET 200 https://registry.npmjs.org/react-router-dom 1187ms (cache miss)
+17 silly packumentCache full:https://registry.npmjs.org/react-router-dom set size:undefined disposed:false
+18 silly fetch manifest react@^19.2.0
+19 silly packumentCache full:https://registry.npmjs.org/react cache-miss
+20 http fetch GET 200 https://registry.npmjs.org/react 1732ms (cache miss)
+21 silly packumentCache full:https://registry.npmjs.org/react set size:undefined disposed:false
+22 silly fetch manifest react-dom@^19.2.0
+23 silly packumentCache full:https://registry.npmjs.org/react-dom cache-miss
+24 http fetch GET 200 https://registry.npmjs.org/react-dom 1774ms (cache miss)
+25 silly packumentCache full:https://registry.npmjs.org/react-dom set size:undefined disposed:false
+26 silly placeDep ROOT react-router-dom@7.15.0 OK for: frontend@1.0.0 want: *
+27 silly fetch manifest react-router@7.15.0
+28 silly packumentCache full:https://registry.npmjs.org/react-router cache-miss
+29 http fetch GET 200 https://registry.npmjs.org/react-router 542ms (cache miss)
+30 silly packumentCache full:https://registry.npmjs.org/react-router set size:undefined disposed:false
+31 silly fetch manifest react@>=18
+32 silly packumentCache full:https://registry.npmjs.org/react cache-miss
+33 http cache https://registry.npmjs.org/react 29ms (cache hit)
+34 silly packumentCache full:https://registry.npmjs.org/react set size:6646698 disposed:false
+35 silly fetch manifest react-dom@>=18
+36 silly packumentCache full:https://registry.npmjs.org/react-dom cache-miss
+37 http cache https://registry.npmjs.org/react-dom 25ms (cache hit)
+38 silly packumentCache full:https://registry.npmjs.org/react-dom set size:8862063 disposed:false
+39 silly placeDep ROOT react-router@7.15.0 OK for: react-router-dom@7.15.0 want: 7.15.0
+40 silly fetch manifest cookie@^1.0.1
+41 silly packumentCache full:https://registry.npmjs.org/cookie cache-miss
+42 silly fetch manifest set-cookie-parser@^2.6.0
+43 silly packumentCache full:https://registry.npmjs.org/set-cookie-parser cache-miss
+44 http fetch GET 200 https://registry.npmjs.org/cookie 158ms (cache miss)
+45 silly packumentCache full:https://registry.npmjs.org/cookie set size:undefined disposed:false
+46 http fetch GET 200 https://registry.npmjs.org/set-cookie-parser 353ms (cache miss)
+47 silly packumentCache full:https://registry.npmjs.org/set-cookie-parser set size:undefined disposed:false
+48 silly placeDep ROOT cookie@1.1.1 OK for: react-router@7.15.0 want: ^1.0.1
+49 silly placeDep ROOT set-cookie-parser@2.7.2 OK for: react-router@7.15.0 want: ^2.6.0
+50 silly reify moves {}
+51 silly audit bulk request {
+51 silly audit   '@emnapi/core': [ '1.10.0' ],
+51 silly audit   '@emnapi/runtime': [ '1.10.0' ],
+51 silly audit   '@emnapi/wasi-threads': [ '1.2.1' ],
+51 silly audit   '@napi-rs/wasm-runtime': [ '1.1.4' ],
+51 silly audit   '@oxc-project/types': [ '0.127.0' ],
+51 silly audit   '@rolldown/binding-android-arm64': [ '1.0.0-rc.17' ],
+51 silly audit   '@rolldown/binding-darwin-arm64': [ '1.0.0-rc.17' ],
+51 silly audit   '@rolldown/binding-darwin-x64': [ '1.0.0-rc.17' ],
+51 silly audit   '@rolldown/binding-freebsd-x64': [ '1.0.0-rc.17' ],
+51 silly audit   '@rolldown/binding-linux-arm-gnueabihf': [ '1.0.0-rc.17' ],
+51 silly audit   '@rolldown/binding-linux-arm64-gnu': [ '1.0.0-rc.17' ],
+51 silly audit   '@rolldown/binding-linux-arm64-musl': [ '1.0.0-rc.17' ],
+51 silly audit   '@rolldown/binding-linux-ppc64-gnu': [ '1.0.0-rc.17' ],
+51 silly audit   '@rolldown/binding-linux-s390x-gnu': [ '1.0.0-rc.17' ],
+51 silly audit   '@rolldown/binding-linux-x64-gnu': [ '1.0.0-rc.17' ],
+51 silly audit   '@rolldown/binding-linux-x64-musl': [ '1.0.0-rc.17' ],
+51 silly audit   '@rolldown/binding-openharmony-arm64': [ '1.0.0-rc.17' ],
+51 silly audit   '@rolldown/binding-wasm32-wasi': [ '1.0.0-rc.17' ],
+51 silly audit   '@rolldown/binding-win32-arm64-msvc': [ '1.0.0-rc.17' ],
+51 silly audit   '@rolldown/binding-win32-x64-msvc': [ '1.0.0-rc.17' ],
+51 silly audit   '@rolldown/pluginutils': [ '1.0.0-rc.7', '1.0.0-rc.17' ],
+51 silly audit   '@tybys/wasm-util': [ '0.10.2' ],
+51 silly audit   '@vitejs/plugin-react': [ '6.0.1' ],
+51 silly audit   asynckit: [ '0.4.0' ],
+51 silly audit   axios: [ '1.16.0' ],
+51 silly audit   'call-bind-apply-helpers': [ '1.0.2' ],
+51 silly audit   'combined-stream': [ '1.0.8' ],
+51 silly audit   'delayed-stream': [ '1.0.0' ],
+51 silly audit   'detect-libc': [ '2.1.2' ],
+51 silly audit   'dunder-proto': [ '1.0.1' ],
+51 silly audit   'es-define-property': [ '1.0.1' ],
+51 silly audit   'es-errors': [ '1.3.0' ],
+51 silly audit   'es-object-atoms': [ '1.1.1' ],
+51 silly audit   'es-set-tostringtag': [ '2.1.0' ],
+51 silly audit   fdir: [ '6.5.0' ],
+51 silly audit   'follow-redirects': [ '1.16.0' ],
+51 silly audit   'form-data': [ '4.0.5' ],
+51 silly audit   fsevents: [ '2.3.3' ],
+51 silly audit   'function-bind': [ '1.1.2' ],
+51 silly audit   'get-intrinsic': [ '1.3.0' ],
+51 silly audit   'get-proto': [ '1.0.1' ],
+51 silly audit   gopd: [ '1.2.0' ],
+51 silly audit   'has-symbols': [ '1.1.0' ],
+51 silly audit   'has-tostringtag': [ '1.0.2' ],
+51 silly audit   hasown: [ '2.0.3' ],
+51 silly audit   lightningcss: [ '1.32.0' ],
+51 silly audit   'lightningcss-win32-x64-msvc': [ '1.32.0' ],
+51 silly audit   'math-intrinsics': [ '1.1.0' ],
+51 silly audit   'mime-db': [ '1.52.0' ],
+51 silly audit   'mime-types': [ '2.1.35' ],
+51 silly audit   nanoid: [ '3.3.11' ],
+51 silly audit   picocolors: [ '1.1.1' ],
+51 silly audit   picomatch: [ '4.0.4' ],
+51 silly audit   postcss: [ '8.5.10' ],
+51 silly audit   'proxy-from-env': [ '2.1.0' ],
+51 silly audit   react: [ '19.2.5' ],
+51 silly audit   'react-dom': [ '19.2.5' ],
+51 silly audit   rolldown: [ '1.0.0-rc.17' ],
+51 silly audit   scheduler: [ '0.27.0' ],
+51 silly audit   'source-map-js': [ '1.2.1' ],
+51 silly audit   tinyglobby: [ '0.2.16' ],
+51 silly audit   tslib: [ '2.8.1' ],
+51 silly audit   vite: [ '8.0.10' ],
+51 silly audit   'react-router-dom': [ '7.15.0' ],
+51 silly audit   'react-router': [ '7.15.0' ],
+51 silly audit   cookie: [ '1.1.1' ],
+51 silly audit   'set-cookie-parser': [ '2.7.2' ]
+51 silly audit }
+52 verbose reify failed optional dependency C:\Users\91907\git\repository\frontend\node_modules\fsevents
+53 silly reify mark deleted [
+53 silly reify   'C:\\Users\\91907\\git\\repository\\frontend\\node_modules\\fsevents'
+53 silly reify ]
+54 verbose reify failed optional dependency C:\Users\91907\git\repository\frontend\node_modules\@rolldown\binding-win32-arm64-msvc
+55 silly reify mark deleted [
+55 silly reify   'C:\\Users\\91907\\git\\repository\\frontend\\node_modules\\@rolldown\\binding-win32-arm64-msvc'
+55 silly reify ]
+56 verbose reify failed optional dependency C:\Users\91907\git\repository\frontend\node_modules\@rolldown\binding-wasm32-wasi
+57 silly reify mark deleted [
+57 silly reify   'C:\\Users\\91907\\git\\repository\\frontend\\node_modules\\@rolldown\\binding-wasm32-wasi'
+57 silly reify ]
+58 verbose reify failed optional dependency C:\Users\91907\git\repository\frontend\node_modules\@emnapi\core
+59 silly reify mark deleted [
+59 silly reify   'C:\\Users\\91907\\git\\repository\\frontend\\node_modules\\@emnapi\\core'
+59 silly reify ]
+60 verbose reify failed optional dependency C:\Users\91907\git\repository\frontend\node_modules\@emnapi\runtime
+61 silly reify mark deleted [
+61 silly reify   'C:\\Users\\91907\\git\\repository\\frontend\\node_modules\\@emnapi\\runtime'
+61 silly reify ]
+62 verbose reify failed optional dependency C:\Users\91907\git\repository\frontend\node_modules\@napi-rs\wasm-runtime
+63 silly reify mark deleted [
+63 silly reify   'C:\\Users\\91907\\git\\repository\\frontend\\node_modules\\@napi-rs\\wasm-runtime'
+63 silly reify ]
+64 verbose reify failed optional dependency C:\Users\91907\git\repository\frontend\node_modules\@emnapi\wasi-threads
+65 silly reify mark deleted [
+65 silly reify   'C:\\Users\\91907\\git\\repository\\frontend\\node_modules\\@emnapi\\wasi-threads'
+65 silly reify ]
+66 verbose reify failed optional dependency C:\Users\91907\git\repository\frontend\node_modules\tslib
+67 silly reify mark deleted [ 'C:\\Users\\91907\\git\\repository\\frontend\\node_modules\\tslib' ]
+68 verbose reify failed optional dependency C:\Users\91907\git\repository\frontend\node_modules\@tybys\wasm-util
+69 silly reify mark deleted [
+69 silly reify   'C:\\Users\\91907\\git\\repository\\frontend\\node_modules\\@tybys\\wasm-util'
+69 silly reify ]
+70 verbose reify failed optional dependency C:\Users\91907\git\repository\frontend\node_modules\@rolldown\binding-openharmony-arm64
+71 silly reify mark deleted [
+71 silly reify   'C:\\Users\\91907\\git\\repository\\frontend\\node_modules\\@rolldown\\binding-openharmony-arm64'
+71 silly reify ]
+72 verbose reify failed optional dependency C:\Users\91907\git\repository\frontend\node_modules\@rolldown\binding-linux-x64-musl
+73 silly reify mark deleted [
+73 silly reify   'C:\\Users\\91907\\git\\repository\\frontend\\node_modules\\@rolldown\\binding-linux-x64-musl'
+73 silly reify ]
+74 verbose reify failed optional dependency C:\Users\91907\git\repository\frontend\node_modules\@rolldown\binding-linux-x64-gnu
+75 silly reify mark deleted [
+75 silly reify   'C:\\Users\\91907\\git\\repository\\frontend\\node_modules\\@rolldown\\binding-linux-x64-gnu'
+75 silly reify ]
+76 verbose reify failed optional dependency C:\Users\91907\git\repository\frontend\node_modules\@rolldown\binding-linux-s390x-gnu
+77 silly reify mark deleted [
+77 silly reify   'C:\\Users\\91907\\git\\repository\\frontend\\node_modules\\@rolldown\\binding-linux-s390x-gnu'
+77 silly reify ]
+78 verbose reify failed optional dependency C:\Users\91907\git\repository\frontend\node_modules\@rolldown\binding-linux-ppc64-gnu
+79 silly reify mark deleted [
+79 silly reify   'C:\\Users\\91907\\git\\repository\\frontend\\node_modules\\@rolldown\\binding-linux-ppc64-gnu'
+79 silly reify ]
+80 verbose reify failed optional dependency C:\Users\91907\git\repository\frontend\node_modules\@rolldown\binding-linux-arm64-musl
+81 silly reify mark deleted [
+81 silly reify   'C:\\Users\\91907\\git\\repository\\frontend\\node_modules\\@rolldown\\binding-linux-arm64-musl'
+81 silly reify ]
+82 verbose reify failed optional dependency C:\Users\91907\git\repository\frontend\node_modules\@rolldown\binding-linux-arm64-gnu
+83 silly reify mark deleted [
+83 silly reify   'C:\\Users\\91907\\git\\repository\\frontend\\node_modules\\@rolldown\\binding-linux-arm64-gnu'
+83 silly reify ]
+84 verbose reify failed optional dependency C:\Users\91907\git\repository\frontend\node_modules\@rolldown\binding-linux-arm-gnueabihf
+85 silly reify mark deleted [
+85 silly reify   'C:\\Users\\91907\\git\\repository\\frontend\\node_modules\\@rolldown\\binding-linux-arm-gnueabihf'
+85 silly reify ]
+86 verbose reify failed optional dependency C:\Users\91907\git\repository\frontend\node_modules\@rolldown\binding-freebsd-x64
+87 silly reify mark deleted [
+87 silly reify   'C:\\Users\\91907\\git\\repository\\frontend\\node_modules\\@rolldown\\binding-freebsd-x64'
+87 silly reify ]
+88 verbose reify failed optional dependency C:\Users\91907\git\repository\frontend\node_modules\@rolldown\binding-darwin-x64
+89 silly reify mark deleted [
+89 silly reify   'C:\\Users\\91907\\git\\repository\\frontend\\node_modules\\@rolldown\\binding-darwin-x64'
+89 silly reify ]
+90 verbose reify failed optional dependency C:\Users\91907\git\repository\frontend\node_modules\@rolldown\binding-darwin-arm64
+91 silly reify mark deleted [
+91 silly reify   'C:\\Users\\91907\\git\\repository\\frontend\\node_modules\\@rolldown\\binding-darwin-arm64'
+91 silly reify ]
+92 verbose reify failed optional dependency C:\Users\91907\git\repository\frontend\node_modules\@rolldown\binding-android-arm64
+93 silly reify mark deleted [
+93 silly reify   'C:\\Users\\91907\\git\\repository\\frontend\\node_modules\\@rolldown\\binding-android-arm64'
+93 silly reify ]
+94 http cache set-cookie-parser@https://registry.npmjs.org/set-cookie-parser/-/set-cookie-parser-2.7.2.tgz 0ms (cache hit)
+95 http cache @tybys/wasm-util@https://registry.npmjs.org/@tybys/wasm-util/-/wasm-util-0.10.2.tgz 0ms (cache hit)
+96 http cache @napi-rs/wasm-runtime@https://registry.npmjs.org/@napi-rs/wasm-runtime/-/wasm-runtime-1.1.4.tgz 0ms (cache hit)
+97 http cache react-router-dom@https://registry.npmjs.org/react-router-dom/-/react-router-dom-7.15.0.tgz 0ms (cache hit)
+98 http cache @emnapi/core@https://registry.npmjs.org/@emnapi/core/-/core-1.10.0.tgz 0ms (cache hit)
+99 http cache cookie@https://registry.npmjs.org/cookie/-/cookie-1.1.1.tgz 0ms (cache hit)
+100 http cache @emnapi/wasi-threads@https://registry.npmjs.org/@emnapi/wasi-threads/-/wasi-threads-1.2.1.tgz 0ms (cache hit)
+101 http cache tslib@https://registry.npmjs.org/tslib/-/tslib-2.8.1.tgz 0ms (cache hit)
+102 http cache @emnapi/runtime@https://registry.npmjs.org/@emnapi/runtime/-/runtime-1.10.0.tgz 0ms (cache hit)
+103 silly tarball no local data for set-cookie-parser@https://registry.npmjs.org/set-cookie-parser/-/set-cookie-parser-2.7.2.tgz. Extracting by manifest.
+104 http cache react-router@https://registry.npmjs.org/react-router/-/react-router-7.15.0.tgz 0ms (cache hit)
+105 silly tarball no local data for react-router-dom@https://registry.npmjs.org/react-router-dom/-/react-router-dom-7.15.0.tgz. Extracting by manifest.
+106 silly tarball no local data for cookie@https://registry.npmjs.org/cookie/-/cookie-1.1.1.tgz. Extracting by manifest.
+107 silly tarball no local data for react-router@https://registry.npmjs.org/react-router/-/react-router-7.15.0.tgz. Extracting by manifest.
+108 http fetch GET 200 https://registry.npmjs.org/set-cookie-parser/-/set-cookie-parser-2.7.2.tgz 116ms (cache miss)
+109 http fetch POST 200 https://registry.npmjs.org/-/npm/v1/security/advisories/bulk 342ms
+110 silly audit report {}
+111 http fetch GET 200 https://registry.npmjs.org/react-router-dom/-/react-router-dom-7.15.0.tgz 346ms (cache miss)
+112 http fetch GET 200 https://registry.npmjs.org/cookie/-/cookie-1.1.1.tgz 367ms (cache miss)
+113 http fetch GET 200 https://registry.npmjs.org/react-router/-/react-router-7.15.0.tgz 1390ms (cache miss)
+114 silly ADD node_modules/set-cookie-parser
+115 silly ADD node_modules/cookie
+116 silly ADD node_modules/react-router
+117 silly ADD node_modules/react-router-dom
+118 silly ADD
+119 silly ADD
+120 silly ADD
+121 silly ADD
+122 silly ADD
+123 silly ADD
+124 silly ADD
+125 silly ADD
+126 silly ADD
+127 silly ADD
+128 silly ADD
+129 silly ADD
+130 silly ADD
+131 silly ADD
+132 silly ADD
+133 silly ADD
+134 silly ADD
+135 silly ADD
+136 silly ADD
+137 silly ADD
+138 silly ADD
+139 verbose cwd C:\Users\91907\git\repository\frontend
+140 verbose os Windows_NT 10.0.22631
+141 verbose node v22.13.0
+142 verbose npm  v10.9.2
+143 verbose exit 0
+144 info ok

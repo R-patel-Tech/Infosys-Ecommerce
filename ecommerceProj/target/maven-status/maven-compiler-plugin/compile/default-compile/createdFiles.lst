@@ -2,6 +2,7 @@ com\ecommerce\specification\ProductSpecifications.class
 com\ecommerce\entity\Cart$CartStatus.class
 com\ecommerce\entity\Product.class
 com\ecommerce\Security\JwtAuthenticationFilter.class
+com\ecommerce\controller\CartController$RemoveCartResponse.class
 com\ecommerce\controller\CartController.class
 com\ecommerce\repository\ProductRepository.class
 com\ecommerce\Service\UserService.class
@@ -12,12 +13,17 @@ com\ecommerce\config\SecurityConfig.class
 com\ecommerce\Service\UserPrincipalService.class
 com\ecommerce\controller\UserController.class
 com\ecommerce\controller\ApiExceptionHandler.class
+com\ecommerce\Service\CartService$CartItemSummary.class
+com\ecommerce\Service\CartService$CartSummaryResponse.class
 com\ecommerce\controller\ProductController.class
+com\ecommerce\controller\CartController$UpdateCartRequest.class
+com\ecommerce\Service\CartService.class
 com\ecommerce\dto\LoginRequest.class
 com\ecommerce\repository\UserRepository.class
 com\ecommerce\repository\CartItemRepository.class
 com\ecommerce\EcommerceProjApplication.class
 com\ecommerce\controller\CartController$AddToCartRequest.class
+com\ecommerce\Service\CartService$ProductSummary.class
 com\ecommerce\entity\User.class
 com\ecommerce\repository\CartRepository.class
 com\ecommerce\entity\CartItem.class

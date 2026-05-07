@@ -4,7 +4,9 @@ import com.ecommerce.entity.User;
 import com.ecommerce.repository.UserRepository;
 import com.ecommerce.Security.JwtUtil;
 import jakarta.annotation.PostConstruct;
+import java.util.HashMap;
 import java.util.Optional;
+import java.util.Map;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -47,7 +49,7 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public String loginUser(String email, String password) {
+    public Map<String, Object> loginUser(String email, String password) {
         User user = userRepository.findByEmail(email)
             .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
@@ -55,6 +57,9 @@ public class UserService {
             throw new IllegalArgumentException("Invalid password");
         }
 
-        return jwtUtil.generateToken(email);
+        Map<String, Object> response = new HashMap<>();
+        response.put("token", jwtUtil.generateToken(email));
+        response.put("userId", user.getUserId());
+        return response;
     }
 }

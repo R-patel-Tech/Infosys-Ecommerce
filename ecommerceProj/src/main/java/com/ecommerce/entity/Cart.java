@@ -20,6 +20,16 @@ public class Cart {
     @NotNull(message = "User is required")
     private User user;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
+    private Product product;
+
+    @Column(nullable = false)
+    private Integer quantity = 1;
+
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime addedAt;
+
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<CartItem> items = new ArrayList<>();
 
@@ -62,6 +72,30 @@ public class Cart {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public LocalDateTime getAddedAt() {
+        return addedAt;
+    }
+
+    public void setAddedAt(LocalDateTime addedAt) {
+        this.addedAt = addedAt;
     }
 
     public List<CartItem> getItems() {
@@ -126,6 +160,14 @@ public class Cart {
 
     @PrePersist
     protected void onCreate() {
+        if (quantity == null) {
+            quantity = 1;
+        }
+
+        if (addedAt == null) {
+            addedAt = LocalDateTime.now();
+        }
+
         createdAt = LocalDateTime.now();
         updatedAt = LocalDateTime.now();
     }
