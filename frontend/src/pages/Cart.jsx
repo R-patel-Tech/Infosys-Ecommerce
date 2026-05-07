@@ -1,73 +1,22 @@
 import { useEffect, useState } from 'react'
-import axios from 'axios'
-import { useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import Button from '../components/Button.jsx'
-import { API_BASE_URL } from '../config.js'
+import {
+  clearCart,
+  fetchCartForUser,
+  getStoredUserId,
+  checkoutCart,
+  removeCartItem,
+  resolveCartItemId,
+  resolveProductId,
+  updateCartQuantity,
+} from '../services/cartService.js'
 import { getProductImage } from '../utils/productImage.js'
-
-const api = axios.create({
-  baseURL: API_BASE_URL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-})
-
-function getAuthHeaders() {
-  const token = sessionStorage.getItem('authToken')
-  return token ? { Authorization: `Bearer ${token}` } : {}
-}
+import { showToast } from '../utils/toast.js'
 
 function formatPrice(price) {
   const value = Number(price)
   return Number.isFinite(value) ? `$${value.toFixed(2)}` : '$0.00'
-}
-
-function readStoredUserId(storage, key) {
-  const value = storage.getItem(key)
-  if (value == null || value === '') {
-    return null
-  }
-
-  const parsed = Number(value)
-  return Number.isFinite(parsed) ? parsed : null
-}
-
-function resolveUserId(routeUserId, explicitUserId) {
-  if (routeUserId != null && routeUserId !== '') {
-    const value = Number(routeUserId)
-    return Number.isFinite(value) ? value : null
-  }
-
-  if (explicitUserId != null && explicitUserId !== '') {
-    const value = Number(explicitUserId)
-    if (Number.isFinite(value)) {
-      return value
-    }
-  }
-
-  const sessionUserId = readStoredUserId(window.sessionStorage, 'userId')
-  if (sessionUserId != null) {
-    return sessionUserId
-  }
-
-  const localUserId = readStoredUserId(window.localStorage, 'userId')
-  if (localUserId != null) {
-    return localUserId
-  }
-
-  return null
-}
-
-function normalizeCart(data) {
-  if (!data || typeof data !== 'object') {
-    return { items: [], totalAmount: 0, totalQuantity: 0 }
-  }
-
-  return {
-    items: Array.isArray(data.items) ? data.items : [],
-    totalAmount: data.totalAmount ?? 0,
-    totalQuantity: data.totalQuantity ?? 0,
-  }
 }
 
 function calculateTotals(items) {
@@ -85,16 +34,22 @@ function calculateTotals(items) {
   )
 }
 
-function Cart({ onBack, onLogin, userId: explicitUserId }) {
-  const params = useParams()
+function getCartItemId(item) {
+  return item?.cartItemId ?? item?.cartId ?? item?.id ?? ''
+}
+
+function Cart({ onBack }) {
+  const navigate = useNavigate()
   const [cart, setCart] = useState({ items: [], totalAmount: 0, totalQuantity: 0 })
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const [actionMessage, setActionMessage] = useState('')
+  const [actionError, setActionError] = useState('')
   const [updatingId, setUpdatingId] = useState(null)
   const [removingId, setRemovingId] = useState(null)
-  const [requiresLogin, setRequiresLogin] = useState(false)
-  const resolvedUserId = resolveUserId(params.userId, explicitUserId)
+  const [checkoutLoading, setCheckoutLoading] = useState(false)
+  const userId = getStoredUserId()
+
   const totals = calculateTotals(cart.items)
   const displayTotalAmount = Number.isFinite(Number(cart.totalAmount))
     ? Number(cart.totalAmount)
@@ -104,26 +59,26 @@ function Cart({ onBack, onLogin, userId: explicitUserId }) {
     : totals.totalQuantity
 
   async function loadCart() {
-    if (!resolvedUserId) {
+    if (!userId) {
       setLoading(false)
-      setRequiresLogin(true)
+      setCart({ items: [], totalAmount: 0, totalQuantity: 0 })
       setError('')
+      setActionError('')
       return
     }
 
-    setRequiresLogin(false)
     setLoading(true)
     setError('')
     setActionMessage('')
+    setActionError('')
 
     try {
-      const response = await api.get(`/cart/${resolvedUserId}`, {
-        headers: getAuthHeaders(),
-      })
-
-      setCart(normalizeCart(response.data))
+      const nextCart = await fetchCartForUser(userId)
+      setCart(nextCart)
     } catch (requestError) {
-      setError(requestError?.response?.data?.message || requestError.message || 'Unable to load cart.')
+      const message = requestError?.message || 'Unable to load cart.'
+      setError(message)
+      showToast(message, 'error')
     } finally {
       setLoading(false)
     }
@@ -131,65 +86,148 @@ function Cart({ onBack, onLogin, userId: explicitUserId }) {
 
   useEffect(() => {
     void loadCart()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [resolvedUserId])
+  }, [userId])
+
+  useEffect(() => {
+    if (!actionMessage && !actionError) {
+      return undefined
+    }
+
+    const timeout = window.setTimeout(() => {
+      setActionMessage('')
+      setActionError('')
+    }, 2400)
+
+    return () => window.clearTimeout(timeout)
+  }, [actionMessage, actionError])
 
   function handleLoginClick() {
-    if (typeof onLogin === 'function') {
-      onLogin()
+    navigate('/login')
+  }
+
+  async function handleClearCart() {
+    if (!userId) {
       return
     }
 
-    window.history.pushState({}, '', '/login')
-    window.dispatchEvent(new PopStateEvent('popstate'))
+    const confirmed = window.confirm('Clear all items from your cart?')
+    if (!confirmed) {
+      return
+    }
+
+    setLoading(true)
+    setError('')
+    setActionMessage('')
+    setActionError('')
+
+    try {
+      await clearCart(userId)
+      await loadCart()
+      showToast('Cart cleared successfully', 'success')
+    } catch (requestError) {
+      const message = requestError?.message || 'Unable to clear cart.'
+      setError(message)
+      showToast(message, 'error')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  async function handleCheckout() {
+    if (!userId) {
+      return
+    }
+
+    if (cart.items.length === 0) {
+      showToast('Your cart is empty.', 'error')
+      return
+    }
+
+    const confirmed = window.confirm('Proceed to checkout and place this order?')
+    if (!confirmed) {
+      return
+    }
+
+    setCheckoutLoading(true)
+    setError('')
+    setActionMessage('')
+    setActionError('')
+
+    try {
+      await checkoutCart(userId, {
+        userId,
+        items: cart.items,
+        totalAmount: displayTotalAmount,
+        totalQuantity: displayTotalQuantity,
+      })
+      await loadCart()
+      setActionMessage('Checkout completed successfully.')
+      showToast('Checkout completed successfully', 'success')
+    } catch (requestError) {
+      const message = requestError?.message || 'Unable to complete checkout.'
+      setError(message)
+      showToast(message, 'error')
+    } finally {
+      setCheckoutLoading(false)
+    }
   }
 
   async function updateQuantity(cartItem, nextQuantity) {
-    if (!cartItem?.cartItemId || nextQuantity < 1) {
+    const latestCart = await fetchCartForUser(userId)
+    const cartItemId = resolveCartItemId(
+      latestCart.items.find((item) => resolveProductId(item) === resolveProductId(cartItem)) || cartItem
+    )
+
+    if (!cartItemId || nextQuantity < 1) {
       return
     }
 
-    setUpdatingId(cartItem.cartItemId)
+    setUpdatingId(cartItemId)
     setError('')
     setActionMessage('')
+    setActionError('')
 
     try {
-      await api.put(
-        '/cart/update',
-        {
-          cartId: cartItem.cartItemId,
-          quantity: nextQuantity,
-        },
-        { headers: getAuthHeaders() }
-      )
+      await updateCartQuantity({
+        cartItemId,
+        quantity: nextQuantity,
+      })
 
       await loadCart()
       setActionMessage('Cart updated successfully.')
+      showToast('Cart updated successfully', 'success')
     } catch (requestError) {
-      setError(requestError?.response?.data?.message || requestError.message || 'Unable to update cart item.')
+      const message = requestError?.message || 'Unable to update cart item.'
+      setError(message)
+      showToast(message, 'error')
     } finally {
       setUpdatingId(null)
     }
   }
 
   async function removeItem(cartItem) {
-    if (!cartItem?.cartItemId) {
+    const latestCart = await fetchCartForUser(userId)
+    const cartItemId = resolveCartItemId(
+      latestCart.items.find((item) => resolveProductId(item) === resolveProductId(cartItem)) || cartItem
+    )
+    if (!cartItemId) {
       return
     }
 
-    setRemovingId(cartItem.cartItemId)
+    setRemovingId(cartItemId)
     setError('')
     setActionMessage('')
+    setActionError('')
 
     try {
-      const response = await api.delete(`/cart/remove/${cartItem.cartItemId}`, {
-        headers: getAuthHeaders(),
-      })
-
-      setCart(normalizeCart(response.data?.cart))
-      setActionMessage(response.data?.message || 'Cart item removed successfully.')
+      await removeCartItem(cartItemId)
+      await loadCart()
+      setActionMessage('Cart item removed successfully.')
+      showToast('Cart item removed successfully', 'success')
     } catch (requestError) {
-      setError(requestError?.response?.data?.message || requestError.message || 'Unable to remove cart item.')
+      const message = requestError?.message || 'Unable to remove cart item.'
+      setError(message)
+      showToast(message, 'error')
     } finally {
       setRemovingId(null)
     }
@@ -211,7 +249,7 @@ function Cart({ onBack, onLogin, userId: explicitUserId }) {
                 Back
               </Button>
             ) : null}
-            <Button type="button" onClick={loadCart} disabled={loading}>
+            <Button type="button" onClick={loadCart} disabled={loading || !userId}>
               {loading ? 'Loading...' : 'Refresh'}
             </Button>
           </div>
@@ -219,8 +257,9 @@ function Cart({ onBack, onLogin, userId: explicitUserId }) {
 
         {error ? <p className="form-message error">{error}</p> : null}
         {actionMessage ? <p className="form-message success">{actionMessage}</p> : null}
+        {actionError ? <p className="form-message error">{actionError}</p> : null}
 
-        {requiresLogin ? (
+        {!userId ? (
           <div className="product-state cart-empty-state">
             <p>Please login to view your cart</p>
             <Button type="button" onClick={handleLoginClick}>
@@ -235,7 +274,8 @@ function Cart({ onBack, onLogin, userId: explicitUserId }) {
           <div className="cart-layout">
             <div className="cart-items">
               {cart.items.map((item, index) => {
-                const key = item.cartItemId ?? `${item.product?.productId ?? 'item'}-${index}`
+                const itemId = getCartItemId(item)
+                const key = itemId || `${item.product?.productId ?? 'item'}-${index}`
                 const product = item.product || {}
                 const imageSrc = getProductImage(product)
                 const quantity = Number(item.quantity || 0)
@@ -262,9 +302,7 @@ function Cart({ onBack, onLogin, userId: explicitUserId }) {
                         <strong className="product-price">{formatPrice(unitPrice)}</strong>
                       </div>
 
-                      <p className="cart-item-subtotal">
-                        Subtotal: {formatPrice(subtotal)}
-                      </p>
+                      <p className="cart-item-subtotal">Subtotal: {formatPrice(subtotal)}</p>
 
                       <div className="cart-item-controls">
                         <div className="cart-quantity-controls">
@@ -272,7 +310,7 @@ function Cart({ onBack, onLogin, userId: explicitUserId }) {
                             type="button"
                             variant="secondary"
                             size="small"
-                            disabled={quantity <= 1 || updatingId === item.cartItemId}
+                            disabled={quantity <= 1 || updatingId === itemId}
                             onClick={() => updateQuantity(item, quantity - 1)}
                           >
                             -
@@ -282,21 +320,20 @@ function Cart({ onBack, onLogin, userId: explicitUserId }) {
                             type="button"
                             variant="secondary"
                             size="small"
-                            disabled={updatingId === item.cartItemId}
+                            disabled={updatingId === itemId}
                             onClick={() => updateQuantity(item, quantity + 1)}
                           >
                             +
                           </Button>
                         </div>
-
                         <Button
                           type="button"
                           variant="danger"
                           size="small"
                           onClick={() => removeItem(item)}
-                          disabled={removingId === item.cartItemId}
+                          disabled={removingId === itemId}
                         >
-                          {removingId === item.cartItemId ? 'Removing...' : 'Remove'}
+                          {removingId === itemId ? 'Removing...' : 'Remove'}
                         </Button>
                       </div>
                     </div>
@@ -314,6 +351,14 @@ function Cart({ onBack, onLogin, userId: explicitUserId }) {
               <div className="cart-summary-row">
                 <span>Total quantity</span>
                 <strong>{displayTotalQuantity}</strong>
+              </div>
+              <div className="cart-summary-row cart-checkout-row">
+                <Button type="button" variant="secondary" onClick={handleClearCart} disabled={loading}>
+                  Clear Cart
+                </Button>
+                <Button type="button" onClick={handleCheckout} disabled={loading || checkoutLoading}>
+                  {checkoutLoading ? 'Checking out...' : 'Checkout'}
+                </Button>
               </div>
             </aside>
           </div>

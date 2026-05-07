@@ -2,7 +2,6 @@ com\ecommerce\specification\ProductSpecifications.class
 com\ecommerce\entity\Cart$CartStatus.class
 com\ecommerce\entity\Product.class
 com\ecommerce\Security\JwtAuthenticationFilter.class
-com\ecommerce\controller\CartController$RemoveCartResponse.class
 com\ecommerce\controller\CartController.class
 com\ecommerce\repository\ProductRepository.class
 com\ecommerce\Service\UserService.class
@@ -20,6 +19,7 @@ com\ecommerce\controller\CartController$UpdateCartRequest.class
 com\ecommerce\Service\CartService.class
 com\ecommerce\dto\LoginRequest.class
 com\ecommerce\repository\UserRepository.class
+com\ecommerce\controller\CheckoutController.class
 com\ecommerce\repository\CartItemRepository.class
 com\ecommerce\EcommerceProjApplication.class
 com\ecommerce\controller\CartController$AddToCartRequest.class

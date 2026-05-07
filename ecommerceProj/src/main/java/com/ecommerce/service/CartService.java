@@ -9,7 +9,9 @@ import com.ecommerce.repository.CartItemRepository;
 import com.ecommerce.repository.ProductRepository;
 import com.ecommerce.repository.UserRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -58,8 +60,7 @@ public class CartService {
     }
 
     public Cart getActiveCartByUserId(Integer userId) {
-        User user = userRepository.findById(userId)
-            .orElseThrow(() -> new IllegalArgumentException("User not found"));
+        User user = requireUser(userId);
 
         return cartRepository.findByUserAndStatus(user, Cart.CartStatus.ACTIVE)
             .orElseGet(() -> new Cart(user));
@@ -67,8 +68,7 @@ public class CartService {
 
     @Transactional
     public Cart getCartWithItemsByUserId(Integer userId) {
-        User user = userRepository.findById(userId)
-            .orElseThrow(() -> new IllegalArgumentException("User not found"));
+        User user = requireUser(userId);
 
         return cartRepository.findByUserAndStatus(user, Cart.CartStatus.ACTIVE)
             .orElseGet(() -> new Cart(user));
@@ -100,19 +100,22 @@ public class CartService {
 
     @Transactional
     public CartItem addToCart(Integer userId, Integer productId, Integer quantity) {
-        if (quantity == null || quantity < 1) {
-            throw new IllegalArgumentException("Quantity must be at least 1");
+        if (userId == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User ID is required");
         }
 
-        User user = userRepository.findById(userId)
-            .orElseThrow(() -> new IllegalArgumentException("User not found"));
+        if (quantity == null || quantity < 1) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Quantity must be at least 1");
+        }
+
+        User user = requireUser(userId);
 
         Product product = productRepository.findById(productId)
-            .orElseThrow(() -> new IllegalArgumentException("Product not found"));
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found"));
 
         Integer stockQuantity = product.getStockQuantity();
         if (stockQuantity == null || stockQuantity < quantity) {
-            throw new IllegalArgumentException("Insufficient stock");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Insufficient stock");
         }
 
         Cart cart = cartRepository.findByUserAndStatus(user, Cart.CartStatus.ACTIVE)
@@ -144,26 +147,20 @@ public class CartService {
 
     @Transactional
     public CartItem updateCartItemQuantity(Integer cartItemId, Integer quantity) {
-        if (quantity == null || quantity < 1) {
-            throw new IllegalArgumentException("Quantity must be at least 1");
-        }
-
         CartItem cartItem = cartItemRepository.findById(cartItemId)
-            .orElseThrow(() -> new IllegalArgumentException("Cart item not found"));
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cart item not found"));
+
+        if (quantity == null || quantity < 1) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Quantity must be at least 1");
+        }
 
         Product product = cartItem.getProduct();
         Integer stockQuantity = product != null ? product.getStockQuantity() : null;
         if (stockQuantity == null || quantity > stockQuantity) {
-            throw new IllegalArgumentException("Insufficient stock");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Insufficient stock");
         }
 
         cartItem.setQuantity(quantity);
-
-        Cart cart = cartItem.getCart();
-        if (cart != null) {
-            cart.recalculateTotal();
-            cartRepository.save(cart);
-        }
 
         return cartItemRepository.save(cartItem);
     }
@@ -171,17 +168,57 @@ public class CartService {
     @Transactional
     public CartSummaryResponse removeCartItem(Integer cartItemId) {
         CartItem cartItem = cartItemRepository.findById(cartItemId)
-            .orElseThrow(() -> new IllegalArgumentException("Cart item not found"));
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cart item not found"));
 
         Cart cart = cartItem.getCart();
         cartItemRepository.delete(cartItem);
-
-        if (cart != null) {
-            cart.recalculateTotal();
-            cartRepository.save(cart);
-        }
+        cartItemRepository.flush();
 
         return buildCartSummary(cart);
+    }
+
+    @Transactional
+    public CartSummaryResponse clearCart(Integer userId) {
+        if (userId == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User ID is required");
+        }
+
+        User user = requireUser(userId);
+
+        Cart cart = cartRepository.findByUserAndStatus(user, Cart.CartStatus.ACTIVE)
+            .orElse(null);
+
+        if (cart == null || cart.getCartId() == null) {
+            return new CartSummaryResponse(List.of(), BigDecimal.ZERO, 0);
+        }
+
+        cartItemRepository.deleteByCart(cart);
+        cartItemRepository.flush();
+
+        return new CartSummaryResponse(List.of(), BigDecimal.ZERO, 0);
+    }
+
+    @Transactional
+    public CartSummaryResponse checkoutCart(Integer userId) {
+        if (userId == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User ID is required");
+        }
+
+        User user = requireUser(userId);
+
+        Cart cart = cartRepository.findByUserAndStatus(user, Cart.CartStatus.ACTIVE)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cart not found"));
+
+        CartSummaryResponse summary = buildCartSummary(cart);
+        if (summary.getItems().isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cart is empty");
+        }
+
+        cartItemRepository.deleteByCart(cart);
+        cartItemRepository.flush();
+        cartRepository.updateStatusAndTotalAmount(cart.getCartId(), Cart.CartStatus.COMPLETED, BigDecimal.ZERO);
+
+        return summary;
     }
 
     @Transactional
@@ -200,7 +237,7 @@ public class CartService {
 
     public void deleteCart(Integer cartId) {
         if (!cartRepository.existsById(cartId)) {
-            throw new IllegalArgumentException("Cart not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cart not found");
         }
 
         cartRepository.deleteById(cartId);
@@ -228,6 +265,11 @@ public class CartService {
                 product.getStockQuantity()
             )
         );
+    }
+
+    private User requireUser(Integer userId) {
+        return userRepository.findById(userId)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
     }
 
     private CartSummaryResponse buildCartSummary(Cart cart) {

@@ -5,6 +5,7 @@ import com.ecommerce.entity.Product;
 import com.ecommerce.entity.User;
 import com.ecommerce.entity.Cart.CartStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -31,4 +32,12 @@ public interface CartRepository extends JpaRepository<Cart, Integer> {
     Optional<Cart> findByUserAndProduct(User user, Product product);
 
     List<Cart> findByProductOrderByAddedAtDesc(Product product);
+
+    @Modifying
+    @Query("update Cart c set c.status = :status, c.totalAmount = :totalAmount where c.cartId = :cartId")
+    int updateStatusAndTotalAmount(
+        @Param("cartId") Integer cartId,
+        @Param("status") CartStatus status,
+        @Param("totalAmount") java.math.BigDecimal totalAmount
+    );
 }

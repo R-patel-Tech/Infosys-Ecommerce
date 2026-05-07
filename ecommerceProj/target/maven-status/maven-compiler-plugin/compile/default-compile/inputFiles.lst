@@ -2,6 +2,7 @@ C:\Users\91907\git\repository\ecommerceProj\src\main\java\com\ecommerce\config\D
 C:\Users\91907\git\repository\ecommerceProj\src\main\java\com\ecommerce\config\SecurityConfig.java
 C:\Users\91907\git\repository\ecommerceProj\src\main\java\com\ecommerce\controller\ApiExceptionHandler.java
 C:\Users\91907\git\repository\ecommerceProj\src\main\java\com\ecommerce\controller\CartController.java
+C:\Users\91907\git\repository\ecommerceProj\src\main\java\com\ecommerce\controller\CheckoutController.java
 C:\Users\91907\git\repository\ecommerceProj\src\main\java\com\ecommerce\controller\ProductController.java
 C:\Users\91907\git\repository\ecommerceProj\src\main\java\com\ecommerce\controller\UserController.java
 C:\Users\91907\git\repository\ecommerceProj\src\main\java\com\ecommerce\dto\LoginRequest.java

@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import Button from '../components/Button.jsx'
+import { addProductToCart, getStoredUserId, resolveProductId } from '../services/cartService.js'
 import { API_BASE_URL } from '../config.js'
 import { getProductImage } from '../utils/productImage.js'
+import { showToast } from '../utils/toast.js'
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -26,6 +28,9 @@ function ProductDetails({ productId, onBack }) {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const [notFound, setNotFound] = useState(false)
+  const [actionMessage, setActionMessage] = useState('')
+  const [actionError, setActionError] = useState('')
+  const [isAdding, setIsAdding] = useState(false)
 
   useEffect(() => {
     let isMounted = true
@@ -81,6 +86,57 @@ function ProductDetails({ productId, onBack }) {
       isMounted = false
     }
   }, [productId])
+
+  useEffect(() => {
+    if (!actionMessage && !actionError) {
+      return undefined
+    }
+
+    const timeout = window.setTimeout(() => {
+      setActionMessage('')
+      setActionError('')
+    }, 2400)
+
+    return () => window.clearTimeout(timeout)
+  }, [actionMessage, actionError])
+
+  async function handleAddToCart() {
+    const userId = getStoredUserId()
+
+    if (!userId) {
+      setActionError('Login required to add items to cart')
+      setActionMessage('')
+      showToast('Please login to add items to cart', 'error')
+      return
+    }
+
+    const productIdValue = resolveProductId(product)
+    if (!productIdValue) {
+      setActionError('This product cannot be added right now.')
+      setActionMessage('')
+      return
+    }
+
+    setIsAdding(true)
+    setActionError('')
+    setActionMessage('')
+
+    try {
+      await addProductToCart({
+        userId,
+        productId: productIdValue,
+        quantity: 1,
+      })
+      setActionMessage('Added to cart')
+      showToast('Item added to cart', 'success')
+    } catch (err) {
+      const message = err.message || 'Unable to add item to cart.'
+      setActionError(message)
+      showToast(message, 'error')
+    } finally {
+      setIsAdding(false)
+    }
+  }
 
   if (loading) {
     return (
@@ -175,6 +231,7 @@ function ProductDetails({ productId, onBack }) {
   }
 
   const imageSrc = getProductImage(product)
+  const isOutOfStock = (product.stockQuantity ?? product.stock ?? 0) <= 0
 
   return (
     <main className="page-shell dashboard-shell">
@@ -189,18 +246,12 @@ function ProductDetails({ productId, onBack }) {
 
         <div className="product-details">
           <div className="product-media-large">
-            <img
-              className="product-image-large"
-              src={imageSrc}
-              alt={product.name ?? 'Product image'}
-            />
+            <img className="product-image-large" src={imageSrc} alt={product.name ?? 'Product image'} />
           </div>
 
           <div className="product-info">
             <div className="product-meta">
-              <span className="product-category">
-                Category: {product.category || 'Uncategorized'}
-              </span>
+              <span className="product-category">Category: {product.category || 'Uncategorized'}</span>
               <span className="product-price-large">{formatPrice(product.price)}</span>
             </div>
 
@@ -211,10 +262,8 @@ function ProductDetails({ productId, onBack }) {
 
             <div className="product-stock-info">
               <h3>Availability</h3>
-              <p className="product-stock">
-                Stock: {product.stockQuantity ?? product.stock ?? 'N/A'}
-              </p>
-              {(product.stockQuantity ?? product.stock ?? 0) > 0 ? (
+              <p className="product-stock">Stock: {product.stockQuantity ?? product.stock ?? 'N/A'}</p>
+              {!isOutOfStock ? (
                 <p className="stock-status in-stock">In Stock</p>
               ) : (
                 <p className="stock-status out-of-stock">Out of Stock</p>
@@ -222,10 +271,13 @@ function ProductDetails({ productId, onBack }) {
             </div>
 
             <div className="product-actions">
-              <Button type="button" disabled={(product.stockQuantity ?? product.stock ?? 0) <= 0}>
-                Add to Cart
+              <Button type="button" disabled={isOutOfStock || isAdding} onClick={handleAddToCart}>
+                {isAdding ? 'Adding...' : 'Add to Cart'}
               </Button>
             </div>
+
+            {actionError ? <p className="form-message error">{actionError}</p> : null}
+            {actionMessage ? <p className="form-message success">{actionMessage}</p> : null}
           </div>
         </div>
       </section>

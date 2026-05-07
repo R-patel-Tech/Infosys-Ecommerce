@@ -1,6 +1,5 @@
 package com.ecommerce.controller;
 
-import com.ecommerce.entity.Cart;
 import com.ecommerce.entity.CartItem;
 import com.ecommerce.service.CartService;
 import jakarta.validation.Valid;
@@ -11,7 +10,13 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/cart")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "*", allowedHeaders = "*", methods = {
+    RequestMethod.GET,
+    RequestMethod.POST,
+    RequestMethod.PUT,
+    RequestMethod.DELETE,
+    RequestMethod.OPTIONS
+})
 public class CartController {
 
     private final CartService cartService;
@@ -21,14 +26,14 @@ public class CartController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<CartItem> addToCart(@Valid @RequestBody AddToCartRequest request) {
-        CartItem updatedCartItem = cartService.addToCart(
+    public ResponseEntity<String> addToCart(@Valid @RequestBody AddToCartRequest request) {
+        cartService.addToCart(
             request.getUserId(),
             request.getProductId(),
             request.getQuantity()
         );
 
-        return ResponseEntity.ok(updatedCartItem);
+        return ResponseEntity.ok("Item added to cart");
     }
 
     @GetMapping("/{userId}")
@@ -42,16 +47,21 @@ public class CartController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<CartItem> updateCart(@Valid @RequestBody UpdateCartRequest request) {
-        return ResponseEntity.ok(
-            cartService.updateCartItemQuantity(request.getCartId(), request.getQuantity())
-        );
+    public ResponseEntity<String> updateCart(@Valid @RequestBody UpdateCartRequest request) {
+        cartService.updateCartItemQuantity(request.getCartId(), request.getQuantity());
+        return ResponseEntity.ok("Cart updated successfully");
     }
 
     @DeleteMapping("/remove/{cartId}")
-    public ResponseEntity<RemoveCartResponse> removeFromCart(@PathVariable Integer cartId) {
-        CartService.CartSummaryResponse updatedCart = cartService.removeCartItem(cartId);
-        return ResponseEntity.ok(new RemoveCartResponse("Cart item removed successfully.", updatedCart));
+    public ResponseEntity<String> removeFromCart(@PathVariable Integer cartId) {
+        cartService.removeCartItem(cartId);
+        return ResponseEntity.ok("Cart item removed successfully");
+    }
+
+    @DeleteMapping("/clear/{userId}")
+    public ResponseEntity<String> clearCart(@PathVariable Integer userId) {
+        cartService.clearCart(userId);
+        return ResponseEntity.ok("Cart cleared");
     }
 
     public static class AddToCartRequest {
@@ -115,21 +125,4 @@ public class CartController {
         }
     }
 
-    public static class RemoveCartResponse {
-        private final String message;
-        private final CartService.CartSummaryResponse cart;
-
-        public RemoveCartResponse(String message, CartService.CartSummaryResponse cart) {
-            this.message = message;
-            this.cart = cart;
-        }
-
-        public String getMessage() {
-            return message;
-        }
-
-        public CartService.CartSummaryResponse getCart() {
-            return cart;
-        }
-    }
 }

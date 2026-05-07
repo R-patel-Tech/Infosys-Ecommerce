@@ -34,22 +34,17 @@ function Login({ onSwitch, onLoginSuccess }) {
     setFeedback({ type: '', message: '' })
 
     try {
-      const data = await loginUser(formData)
-      const token = data.token || data.message || data
+      const { token, userId } = await loginUser(formData)
 
       if (token) {
         sessionStorage.setItem('authToken', token)
-        if (data?.userId != null) {
-          sessionStorage.setItem('userId', String(data.userId))
-        }
-        onLoginSuccess?.()
-        return
       }
 
-      setFeedback({
-        type: 'success',
-        message: 'Login successful.',
-      })
+      if (userId != null) {
+        sessionStorage.setItem('userId', String(userId))
+      }
+
+      onLoginSuccess?.()
     } catch (error) {
       setFeedback({
         type: 'error',

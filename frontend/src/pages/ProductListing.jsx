@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import Button from '../components/Button.jsx'
+import ProductCard from '../components/ProductCard.jsx'
 import { get } from '../services/api.js'
-import { getProductImage } from '../utils/productImage.js'
 
 function normalizeProducts(data) {
   if (Array.isArray(data)) {
@@ -13,11 +13,6 @@ function normalizeProducts(data) {
   }
 
   return []
-}
-
-function formatPrice(price) {
-  const value = Number(price)
-  return Number.isFinite(value) ? `$${value.toFixed(2)}` : 'Price unavailable'
 }
 
 function ProductListing({ onBack, onShowDetails }) {
@@ -88,31 +83,8 @@ function ProductListing({ onBack, onShowDetails }) {
             <div className="product-grid">
               {products.map((product, index) => {
                 const key = product.productId ?? product.id ?? `${product.name ?? 'product'}-${index}`
-                const imageSrc = getProductImage(product)
 
-                return (
-                  <article className="product-card" key={key} onClick={() => onShowDetails(product.productId ?? product.id)}>
-                    <div className="product-media">
-                      <img
-                        className="product-image"
-                        src={imageSrc}
-                        alt={product.name ?? 'Product image'}
-                        loading="lazy"
-                      />
-                    </div>
-                    <h3>{product.name ?? 'Unnamed product'}</h3>
-                    <p>{product.description || 'No description available.'}</p>
-                    <div className="product-meta">
-                      <span className="product-category">
-                        {product.category || 'Uncategorized'}
-                      </span>
-                      <span className="product-price">{formatPrice(product.price)}</span>
-                    </div>
-                    <p className="product-stock">
-                      Stock: {product.stockQuantity ?? product.stock ?? 'N/A'}
-                    </p>
-                  </article>
-                )
+                return <ProductCard key={key} product={product} onShowDetails={onShowDetails} />
               })}
             </div>
           )}
