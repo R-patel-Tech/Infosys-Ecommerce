@@ -1,13 +1,9 @@
 import { useEffect, useState } from 'react'
 import Button from './Button.jsx'
 import { addProductToCart, getStoredUserId, resolveProductId } from '../services/cartService.js'
+import { formatCurrency } from '../utils/currency.js'
 import { getProductImage } from '../utils/productImage.js'
 import { showToast } from '../utils/toast.js'
-
-function formatPrice(price) {
-  const value = Number(price)
-  return Number.isFinite(value) ? `$${value.toFixed(2)}` : 'Price unavailable'
-}
 
 function ProductCard({ product, onShowDetails }) {
   const [message, setMessage] = useState('')
@@ -85,7 +81,7 @@ function ProductCard({ product, onShowDetails }) {
       <div className="product-card-body">
         <div className="product-card-head">
           <h3>{product?.name ?? 'Unnamed product'}</h3>
-          <span className="product-price">{formatPrice(product?.price)}</span>
+          <span className="product-price">{formatCurrency(product?.price)}</span>
         </div>
         <p>{product?.description || 'No description available.'}</p>
         <div className="product-meta">

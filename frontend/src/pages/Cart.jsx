@@ -5,19 +5,14 @@ import {
   clearCart,
   fetchCartForUser,
   getStoredUserId,
-  checkoutCart,
   removeCartItem,
   resolveCartItemId,
   resolveProductId,
   updateCartQuantity,
 } from '../services/cartService.js'
+import { formatCurrency } from '../utils/currency.js'
 import { getProductImage } from '../utils/productImage.js'
 import { showToast } from '../utils/toast.js'
-
-function formatPrice(price) {
-  const value = Number(price)
-  return Number.isFinite(value) ? `$${value.toFixed(2)}` : '$0.00'
-}
 
 function calculateTotals(items) {
   return items.reduce(
@@ -47,7 +42,6 @@ function Cart({ onBack }) {
   const [actionError, setActionError] = useState('')
   const [updatingId, setUpdatingId] = useState(null)
   const [removingId, setRemovingId] = useState(null)
-  const [checkoutLoading, setCheckoutLoading] = useState(false)
   const userId = getStoredUserId()
 
   const totals = calculateTotals(cart.items)
@@ -133,8 +127,9 @@ function Cart({ onBack }) {
     }
   }
 
-  async function handleCheckout() {
+  function handleCheckout() {
     if (!userId) {
+      navigate('/login')
       return
     }
 
@@ -143,33 +138,7 @@ function Cart({ onBack }) {
       return
     }
 
-    const confirmed = window.confirm('Proceed to checkout and place this order?')
-    if (!confirmed) {
-      return
-    }
-
-    setCheckoutLoading(true)
-    setError('')
-    setActionMessage('')
-    setActionError('')
-
-    try {
-      await checkoutCart(userId, {
-        userId,
-        items: cart.items,
-        totalAmount: displayTotalAmount,
-        totalQuantity: displayTotalQuantity,
-      })
-      await loadCart()
-      setActionMessage('Checkout completed successfully.')
-      showToast('Checkout completed successfully', 'success')
-    } catch (requestError) {
-      const message = requestError?.message || 'Unable to complete checkout.'
-      setError(message)
-      showToast(message, 'error')
-    } finally {
-      setCheckoutLoading(false)
-    }
+    navigate('/checkout')
   }
 
   async function updateQuantity(cartItem, nextQuantity) {
@@ -299,10 +268,10 @@ function Cart({ onBack }) {
                           <h3>{product.name ?? 'Unnamed product'}</h3>
                           <p className="cart-item-category">{product.category || 'Uncategorized'}</p>
                         </div>
-                        <strong className="product-price">{formatPrice(unitPrice)}</strong>
+                        <strong className="product-price">{formatCurrency(unitPrice)}</strong>
                       </div>
 
-                      <p className="cart-item-subtotal">Subtotal: {formatPrice(subtotal)}</p>
+                      <p className="cart-item-subtotal">Subtotal: {formatCurrency(subtotal)}</p>
 
                       <div className="cart-item-controls">
                         <div className="cart-quantity-controls">
@@ -346,7 +315,7 @@ function Cart({ onBack }) {
               <h2>Order Summary</h2>
               <div className="cart-summary-row">
                 <span>Subtotal</span>
-                <strong>{formatPrice(displayTotalAmount)}</strong>
+                <strong>{formatCurrency(displayTotalAmount)}</strong>
               </div>
               <div className="cart-summary-row">
                 <span>Total quantity</span>
@@ -356,8 +325,8 @@ function Cart({ onBack }) {
                 <Button type="button" variant="secondary" onClick={handleClearCart} disabled={loading}>
                   Clear Cart
                 </Button>
-                <Button type="button" onClick={handleCheckout} disabled={loading || checkoutLoading}>
-                  {checkoutLoading ? 'Checking out...' : 'Checkout'}
+                <Button type="button" onClick={handleCheckout} disabled={loading}>
+                  Checkout
                 </Button>
               </div>
             </aside>

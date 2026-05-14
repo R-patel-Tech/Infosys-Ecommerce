@@ -81,7 +81,7 @@ public class CartService {
             return new CartSummaryResponse(List.of(), BigDecimal.ZERO, 0);
         }
 
-        List<CartItem> items = cartItemRepository.findByCart(cart);
+        List<CartItem> items = cartItemRepository.findByCart_CartId(cart.getCartId());
 
         List<CartItemSummary> itemSummaries = items.stream()
             .map(CartService::toCartItemSummary)
@@ -136,13 +136,13 @@ public class CartService {
             cartItem.setPriceAtTime(product.getPrice());
         } else {
             cartItem = new CartItem(cart, product, quantity);
-            cart.getItems().add(cartItem);
+            cart.addItem(cartItem);
         }
 
         cart.recalculateTotal();
         cartRepository.save(cart);
 
-        return cartItemRepository.save(cartItem);
+        return cartItem;
     }
 
     @Transactional
@@ -192,7 +192,7 @@ public class CartService {
             return new CartSummaryResponse(List.of(), BigDecimal.ZERO, 0);
         }
 
-        cartItemRepository.deleteByCart(cart);
+        cartItemRepository.deleteByCartId(cart.getCartId());
         cartItemRepository.flush();
 
         return new CartSummaryResponse(List.of(), BigDecimal.ZERO, 0);
@@ -214,9 +214,11 @@ public class CartService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cart is empty");
         }
 
-        cartItemRepository.deleteByCart(cart);
+        cartItemRepository.deleteByCartId(cart.getCartId());
         cartItemRepository.flush();
-        cartRepository.updateStatusAndTotalAmount(cart.getCartId(), Cart.CartStatus.COMPLETED, BigDecimal.ZERO);
+        cart.setStatus(Cart.CartStatus.COMPLETED);
+        cart.setTotalAmount(BigDecimal.ZERO);
+        cartRepository.save(cart);
 
         return summary;
     }
@@ -277,7 +279,7 @@ public class CartService {
             return new CartSummaryResponse(List.of(), BigDecimal.ZERO, 0);
         }
 
-        List<CartItem> items = cartItemRepository.findByCart(cart);
+        List<CartItem> items = cartItemRepository.findByCart_CartId(cart.getCartId());
         List<CartItemSummary> itemSummaries = items.stream()
             .map(CartService::toCartItemSummary)
             .collect(Collectors.toList());
@@ -409,3 +411,4 @@ public class CartService {
         }
     }
 }
+

@@ -3,6 +3,7 @@ import axios from 'axios'
 import Button from '../components/Button.jsx'
 import { addProductToCart, getStoredUserId, resolveProductId } from '../services/cartService.js'
 import { API_BASE_URL } from '../config.js'
+import { formatCurrency } from '../utils/currency.js'
 import { getProductImage } from '../utils/productImage.js'
 import { showToast } from '../utils/toast.js'
 
@@ -12,11 +13,6 @@ const api = axios.create({
     'Content-Type': 'application/json',
   },
 })
-
-function formatPrice(price) {
-  const value = Number(price)
-  return Number.isFinite(value) ? `$${value.toFixed(2)}` : 'Price unavailable'
-}
 
 function getProductIdFromUrl() {
   const match = window.location.pathname.match(/\/products\/([^/]+)\/?$/)
@@ -252,7 +248,7 @@ function ProductDetails({ productId, onBack }) {
           <div className="product-info">
             <div className="product-meta">
               <span className="product-category">Category: {product.category || 'Uncategorized'}</span>
-              <span className="product-price-large">{formatPrice(product.price)}</span>
+              <span className="product-price-large">{formatCurrency(product.price)}</span>
             </div>
 
             <div className="product-description">

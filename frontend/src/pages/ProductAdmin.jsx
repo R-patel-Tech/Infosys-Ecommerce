@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import Button from '../components/Button.jsx'
 import { get, post, put } from '../services/api.js'
+import { formatCurrency } from '../utils/currency.js'
 import { getProductImage } from '../utils/productImage.js'
 
 const initialFormState = {
@@ -22,11 +23,6 @@ function normalizeProducts(data) {
   }
 
   return []
-}
-
-function formatPrice(price) {
-  const value = Number(price)
-  return Number.isFinite(value) ? `$${value.toFixed(2)}` : 'Price unavailable'
 }
 
 function formatShortNumber(value) {
@@ -522,7 +518,7 @@ function ProductAdmin({ onBack }) {
                               {product.description || 'No description available.'}
                             </p>
                           </div>
-                          <span className="product-price">{formatPrice(product.price)}</span>
+                          <span className="product-price">{formatCurrency(product.price)}</span>
                         </div>
 
                         <div className="admin-product-meta">

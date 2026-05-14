@@ -8,6 +8,7 @@ import ProductListing from './pages/ProductListing.jsx'
 import ProductDetails from './pages/ProductDetails.jsx'
 import Cart from './pages/Cart.jsx'
 import Checkout from './pages/Checkout.jsx'
+import OrderSuccess from './pages/OrderSuccess.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
 import { isAuthenticated, logout as clearAuth } from './services/authService.js'
 import { getStoredUserId } from './services/cartService.js'
@@ -134,7 +135,22 @@ function App() {
           }
         />
         <Route path="/cart" element={<Cart onBack={() => navigate('/dashboard')} />} />
-        <Route path="/checkout" element={<Checkout onBack={() => navigate('/cart')} />} />
+        <Route
+          path="/checkout"
+          element={
+            <ProtectedRoute onRequireAuth={() => navigate('/login', { replace: true })}>
+              <Checkout onBack={() => navigate('/cart')} />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/order-success"
+          element={
+            <ProtectedRoute onRequireAuth={() => navigate('/login', { replace: true })}>
+              <OrderSuccess />
+            </ProtectedRoute>
+          }
+        />
         <Route path="*" element={<Navigate to={isAuthenticated() ? '/dashboard' : '/login'} replace />} />
       </Routes>
     </>
