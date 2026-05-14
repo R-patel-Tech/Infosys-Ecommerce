@@ -18,6 +18,36 @@ function CartIcon() {
   )
 }
 
+function HistoryIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className="nav-icon">
+      <path
+        d="M4 12a8 8 0 1 1 2.34 5.66"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
+      <path
+        d="M4 4v4h4"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M12 7v5l3 2"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
 function UserIcon() {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true" className="nav-icon">
@@ -61,7 +91,7 @@ function CloseIcon() {
   )
 }
 
-function Navbar({ menuOpen, onToggleMenu, onCloseMenu, onShowProducts, onShowCart, onLogout }) {
+function Navbar({ menuOpen, onToggleMenu, onCloseMenu, onShowProducts, onShowCart, onShowOrders, onLogout }) {
   const navLinkClass = ({ isActive }) => `dashboard-nav-link ${isActive ? 'active' : ''}`
 
   return (
@@ -86,6 +116,10 @@ function Navbar({ menuOpen, onToggleMenu, onCloseMenu, onShowProducts, onShowCar
         <NavLink to="/cart" className={navLinkClass} onClick={onShowCart}>
           <CartIcon />
           <span>View Cart</span>
+        </NavLink>
+        <NavLink to="/orders" className={navLinkClass} onClick={onShowOrders}>
+          <HistoryIcon />
+          <span>Order History</span>
         </NavLink>
       </nav>
 
@@ -118,6 +152,10 @@ function Navbar({ menuOpen, onToggleMenu, onCloseMenu, onShowProducts, onShowCar
         <NavLink to="/cart" className={navLinkClass} onClick={onShowCart}>
           <CartIcon />
           <span>View Cart</span>
+        </NavLink>
+        <NavLink to="/orders" className={navLinkClass} onClick={onShowOrders}>
+          <HistoryIcon />
+          <span>Order History</span>
         </NavLink>
         <button type="button" className="mobile-profile" onClick={onCloseMenu}>
           <UserIcon />

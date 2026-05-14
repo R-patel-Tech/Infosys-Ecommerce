@@ -2,6 +2,7 @@ package com.ecommerce.service;
 
 import com.ecommerce.dto.CheckoutRequest;
 import com.ecommerce.dto.CheckoutResponse;
+import com.ecommerce.dto.OrderHistoryResponse;
 import com.ecommerce.dto.OrderSummaryResponse;
 import com.ecommerce.entity.Cart;
 import com.ecommerce.entity.CartItem;
@@ -19,6 +20,7 @@ import com.ecommerce.repository.UserRepository;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,19 +34,22 @@ public class OrderService {
     private final CartItemRepository cartItemRepository;
     private final ProductRepository productRepository;
     private final OrderRepository orderRepository;
+    private final PaymentService paymentService;
 
     public OrderService(
         UserRepository userRepository,
         CartRepository cartRepository,
         CartItemRepository cartItemRepository,
         ProductRepository productRepository,
-        OrderRepository orderRepository
+        OrderRepository orderRepository,
+        PaymentService paymentService
     ) {
         this.userRepository = userRepository;
         this.cartRepository = cartRepository;
         this.cartItemRepository = cartItemRepository;
         this.productRepository = productRepository;
         this.orderRepository = orderRepository;
+        this.paymentService = paymentService;
     }
 
     @Transactional
@@ -71,6 +76,7 @@ public class OrderService {
         Order order = new Order();
         order.setUser(user);
         order.setOrderStatus(OrderStatus.PLACED);
+        order.setOrderPaymentStatus("PENDING");
         order.setPaymentMethod(request.getPaymentMethod());
         order.setShippingAddress(buildShippingAddress(request));
         order.setOrderItems(new ArrayList<>());
@@ -123,7 +129,31 @@ public class OrderService {
         cart.setTotalAmount(BigDecimal.ZERO);
         cartRepository.save(cart);
 
-        return CheckoutResponse.success(OrderSummaryResponse.from(savedOrder));
+        if (request.getPaymentMethod() == PaymentMethod.COD) {
+            savedOrder.setOrderPaymentStatus("COD_PENDING");
+            orderRepository.save(savedOrder);
+            return CheckoutResponse.success(OrderSummaryResponse.from(savedOrder));
+        }
+
+        return CheckoutResponse.success(
+            OrderSummaryResponse.from(savedOrder),
+            paymentService.createGatewayOrderFor(savedOrder)
+        );
+    }
+
+    @Transactional(readOnly = true)
+    public List<OrderHistoryResponse> getUserOrderHistory(Integer userId) {
+        if (userId == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User ID is required");
+        }
+
+        User user = userRepository.findById(userId)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+
+        List<Order> orders = orderRepository.findOrderHistoryByUserId(user.getUserId());
+        return orders.stream()
+            .map(OrderHistoryResponse::from)
+            .collect(Collectors.toList());
     }
 
     private String buildShippingAddress(CheckoutRequest request) {

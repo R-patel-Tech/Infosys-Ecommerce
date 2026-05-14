@@ -9,6 +9,7 @@ import ProductDetails from './pages/ProductDetails.jsx'
 import Cart from './pages/Cart.jsx'
 import Checkout from './pages/Checkout.jsx'
 import OrderSuccess from './pages/OrderSuccess.jsx'
+import OrderHistory from './pages/OrderHistory.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
 import { isAuthenticated, logout as clearAuth } from './services/authService.js'
 import { getStoredUserId } from './services/cartService.js'
@@ -51,6 +52,17 @@ function App() {
     }
 
     navigate('/cart')
+  }
+
+  function handleShowOrders() {
+    const userId = getStoredUserId()
+
+    if (!userId) {
+      showToast('Please login to view your order history', 'error')
+      return
+    }
+
+    navigate('/orders')
   }
 
   function handleShowProductDetails(productId) {
@@ -111,6 +123,7 @@ function App() {
                 onLogout={handleLogout}
                 onShowProducts={handleShowProducts}
                 onShowCart={handleShowCart}
+                onShowOrders={handleShowOrders}
               />
             </ProtectedRoute>
           }
@@ -148,6 +161,14 @@ function App() {
           element={
             <ProtectedRoute onRequireAuth={() => navigate('/login', { replace: true })}>
               <OrderSuccess />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/orders"
+          element={
+            <ProtectedRoute onRequireAuth={() => navigate('/login', { replace: true })}>
+              <OrderHistory />
             </ProtectedRoute>
           }
         />

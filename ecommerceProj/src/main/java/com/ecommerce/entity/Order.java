@@ -45,6 +45,12 @@ public class Order {
     @Column(nullable = false)
     private OrderStatus orderStatus = OrderStatus.PLACED;
 
+    @Column(length = 100)
+    private String paymentId;
+
+    @Column(length = 50)
+    private String orderPaymentStatus = "PENDING";
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private PaymentMethod paymentMethod;
@@ -101,6 +107,22 @@ public class Order {
 
     public void setOrderStatus(OrderStatus orderStatus) {
         this.orderStatus = orderStatus;
+    }
+
+    public String getPaymentId() {
+        return paymentId;
+    }
+
+    public void setPaymentId(String paymentId) {
+        this.paymentId = paymentId;
+    }
+
+    public String getOrderPaymentStatus() {
+        return orderPaymentStatus;
+    }
+
+    public void setOrderPaymentStatus(String orderPaymentStatus) {
+        this.orderPaymentStatus = orderPaymentStatus;
     }
 
     public PaymentMethod getPaymentMethod() {

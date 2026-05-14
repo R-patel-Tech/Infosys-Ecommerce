@@ -16,7 +16,7 @@ function normalizeProducts(data) {
   return []
 }
 
-function Dashboard({ onLogout, onShowProducts, onShowCart }) {
+function Dashboard({ onLogout, onShowProducts, onShowCart, onShowOrders }) {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
@@ -63,6 +63,13 @@ function Dashboard({ onLogout, onShowProducts, onShowCart }) {
     }
   }
 
+  function handleShowOrders() {
+    closeMenu()
+    if (typeof onShowOrders === 'function') {
+      onShowOrders()
+    }
+  }
+
   function handleLogout() {
     closeMenu()
     if (typeof onLogout === 'function') {
@@ -79,6 +86,7 @@ function Dashboard({ onLogout, onShowProducts, onShowCart }) {
           onCloseMenu={closeMenu}
           onShowProducts={handleShowProducts}
           onShowCart={handleShowCart}
+          onShowOrders={handleShowOrders}
           onLogout={handleLogout}
         />
       </header>
@@ -97,11 +105,14 @@ function Dashboard({ onLogout, onShowProducts, onShowCart }) {
             <Button type="button" onClick={handleShowProducts}>
               Browse Products
             </Button>
-            <Button type="button" variant="secondary" onClick={handleShowCart}>
-              View Cart
-            </Button>
-          </div>
-        </section>
+          <Button type="button" variant="secondary" onClick={handleShowCart}>
+            View Cart
+          </Button>
+          <Button type="button" variant="secondary" onClick={handleShowOrders}>
+            Order History
+          </Button>
+        </div>
+      </section>
 
         <section className="dashboard-metrics" aria-label="Store metrics">
           <article className="dashboard-metric-card">

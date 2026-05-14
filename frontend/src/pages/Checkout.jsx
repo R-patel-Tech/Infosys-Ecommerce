@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Button from '../components/Button.jsx'
 import { checkoutCart, fetchCartForUser, getStoredUserId } from '../services/cartService.js'
+import { initiatePayment } from '../services/paymentService.js'
 import { formatCurrency } from '../utils/currency.js'
 import { showToast } from '../utils/toast.js'
 
@@ -120,12 +121,38 @@ function Checkout({ onBack }) {
 
     try {
       const response = await checkoutCart(userId, form)
-      sessionStorage.setItem('lastOrder', JSON.stringify(response))
-      navigate('/order-success', {
-        state: response,
-        replace: true,
-      })
-      showToast('Order placed successfully', 'success')
+      const order = response?.order
+      const payment = response?.payment
+
+      if (!order) {
+        throw new Error('Checkout completed but order details were not returned.')
+      }
+
+      if (form.paymentMethod === 'COD') {
+        sessionStorage.setItem('lastOrder', JSON.stringify(response))
+        navigate('/order-success', {
+          state: response,
+          replace: true,
+        })
+        showToast('Order placed successfully', 'success')
+      } else {
+        const verification = await initiatePayment(order.totalAmount, {
+          order,
+          checkoutOrder: payment,
+          customer: {
+            name: form.name,
+            email: sessionStorage.getItem('userEmail') || '',
+            phone: form.phone,
+          },
+        })
+
+        sessionStorage.setItem('lastOrder', JSON.stringify(verification))
+        navigate('/order-success', {
+          state: verification,
+          replace: true,
+        })
+        showToast('Payment successful', 'success')
+      }
     } catch (requestError) {
       const nextMessage = requestError?.message || 'Unable to complete checkout.'
       setError(nextMessage)

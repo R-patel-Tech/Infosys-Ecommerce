@@ -23,6 +23,10 @@ export async function loginUser(credentials) {
     sessionStorage.setItem('userId', String(userId))
   }
 
+  if (credentials?.email) {
+    sessionStorage.setItem('userEmail', String(credentials.email))
+  }
+
   return { token, userId }
 }
 
@@ -41,4 +45,5 @@ export function isAuthenticated() {
 export function logout() {
   sessionStorage.removeItem(AUTH_TOKEN_KEY)
   sessionStorage.removeItem('userId')
+  sessionStorage.removeItem('userEmail')
 }
