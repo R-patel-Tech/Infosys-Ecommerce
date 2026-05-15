@@ -1,4 +1,4 @@
-package com.ecommerce.service;
+﻿package com.ecommerce.service;
 
 import com.ecommerce.dto.CheckoutRequest;
 import com.ecommerce.dto.CheckoutResponse;
@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
@@ -148,6 +149,21 @@ public class OrderService {
         }
 
         User user = userRepository.findById(userId)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+
+        List<Order> orders = orderRepository.findOrderHistoryByUserId(user.getUserId());
+        return orders.stream()
+            .map(OrderHistoryResponse::from)
+            .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public List<OrderHistoryResponse> getUserOrderHistory(Authentication authentication) {
+        if (authentication == null || authentication.getName() == null || authentication.getName().isBlank()) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Unauthorized");
+        }
+
+        User user = userRepository.findByEmail(authentication.getName())
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
 
         List<Order> orders = orderRepository.findOrderHistoryByUserId(user.getUserId());

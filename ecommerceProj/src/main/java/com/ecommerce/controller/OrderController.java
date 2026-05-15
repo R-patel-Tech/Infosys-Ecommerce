@@ -1,9 +1,11 @@
-package com.ecommerce.controller;
+﻿package com.ecommerce.controller;
 
 import com.ecommerce.dto.OrderHistoryResponse;
 import com.ecommerce.service.OrderService;
+import java.security.Principal;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +29,11 @@ public class OrderController {
 
     public OrderController(OrderService orderService) {
         this.orderService = orderService;
+    }
+
+    @GetMapping("/user")
+    public ResponseEntity<List<OrderHistoryResponse>> getAuthenticatedUserOrders(Authentication authentication) {
+        return ResponseEntity.ok(orderService.getUserOrderHistory(authentication));
     }
 
     @GetMapping("/user/{userId}")

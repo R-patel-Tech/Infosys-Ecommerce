@@ -10,8 +10,10 @@ import Cart from './pages/Cart.jsx'
 import Checkout from './pages/Checkout.jsx'
 import OrderSuccess from './pages/OrderSuccess.jsx'
 import OrderHistory from './pages/OrderHistory.jsx'
+import Profile from './pages/Profile.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
 import { isAuthenticated, logout as clearAuth } from './services/authService.js'
+import { logoutUser } from './services/userService.js'
 import { getStoredUserId } from './services/cartService.js'
 import ToastHost from './components/ToastHost.jsx'
 import { showToast } from './utils/toast.js'
@@ -33,10 +35,14 @@ function App() {
     navigate('/admin-dashboard', { replace: true })
   }
 
-  function handleLogout() {
-    clearAuth()
-    sessionStorage.removeItem('adminAuth')
-    navigate('/login', { replace: true })
+  async function handleLogout() {
+    try {
+      await logoutUser()
+    } finally {
+      clearAuth()
+      sessionStorage.removeItem('adminAuth')
+      navigate('/login', { replace: true })
+    }
   }
 
   function handleShowProducts() {
@@ -63,6 +69,10 @@ function App() {
     }
 
     navigate('/orders')
+  }
+
+  function handleShowProfile() {
+    navigate('/profile')
   }
 
   function handleShowProductDetails(productId) {
@@ -124,6 +134,7 @@ function App() {
                 onShowProducts={handleShowProducts}
                 onShowCart={handleShowCart}
                 onShowOrders={handleShowOrders}
+                onShowProfile={handleShowProfile}
               />
             </ProtectedRoute>
           }
@@ -169,6 +180,14 @@ function App() {
           element={
             <ProtectedRoute onRequireAuth={() => navigate('/login', { replace: true })}>
               <OrderHistory />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute onRequireAuth={() => navigate('/login', { replace: true })}>
+              <Profile onLogout={handleLogout} />
             </ProtectedRoute>
           }
         />

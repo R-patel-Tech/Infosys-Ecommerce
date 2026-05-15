@@ -1,14 +1,21 @@
-package com.ecommerce.controller;
+﻿package com.ecommerce.controller;
 
+import com.ecommerce.dto.ApiResponse;
 import com.ecommerce.dto.LoginRequest;
+import com.ecommerce.dto.UpdatePasswordRequest;
+import com.ecommerce.dto.UpdateProfileRequest;
+import com.ecommerce.dto.UserProfileResponse;
 import com.ecommerce.entity.User;
 import com.ecommerce.service.UserService;
 import jakarta.validation.Valid;
+import java.security.Principal;
 import java.util.Map;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,7 +30,6 @@ public class UserController {
         this.userService = userService;
     }
 
-
     @PostMapping("/register")
     public User registerUser(@Valid @RequestBody User user) {
         return userService.registerUser(user);
@@ -36,7 +42,33 @@ public class UserController {
 
     @GetMapping("/dashboard")
     public String dashboard() {
-      return "Protected API Accessed!";
+        return "Protected API Accessed!";
     }
 
+    @GetMapping("/me")
+    public ResponseEntity<ApiResponse<UserProfileResponse>> getMyProfile(Authentication authentication) {
+        return ResponseEntity.ok(ApiResponse.success("Profile fetched successfully.", userService.getMyProfile(authentication)));
+    }
+
+    @PutMapping("/update-profile")
+    public ResponseEntity<ApiResponse<UserProfileResponse>> updateProfile(
+        Authentication authentication,
+        @Valid @RequestBody UpdateProfileRequest request
+    ) {
+        return ResponseEntity.ok(ApiResponse.success("Profile updated successfully.", userService.updateProfile(authentication, request)));
+    }
+
+    @PutMapping("/update-password")
+    public ResponseEntity<ApiResponse<UserProfileResponse>> updatePassword(
+        Authentication authentication,
+        @Valid @RequestBody UpdatePasswordRequest request
+    ) {
+        return ResponseEntity.ok(ApiResponse.success("Password updated successfully.", userService.updatePassword(authentication, request)));
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<ApiResponse<Map<String, String>>> logout(Authentication authentication) {
+        userService.logout(authentication);
+        return ResponseEntity.ok(ApiResponse.success("Logged out successfully.", Map.of("message", "Logged out successfully")));
+    }
 }

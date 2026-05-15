@@ -1,5 +1,17 @@
 import axios from 'axios'
 import { API_BASE_URL } from '../config.js'
+import { getAuthToken } from '../services/authService.js'
+
+function clearAuthSession() {
+  localStorage.removeItem('authToken')
+  localStorage.removeItem('userId')
+  localStorage.removeItem('userEmail')
+  localStorage.removeItem('adminAuth')
+  sessionStorage.removeItem('authToken')
+  sessionStorage.removeItem('userId')
+  sessionStorage.removeItem('userEmail')
+  sessionStorage.removeItem('adminAuth')
+}
 
 const axiosClient = axios.create({
   baseURL: API_BASE_URL,
@@ -11,7 +23,7 @@ const axiosClient = axios.create({
 })
 
 axiosClient.interceptors.request.use((config) => {
-  const token = sessionStorage.getItem('authToken')
+  const token = getAuthToken()
 
   if (token) {
     config.headers = config.headers || {}
@@ -29,6 +41,12 @@ axiosClient.interceptors.response.use(
       error?.response?.data?.error ||
       error?.message ||
       'Request failed. Please try again.'
+
+    if (error?.response?.status === 401 && typeof window !== 'undefined' && window.location.pathname !== '/login') {
+      clearAuthSession()
+      window.location.replace('/login')
+    }
+
     const requestError = new Error(message)
     requestError.status = error?.response?.status
     requestError.data = error?.response?.data

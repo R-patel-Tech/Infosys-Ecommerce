@@ -1,11 +1,23 @@
 import { post } from './api.js'
 
 const AUTH_TOKEN_KEY = 'authToken'
+const USER_ID_KEY = 'userId'
+const USER_EMAIL_KEY = 'userEmail'
 
 function saveAuthToken(token) {
   if (token) {
+    localStorage.setItem(AUTH_TOKEN_KEY, token)
     sessionStorage.setItem(AUTH_TOKEN_KEY, token)
   }
+}
+
+function getStoredValue(key) {
+  return localStorage.getItem(key) || sessionStorage.getItem(key)
+}
+
+function removeStoredValue(key) {
+  localStorage.removeItem(key)
+  sessionStorage.removeItem(key)
 }
 
 export async function loginUser(credentials) {
@@ -20,11 +32,13 @@ export async function loginUser(credentials) {
   saveAuthToken(token)
 
   if (userId != null && userId !== '') {
-    sessionStorage.setItem('userId', String(userId))
+    localStorage.setItem(USER_ID_KEY, String(userId))
+    sessionStorage.setItem(USER_ID_KEY, String(userId))
   }
 
   if (credentials?.email) {
-    sessionStorage.setItem('userEmail', String(credentials.email))
+    localStorage.setItem(USER_EMAIL_KEY, String(credentials.email))
+    sessionStorage.setItem(USER_EMAIL_KEY, String(credentials.email))
   }
 
   return { token, userId }
@@ -35,7 +49,7 @@ export function registerUser(payload) {
 }
 
 export function getAuthToken() {
-  return sessionStorage.getItem(AUTH_TOKEN_KEY)
+  return getStoredValue(AUTH_TOKEN_KEY)
 }
 
 export function isAuthenticated() {
@@ -43,7 +57,20 @@ export function isAuthenticated() {
 }
 
 export function logout() {
-  sessionStorage.removeItem(AUTH_TOKEN_KEY)
-  sessionStorage.removeItem('userId')
-  sessionStorage.removeItem('userEmail')
+  removeStoredValue(AUTH_TOKEN_KEY)
+  removeStoredValue(USER_ID_KEY)
+  removeStoredValue(USER_EMAIL_KEY)
+  removeStoredValue('adminAuth')
+}
+
+export function clearAuthSession() {
+  removeStoredValue(AUTH_TOKEN_KEY)
+  removeStoredValue(USER_ID_KEY)
+  removeStoredValue(USER_EMAIL_KEY)
+  removeStoredValue('adminAuth')
+}
+
+export function getStoredUserId() {
+  const userId = getStoredValue(USER_ID_KEY)
+  return userId && userId.trim() ? userId : ''
 }

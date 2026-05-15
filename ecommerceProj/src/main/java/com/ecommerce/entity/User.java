@@ -1,4 +1,4 @@
-package com.ecommerce.entity;
+﻿package com.ecommerce.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
@@ -32,6 +32,8 @@ public class User {
 
     @NotBlank(message = "Phone is required")
     private String phone;
+
+    private String address;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Cart cart;
@@ -83,6 +85,14 @@ public class User {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public Cart getCart() {

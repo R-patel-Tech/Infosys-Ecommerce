@@ -16,7 +16,7 @@ function normalizeProducts(data) {
   return []
 }
 
-function Dashboard({ onLogout, onShowProducts, onShowCart, onShowOrders }) {
+function Dashboard({ onLogout, onShowProducts, onShowCart, onShowOrders, onShowProfile }) {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
@@ -70,6 +70,13 @@ function Dashboard({ onLogout, onShowProducts, onShowCart, onShowOrders }) {
     }
   }
 
+  function handleShowProfile() {
+    closeMenu()
+    if (typeof onShowProfile === 'function') {
+      onShowProfile()
+    }
+  }
+
   function handleLogout() {
     closeMenu()
     if (typeof onLogout === 'function') {
@@ -87,6 +94,7 @@ function Dashboard({ onLogout, onShowProducts, onShowCart, onShowOrders }) {
           onShowProducts={handleShowProducts}
           onShowCart={handleShowCart}
           onShowOrders={handleShowOrders}
+          onShowProfile={handleShowProfile}
           onLogout={handleLogout}
         />
       </header>

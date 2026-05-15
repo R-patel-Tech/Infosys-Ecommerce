@@ -26,6 +26,26 @@ function normalizeOrder(order) {
   }
 }
 
+function normalizeOrdersResponse(data) {
+  if (Array.isArray(data)) {
+    return data
+  }
+
+  if (Array.isArray(data?.data)) {
+    return data.data
+  }
+
+  if (Array.isArray(data?.orders)) {
+    return data.orders
+  }
+
+  if (Array.isArray(data?.content)) {
+    return data.content
+  }
+
+  return []
+}
+
 function normalizeCheckoutOrder(response) {
   const order = response?.order
 
@@ -50,21 +70,9 @@ function normalizeCheckoutOrder(response) {
   }
 }
 
-export async function getUserOrders(userId) {
-  if (!userId) {
-    throw new Error('Missing user id.')
-  }
-
-  const data = await get(`/orders/user/${encodeURIComponent(userId)}`)
-  const orders = Array.isArray(data)
-    ? data
-    : Array.isArray(data?.orders)
-      ? data.orders
-      : Array.isArray(data?.content)
-        ? data.content
-        : []
-
-  return orders.map(normalizeOrder)
+export async function getUserOrders() {
+  const data = await get('/orders/user')
+  return normalizeOrdersResponse(data).map(normalizeOrder)
 }
 
 export function getStoredLastOrderHistory() {

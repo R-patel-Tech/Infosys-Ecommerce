@@ -91,7 +91,16 @@ function CloseIcon() {
   )
 }
 
-function Navbar({ menuOpen, onToggleMenu, onCloseMenu, onShowProducts, onShowCart, onShowOrders, onLogout }) {
+function Navbar({
+  menuOpen,
+  onToggleMenu,
+  onCloseMenu,
+  onShowProducts,
+  onShowCart,
+  onShowOrders,
+  onShowProfile,
+  onLogout,
+}) {
   const navLinkClass = ({ isActive }) => `dashboard-nav-link ${isActive ? 'active' : ''}`
 
   return (
@@ -124,7 +133,7 @@ function Navbar({ menuOpen, onToggleMenu, onCloseMenu, onShowProducts, onShowCar
       </nav>
 
       <div className="navbar-actions">
-        <button type="button" className="profile-pill" aria-label="User profile">
+        <button type="button" className="profile-pill" aria-label="User profile" onClick={onShowProfile}>
           <UserIcon />
           <span>Profile</span>
         </button>
@@ -157,7 +166,7 @@ function Navbar({ menuOpen, onToggleMenu, onCloseMenu, onShowProducts, onShowCar
           <HistoryIcon />
           <span>Order History</span>
         </NavLink>
-        <button type="button" className="mobile-profile" onClick={onCloseMenu}>
+        <button type="button" className="mobile-profile" onClick={onShowProfile}>
           <UserIcon />
           <span>Profile</span>
         </button>

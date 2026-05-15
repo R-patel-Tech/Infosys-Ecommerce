@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Button from '../components/Button.jsx'
-import { getStoredUserId } from '../services/cartService.js'
-import { getStoredLastOrderHistory, getUserOrders } from '../services/orderService.js'
+import OrderDetailsModal from '../components/OrderDetailsModal.jsx'
+import { getUserOrders, getStoredLastOrderHistory } from '../services/orderService.js'
 import { formatCurrency } from '../utils/currency.js'
-import { getProductImage } from '../utils/productImage.js'
 
 function formatOrderDate(value) {
   if (!value) {
@@ -39,35 +38,39 @@ function getStatusClass(status) {
 function OrderHistory() {
   const navigate = useNavigate()
   const [orders, setOrders] = useState([])
+  const [selectedOrder, setSelectedOrder] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
 
   useEffect(() => {
-    async function loadOrders() {
-      const userId = getStoredUserId()
-      if (!userId) {
-        setOrders([])
-        setError('Please sign in to view your order history.')
-        setLoading(false)
-        return
-      }
+    let isMounted = true
 
+    async function loadOrders() {
       setLoading(true)
       setError('')
 
       try {
-        const data = await getUserOrders(userId)
+        const data = await getUserOrders()
         const sorted = [...data].sort((left, right) => {
           const leftTime = new Date(left.orderDate || 0).getTime()
           const rightTime = new Date(right.orderDate || 0).getTime()
           return rightTime - leftTime
         })
+
+        if (!isMounted) {
+          return
+        }
+
         if (sorted.length > 0) {
           setOrders(sorted)
         } else {
           setOrders(getStoredLastOrderHistory())
         }
       } catch (err) {
+        if (!isMounted) {
+          return
+        }
+
         const fallbackOrders = getStoredLastOrderHistory()
 
         if (fallbackOrders.length > 0) {
@@ -77,11 +80,17 @@ function OrderHistory() {
           setError(err.message || 'Unable to load your orders.')
         }
       } finally {
-        setLoading(false)
+        if (isMounted) {
+          setLoading(false)
+        }
       }
     }
 
     loadOrders()
+
+    return () => {
+      isMounted = false
+    }
   }, [])
 
   return (
@@ -116,56 +125,45 @@ function OrderHistory() {
             <p>Once you place an order, it will appear here with the full item breakdown.</p>
           </div>
         ) : (
-          <div className="order-history-list">
-            {orders.map((order) => (
-              <article className="order-card" key={order.orderId}>
-                <div className="order-card-header">
-                  <div>
-                    <p className="order-label">Order ID</p>
-                    <h2>#{order.orderId}</h2>
-                  </div>
-                  <div className={getStatusClass(order.status)}>
-                    {String(order.status || 'Unknown').replaceAll('_', ' ')}
-                  </div>
-                </div>
-
-                <div className="order-meta-grid">
-                  <div>
-                    <span>Date</span>
-                    <strong>{formatOrderDate(order.orderDate)}</strong>
-                  </div>
-                  <div>
-                    <span>Amount</span>
-                    <strong>{formatCurrency(order.totalAmount)}</strong>
-                  </div>
-                </div>
-
-                <div className="order-items-list">
-                  {order.orderItems.map((item) => (
-                    <div className="order-item-row" key={item.orderItemId}>
-                      <div className="order-item-media">
-                        <img
-                          src={item.productImage || getProductImage({ name: item.productName })}
-                          alt={item.productName}
-                          className="order-item-image"
-                          onError={(event) => {
-                            event.currentTarget.src = getProductImage({ name: item.productName })
-                          }}
-                        />
-                      </div>
-                      <div className="order-item-copy">
-                        <h3>{item.productName}</h3>
-                        <p>
-                          Qty {item.quantity} &middot; {formatCurrency(item.price)}
-                        </p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </article>
-            ))}
+          <div className="order-history-table-wrap">
+            <table className="order-history-table">
+              <thead>
+                <tr>
+                  <th>Order ID</th>
+                  <th>Date</th>
+                  <th>Total Amount</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {orders.map((order) => (
+                  <tr key={order.orderId}>
+                    <td>#{order.orderId}</td>
+                    <td>{formatOrderDate(order.orderDate)}</td>
+                    <td>{formatCurrency(order.totalAmount)}</td>
+                    <td>
+                      <span className={getStatusClass(order.status)}>
+                        {String(order.status || 'Unknown').replaceAll('_', ' ')}
+                      </span>
+                    </td>
+                    <td>
+                      <button
+                        type="button"
+                        className="order-details-link"
+                        onClick={() => setSelectedOrder(order)}
+                      >
+                        View Details
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         )}
+
+        {selectedOrder ? <OrderDetailsModal order={selectedOrder} onClose={() => setSelectedOrder(null)} /> : null}
       </section>
     </main>
   )
