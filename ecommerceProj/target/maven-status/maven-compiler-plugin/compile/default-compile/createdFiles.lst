@@ -2,6 +2,7 @@ com\ecommerce\entity\Cart$CartStatus.class
 com\ecommerce\Service\OrderService.class
 com\ecommerce\dto\PaymentCreateOrderResponse.class
 com\ecommerce\repository\ProductRepository.class
+com\ecommerce\dto\UserProfileResponse.class
 com\ecommerce\config\RazorpayProperties.class
 com\ecommerce\entity\Cart.class
 com\ecommerce\config\DataInitializer.class
@@ -9,11 +10,13 @@ com\ecommerce\entity\OrderItem.class
 com\ecommerce\entity\PaymentMethod.class
 com\ecommerce\Security\JwtUtil.class
 com\ecommerce\config\SecurityConfig.class
+com\ecommerce\dto\UpdatePasswordRequest.class
 com\ecommerce\Service\UserPrincipalService.class
 com\ecommerce\controller\ApiExceptionHandler.class
 com\ecommerce\dto\CheckoutRequest.class
 com\ecommerce\dto\PaymentCreateOrderRequest.class
 com\ecommerce\Service\PaymentService.class
+com\ecommerce\dto\ApiResponse.class
 com\ecommerce\dto\LoginRequest.class
 com\ecommerce\repository\OrderItemRepository.class
 com\ecommerce\controller\CheckoutController.class
@@ -27,6 +30,7 @@ com\ecommerce\specification\ProductSpecifications.class
 com\ecommerce\entity\Product.class
 com\ecommerce\Security\JwtAuthenticationFilter.class
 com\ecommerce\controller\CartController.class
+com\ecommerce\dto\UpdateProfileRequest.class
 com\ecommerce\dto\OrderHistoryResponse.class
 com\ecommerce\Service\UserService.class
 com\ecommerce\dto\PaymentVerifyRequest.class

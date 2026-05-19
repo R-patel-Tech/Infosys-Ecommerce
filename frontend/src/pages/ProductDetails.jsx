@@ -1,18 +1,10 @@
 import { useEffect, useState } from 'react'
-import axios from 'axios'
 import Button from '../components/Button.jsx'
 import { addProductToCart, getStoredUserId, resolveProductId } from '../services/cartService.js'
-import { API_BASE_URL } from '../config.js'
+import { get } from '../services/api.js'
 import { formatCurrency } from '../utils/currency.js'
 import { getProductImage } from '../utils/productImage.js'
 import { showToast } from '../utils/toast.js'
-
-const api = axios.create({
-  baseURL: API_BASE_URL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-})
 
 function getProductIdFromUrl() {
   const match = window.location.pathname.match(/\/products\/([^/]+)\/?$/)
@@ -39,13 +31,8 @@ function ProductDetails({ productId, onBack }) {
       setProduct(null)
 
       try {
-        const response = await api.get(`/products/${resolvedProductId}`)
-
-        if (!isMounted) {
-          return
-        }
-
-        const nextProduct = response.data?.product ?? response.data
+        const response = await get(`/products/${resolvedProductId}`)
+        const nextProduct = response?.product ?? response?.data ?? response
 
         if (!nextProduct) {
           setNotFound(true)
@@ -58,7 +45,7 @@ function ProductDetails({ productId, onBack }) {
           return
         }
 
-        if (err?.response?.status === 404) {
+        if (err?.status === 404 || err?.originalError?.response?.status === 404) {
           setNotFound(true)
           return
         }

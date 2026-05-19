@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import Button from '../components/Button.jsx'
-import { get, post, put } from '../services/api.js'
+import { del, get, post, put } from '../services/api.js'
 import { formatCurrency } from '../utils/currency.js'
 import { getProductImage } from '../utils/productImage.js'
 
@@ -228,17 +228,7 @@ function ProductAdmin({ onBack }) {
     setFeedback('')
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api'}/products/${productId}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          ...(sessionStorage.getItem('authToken') ? { Authorization: `Bearer ${sessionStorage.getItem('authToken')}` } : {}),
-        },
-      })
-
-      if (!response.ok) {
-        throw new Error('Unable to delete product.')
-      }
+      await del(`/products/${encodeURIComponent(productId)}`)
 
       setProducts((current) => current.filter((product) => (product.productId ?? product.id) !== productId))
       setFeedback('Product deleted successfully.')
@@ -257,17 +247,7 @@ function ProductAdmin({ onBack }) {
     setFeedback('')
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api'}/products`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          ...(sessionStorage.getItem('authToken') ? { Authorization: `Bearer ${sessionStorage.getItem('authToken')}` } : {}),
-        },
-      })
-
-      if (!response.ok) {
-        throw new Error('Unable to clear products.')
-      }
+      await del('/products')
 
       setProducts([])
       setFeedback('All products cleared successfully.')

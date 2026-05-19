@@ -1,4 +1,4 @@
-﻿package com.ecommerce.dto;
+package com.ecommerce.dto;
 
 public class ApiResponse<T> {
     private boolean success;
