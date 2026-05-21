@@ -1,21 +1,6 @@
 import { formatCurrency } from '../utils/currency.js'
+import { formatDateTime } from '../utils/date.js'
 import { getProductImage } from '../utils/productImage.js'
-
-function formatOrderDate(value) {
-  if (!value) {
-    return 'Date unavailable'
-  }
-
-  const date = new Date(value)
-  if (Number.isNaN(date.getTime())) {
-    return 'Date unavailable'
-  }
-
-  return new Intl.DateTimeFormat('en-IN', {
-    dateStyle: 'medium',
-    timeStyle: 'short',
-  }).format(date)
-}
 
 function OrderDetailsModal({ order, onClose }) {
   if (!order) {
@@ -36,11 +21,11 @@ function OrderDetailsModal({ order, onClose }) {
             <p className="eyebrow">Order details</p>
             <h2 id="order-details-title">Order #{order.orderId}</h2>
             <p className="order-modal-subtitle">
-              Placed on {formatOrderDate(order.orderDate)} • {String(order.status || 'Unknown').replaceAll('_', ' ')}
+              Placed on {formatDateTime(order.orderDate)} - {String(order.status || 'Unknown').replaceAll('_', ' ')}
             </p>
           </div>
           <button type="button" className="order-modal-close" onClick={onClose} aria-label="Close order details">
-            ×
+            X
           </button>
         </div>
 

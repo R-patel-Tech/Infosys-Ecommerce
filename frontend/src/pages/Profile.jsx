@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import Button from '../components/Button.jsx'
-import { logout as clearAuth } from '../services/authService.js'
 import { getMyProfile, updateMyPassword, updateMyProfile, logoutUser } from '../services/userService.js'
 import { isValidAddress, isValidName, isValidPhone, isStrongPassword } from '../utils/validators.js'
+import { clearAuthSession } from '../utils/session.js'
 
 const initialProfile = {
   name: '',
@@ -146,7 +146,7 @@ function Profile({ onLogout }) {
     try {
       await logoutUser()
     } finally {
-      clearAuth()
+      clearAuthSession()
       window.location.replace('/login')
     }
   }

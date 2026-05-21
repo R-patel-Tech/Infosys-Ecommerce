@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Button from '../components/Button.jsx'
 import { loginUser } from '../services/authService.js'
 import { isValidEmail } from '../utils/validators.js'
+import { showToast } from '../utils/toast.js'
 
 const initialState = {
   email: '',
@@ -27,6 +28,7 @@ function Login({ onSwitch, onLoginSuccess }) {
 
     if (!isValidEmail(formData.email)) {
       setFeedback({ type: 'error', message: 'Enter a valid email address.' })
+      showToast('Enter a valid email address.', 'error')
       return
     }
 
@@ -34,22 +36,13 @@ function Login({ onSwitch, onLoginSuccess }) {
     setFeedback({ type: '', message: '' })
 
     try {
-      const { token, userId } = await loginUser(formData)
-
-      if (token) {
-        sessionStorage.setItem('authToken', token)
-      }
-
-      if (userId != null) {
-        sessionStorage.setItem('userId', String(userId))
-      }
-
+      await loginUser(formData)
+      showToast('Login successful.', 'success')
       onLoginSuccess?.()
     } catch (error) {
-      setFeedback({
-        type: 'error',
-        message: error.message || 'Login failed. Please check the backend and try again.',
-      })
+      const message = error.message || 'Login failed. Please try again.'
+      setFeedback({ type: 'error', message })
+      showToast(message, 'error')
     } finally {
       setIsSubmitting(false)
     }
@@ -60,10 +53,10 @@ function Login({ onSwitch, onLoginSuccess }) {
       <div className="auth-card">
         <div className="auth-header">
           <div className="auth-logo">
-            <div className="logo-icon">🛒</div>
+            <div className="logo-icon">R</div>
           </div>
           <h1 className="auth-title">Welcome Back</h1>
-          <p className="auth-subtitle">Sign in to your account to continue</p>
+          <p className="auth-subtitle">Sign in to continue shopping</p>
         </div>
 
         <form className="auth-form" onSubmit={handleSubmit}>
@@ -105,10 +98,10 @@ function Login({ onSwitch, onLoginSuccess }) {
               <button
                 type="button"
                 className="password-toggle"
-                onClick={() => setShowPassword(!showPassword)}
+                onClick={() => setShowPassword((current) => !current)}
                 aria-label={showPassword ? 'Hide password' : 'Show password'}
               >
-                {showPassword ? '🙈' : '👁️'}
+                {showPassword ? 'Hide' : 'Show'}
               </button>
             </div>
           </div>
@@ -116,7 +109,7 @@ function Login({ onSwitch, onLoginSuccess }) {
           <Button type="submit" disabled={isSubmitting} className="auth-submit-btn">
             {isSubmitting ? (
               <>
-                <span className="spinner"></span>
+                <span className="spinner" />
                 Signing in...
               </>
             ) : (
@@ -124,34 +117,24 @@ function Login({ onSwitch, onLoginSuccess }) {
             )}
           </Button>
 
-          {feedback.message && (
+          {feedback.message ? (
             <div className={`alert alert-${feedback.type}`}>
-              <span className="alert-icon">
-                {feedback.type === 'error' ? '❌' : '✅'}
-              </span>
+              <span className="alert-icon">{feedback.type === 'error' ? 'ERR' : 'OK'}</span>
               {feedback.message}
             </div>
-          )}
+          ) : null}
         </form>
 
         <div className="auth-footer">
           <p>
             Don't have an account?{' '}
-            <button
-              type="button"
-              className="auth-link"
-              onClick={() => onSwitch('register')}
-            >
+            <button type="button" className="auth-link" onClick={() => onSwitch('register')}>
               Sign up
             </button>
           </p>
           <p>
             Admin access?{' '}
-            <button
-              type="button"
-              className="auth-link"
-              onClick={() => onSwitch('admin-login')}
-            >
+            <button type="button" className="auth-link" onClick={() => onSwitch('admin-login')}>
               Admin Login
             </button>
           </p>
@@ -161,7 +144,7 @@ function Login({ onSwitch, onLoginSuccess }) {
       <div className="auth-decoration">
         <div className="decoration-content">
           <h2>Discover Amazing Products</h2>
-          <p>Join thousands of satisfied customers shopping with us</p>
+          <p>Join thousands of customers shopping with us</p>
           <div className="decoration-stats">
             <div className="stat">
               <span className="stat-number">10K+</span>

@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Button from '../components/Button.jsx'
 import { registerUser } from '../services/authService.js'
 import { isStrongPassword, isValidEmail, isValidPhone } from '../utils/validators.js'
+import { showToast } from '../utils/toast.js'
 
 const initialState = {
   name: '',
@@ -11,13 +12,33 @@ const initialState = {
   confirmPassword: '',
 }
 
+function getPasswordStrength(password) {
+  if (!password) {
+    return ''
+  }
+
+  const criteria = [
+    password.length >= 8,
+    /[A-Z]/.test(password),
+    /[a-z]/.test(password),
+    /\d/.test(password),
+    /[@$!%*?&]/.test(password),
+  ]
+
+  const met = criteria.filter(Boolean).length
+
+  if (met < 3) return 'weak'
+  if (met < 5) return 'medium'
+  return 'strong'
+}
+
 function Register({ onSwitch }) {
   const [formData, setFormData] = useState(initialState)
   const [feedback, setFeedback] = useState({ type: '', message: '' })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
-  const [passwordStrength, setPasswordStrength] = useState('')
+  const passwordStrength = getPasswordStrength(formData.password)
 
   function handleChange(event) {
     const { name, value } = event.target
@@ -25,31 +46,6 @@ function Register({ onSwitch }) {
       ...current,
       [name]: value,
     }))
-
-    // Update password strength indicator
-    if (name === 'password') {
-      updatePasswordStrength(value)
-    }
-  }
-
-  function updatePasswordStrength(password) {
-    if (!password) {
-      setPasswordStrength('')
-      return
-    }
-
-    const hasLength = password.length >= 8
-    const hasUpper = /[A-Z]/.test(password)
-    const hasLower = /[a-z]/.test(password)
-    const hasNumber = /\d/.test(password)
-    const hasSpecial = /[@$!%*?&]/.test(password)
-
-    const criteria = [hasLength, hasUpper, hasLower, hasNumber, hasSpecial]
-    const met = criteria.filter(Boolean).length
-
-    if (met < 3) setPasswordStrength('weak')
-    else if (met < 5) setPasswordStrength('medium')
-    else setPasswordStrength('strong')
   }
 
   async function handleSubmit(event) {
@@ -57,30 +53,32 @@ function Register({ onSwitch }) {
 
     if (!formData.name.trim()) {
       setFeedback({ type: 'error', message: 'Name is required.' })
+      showToast('Name is required.', 'error')
       return
     }
 
     if (!isValidEmail(formData.email)) {
       setFeedback({ type: 'error', message: 'Enter a valid email address.' })
+      showToast('Enter a valid email address.', 'error')
       return
     }
 
     if (!isStrongPassword(formData.password)) {
-      setFeedback({
-        type: 'error',
-        message:
-          'Password must be 8+ characters and include uppercase, lowercase, number, and special character.',
-      })
+      const message = 'Password must be 8+ characters and include uppercase, lowercase, number, and special character.'
+      setFeedback({ type: 'error', message })
+      showToast(message, 'error')
       return
     }
 
     if (!isValidPhone(formData.phone)) {
       setFeedback({ type: 'error', message: 'Enter a valid phone number.' })
+      showToast('Enter a valid phone number.', 'error')
       return
     }
 
     if (formData.password !== formData.confirmPassword) {
       setFeedback({ type: 'error', message: 'Passwords do not match.' })
+      showToast('Passwords do not match.', 'error')
       return
     }
 
@@ -89,23 +87,20 @@ function Register({ onSwitch }) {
 
     try {
       const data = await registerUser({
-        name: formData.name,
-        phone: formData.phone,
-        email: formData.email,
+        name: formData.name.trim(),
+        phone: formData.phone.trim(),
+        email: formData.email.trim(),
         password: formData.password,
       })
 
-      setFeedback({
-        type: 'success',
-        message: `Account created for ${data.name || formData.name}.`,
-      })
+      const message = `Account created for ${data.name || formData.name}.`
+      setFeedback({ type: 'success', message })
+      showToast(message, 'success')
       setFormData(initialState)
-      setPasswordStrength('')
     } catch (error) {
-      setFeedback({
-        type: 'error',
-        message: error.message || 'Registration failed. Please check the backend and try again.',
-      })
+      const message = error.message || 'Registration failed. Please try again.'
+      setFeedback({ type: 'error', message })
+      showToast(message, 'error')
     } finally {
       setIsSubmitting(false)
     }
@@ -116,10 +111,10 @@ function Register({ onSwitch }) {
       <div className="auth-card">
         <div className="auth-header">
           <div className="auth-logo">
-            <div className="logo-icon">🛒</div>
+            <div className="logo-icon">R</div>
           </div>
           <h1 className="auth-title">Create Account</h1>
-          <p className="auth-subtitle">Join us and start your shopping journey</p>
+          <p className="auth-subtitle">Join us and start shopping</p>
         </div>
 
         <form className="auth-form" onSubmit={handleSubmit}>
@@ -201,22 +196,22 @@ function Register({ onSwitch }) {
               <button
                 type="button"
                 className="password-toggle"
-                onClick={() => setShowPassword(!showPassword)}
+                onClick={() => setShowPassword((current) => !current)}
                 aria-label={showPassword ? 'Hide password' : 'Show password'}
               >
-                {showPassword ? '🙈' : '👁️'}
+                {showPassword ? 'Hide' : 'Show'}
               </button>
             </div>
-            {passwordStrength && (
+            {passwordStrength ? (
               <div className={`password-strength strength-${passwordStrength}`}>
-                <span className="strength-indicator"></span>
+                <span className="strength-indicator" />
                 <span className="strength-text">
                   {passwordStrength === 'weak' && 'Weak password'}
                   {passwordStrength === 'medium' && 'Good password'}
                   {passwordStrength === 'strong' && 'Strong password'}
                 </span>
               </div>
-            )}
+            ) : null}
           </div>
 
           <div className="form-group">
@@ -238,10 +233,10 @@ function Register({ onSwitch }) {
               <button
                 type="button"
                 className="password-toggle"
-                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                onClick={() => setShowConfirmPassword((current) => !current)}
                 aria-label={showConfirmPassword ? 'Hide password' : 'Show password'}
               >
-                {showConfirmPassword ? '🙈' : '👁️'}
+                {showConfirmPassword ? 'Hide' : 'Show'}
               </button>
             </div>
           </div>
@@ -249,7 +244,7 @@ function Register({ onSwitch }) {
           <Button type="submit" disabled={isSubmitting} className="auth-submit-btn">
             {isSubmitting ? (
               <>
-                <span className="spinner"></span>
+                <span className="spinner" />
                 Creating account...
               </>
             ) : (
@@ -257,24 +252,18 @@ function Register({ onSwitch }) {
             )}
           </Button>
 
-          {feedback.message && (
+          {feedback.message ? (
             <div className={`alert alert-${feedback.type}`}>
-              <span className="alert-icon">
-                {feedback.type === 'error' ? '❌' : '✅'}
-              </span>
+              <span className="alert-icon">{feedback.type === 'error' ? 'ERR' : 'OK'}</span>
               {feedback.message}
             </div>
-          )}
+          ) : null}
         </form>
 
         <div className="auth-footer">
           <p>
             Already have an account?{' '}
-            <button
-              type="button"
-              className="auth-link"
-              onClick={() => onSwitch('login')}
-            >
+            <button type="button" className="auth-link" onClick={() => onSwitch('login')}>
               Sign in
             </button>
           </p>
@@ -284,18 +273,18 @@ function Register({ onSwitch }) {
       <div className="auth-decoration">
         <div className="decoration-content">
           <h2>Start Your Journey</h2>
-          <p>Create your account and unlock exclusive deals and offers</p>
+          <p>Create your account and unlock exclusive deals</p>
           <div className="decoration-features">
             <div className="feature">
-              <span className="feature-icon">🚚</span>
+              <span className="feature-icon">FS</span>
               <span className="feature-text">Free Shipping</span>
             </div>
             <div className="feature">
-              <span className="feature-icon">🔒</span>
+              <span className="feature-icon">SP</span>
               <span className="feature-text">Secure Payments</span>
             </div>
             <div className="feature">
-              <span className="feature-icon">🎯</span>
+              <span className="feature-icon">PD</span>
               <span className="feature-text">Personalized Deals</span>
             </div>
           </div>

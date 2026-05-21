@@ -1,59 +1,9 @@
-import { useEffect, useState } from 'react'
 import Button from '../components/Button.jsx'
 import ProductCard from '../components/ProductCard.jsx'
-import { get } from '../services/api.js'
-
-function normalizeProducts(data) {
-  if (Array.isArray(data)) {
-    return data
-  }
-
-  if (Array.isArray(data?.products)) {
-    return data.products
-  }
-
-  return []
-}
+import { useProducts } from '../hooks/useProducts.js'
 
 function ProductListing({ onBack, onShowDetails }) {
-  const [products, setProducts] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState('')
-
-  useEffect(() => {
-    let isMounted = true
-
-    async function fetchProducts() {
-      setLoading(true)
-      setError('')
-
-      try {
-        const data = await get('/products')
-
-        if (!isMounted) {
-          return
-        }
-
-        setProducts(normalizeProducts(data))
-      } catch (err) {
-        if (!isMounted) {
-          return
-        }
-
-        setError(err.message || 'Unable to load products.')
-      } finally {
-        if (isMounted) {
-          setLoading(false)
-        }
-      }
-    }
-
-    fetchProducts()
-
-    return () => {
-      isMounted = false
-    }
-  }, [])
+  const { products, loading, error } = useProducts()
 
   return (
     <main className="page-shell dashboard-shell">

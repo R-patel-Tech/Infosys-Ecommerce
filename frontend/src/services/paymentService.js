@@ -1,4 +1,5 @@
 import { post } from './api.js'
+import { getStoredUserEmail } from '../utils/session.js'
 
 let razorpayScriptPromise = null
 
@@ -21,7 +22,7 @@ function buildBrandLogoDataUri() {
 }
 
 function resolveUserEmail() {
-  return sessionStorage.getItem('userEmail') || ''
+  return getStoredUserEmail()
 }
 
 export function loadRazorpayScript() {

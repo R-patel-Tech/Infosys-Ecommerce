@@ -2,28 +2,16 @@ import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import Button from '../components/Button.jsx'
 import { formatCurrency } from '../utils/currency.js'
-
-function readSavedOrder() {
-  const savedOrder = sessionStorage.getItem('lastOrder')
-  if (!savedOrder) {
-    return null
-  }
-
-  try {
-    return JSON.parse(savedOrder)
-  } catch {
-    return null
-  }
-}
+import { readLastOrder, saveLastOrder } from '../utils/session.js'
 
 function OrderSuccess() {
   const navigate = useNavigate()
   const location = useLocation()
-  const [orderResponse] = useState(() => location.state || readSavedOrder())
+  const [orderResponse] = useState(() => location.state || readLastOrder())
 
   useEffect(() => {
     if (location.state) {
-      sessionStorage.setItem('lastOrder', JSON.stringify(location.state))
+      saveLastOrder(location.state)
     }
   }, [location.state])
 

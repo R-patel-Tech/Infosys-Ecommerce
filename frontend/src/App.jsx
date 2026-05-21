@@ -1,48 +1,39 @@
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom'
-import Login from './pages/Login.jsx'
-import Register from './pages/Register.jsx'
+import ToastHost from './components/ToastHost.jsx'
+import ProtectedRoute from './components/ProtectedRoute.jsx'
+import { useAuthSession } from './hooks/useAuthSession.js'
 import AdminLogin from './pages/AdminLogin.jsx'
-import Dashboard from './pages/Dashboard.jsx'
-import ProductAdmin from './pages/ProductAdmin.jsx'
-import ProductListing from './pages/ProductListing.jsx'
-import ProductDetails from './pages/ProductDetails.jsx'
 import Cart from './pages/Cart.jsx'
 import Checkout from './pages/Checkout.jsx'
-import OrderSuccess from './pages/OrderSuccess.jsx'
+import Dashboard from './pages/Dashboard.jsx'
+import Login from './pages/Login.jsx'
 import OrderHistory from './pages/OrderHistory.jsx'
+import OrderSuccess from './pages/OrderSuccess.jsx'
+import ProductAdmin from './pages/ProductAdmin.jsx'
+import ProductDetails from './pages/ProductDetails.jsx'
+import ProductListing from './pages/ProductListing.jsx'
 import Profile from './pages/Profile.jsx'
-import ProtectedRoute from './components/ProtectedRoute.jsx'
-import { isAuthenticated, logout as clearAuth } from './services/authService.js'
-import { logoutUser } from './services/userService.js'
-import { getStoredUserId } from './services/cartService.js'
-import ToastHost from './components/ToastHost.jsx'
+import Register from './pages/Register.jsx'
 import { showToast } from './utils/toast.js'
-
-function isAdminAuthenticated() {
-  return sessionStorage.getItem('adminAuth') === 'true'
-}
+import { getStoredUserId, isAdminAuthenticated, setAdminAuthenticated } from './utils/session.js'
 
 function App() {
   const navigate = useNavigate()
+  const authSession = useAuthSession()
 
   function handleLoginSuccess() {
-    sessionStorage.removeItem('adminAuth')
+    setAdminAuthenticated(false)
     navigate('/dashboard', { replace: true })
   }
 
   function handleAdminLoginSuccess() {
-    sessionStorage.setItem('adminAuth', 'true')
+    setAdminAuthenticated(true)
     navigate('/admin-dashboard', { replace: true })
   }
 
   async function handleLogout() {
-    try {
-      await logoutUser()
-    } finally {
-      clearAuth()
-      sessionStorage.removeItem('adminAuth')
-      navigate('/login', { replace: true })
-    }
+    await authSession.logout()
+    navigate('/login', { replace: true })
   }
 
   function handleShowProducts() {
@@ -80,7 +71,7 @@ function App() {
   }
 
   function redirectAfterAuth() {
-    return <Navigate to={isAuthenticated() ? '/dashboard' : '/login'} replace />
+    return <Navigate to={authSession.isAuthenticated() ? '/dashboard' : '/login'} replace />
   }
 
   return (
@@ -97,10 +88,7 @@ function App() {
             />
           }
         />
-        <Route
-          path="/register"
-          element={<Register onSwitch={(nextPage) => navigate(`/${nextPage}`)} />}
-        />
+        <Route path="/register" element={<Register onSwitch={(nextPage) => navigate(`/${nextPage}`)} />} />
         <Route
           path="/admin-login"
           element={
@@ -116,7 +104,7 @@ function App() {
             isAdminAuthenticated() ? (
               <ProductAdmin
                 onBack={() => {
-                  sessionStorage.removeItem('adminAuth')
+                  setAdminAuthenticated(false)
                   navigate('/admin-login', { replace: true })
                 }}
               />
@@ -158,7 +146,14 @@ function App() {
             </ProtectedRoute>
           }
         />
-        <Route path="/cart" element={<Cart onBack={() => navigate('/dashboard')} />} />
+        <Route
+          path="/cart"
+          element={
+            <ProtectedRoute onRequireAuth={() => navigate('/login', { replace: true })}>
+              <Cart onBack={() => navigate('/dashboard')} />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="/checkout"
           element={
@@ -191,7 +186,7 @@ function App() {
             </ProtectedRoute>
           }
         />
-        <Route path="*" element={<Navigate to={isAuthenticated() ? '/dashboard' : '/login'} replace />} />
+        <Route path="*" element={<Navigate to={authSession.isAuthenticated() ? '/dashboard' : '/login'} replace />} />
       </Routes>
     </>
   )

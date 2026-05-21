@@ -8,9 +8,7 @@ import com.ecommerce.dto.UserProfileResponse;
 import com.ecommerce.entity.User;
 import com.ecommerce.service.UserService;
 import jakarta.validation.Valid;
-import java.security.Principal;
 import java.util.Map;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,8 +29,8 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public User registerUser(@Valid @RequestBody User user) {
-        return userService.registerUser(user);
+    public ResponseEntity<ApiResponse<UserProfileResponse>> registerUser(@Valid @RequestBody User user) {
+        return ResponseEntity.ok(ApiResponse.success("Registration successful.", userService.registerUser(user)));
     }
 
     @PostMapping("/login")
@@ -41,8 +39,8 @@ public class UserController {
     }
 
     @GetMapping("/dashboard")
-    public String dashboard() {
-        return "Protected API Accessed!";
+    public ResponseEntity<ApiResponse<String>> dashboard() {
+        return ResponseEntity.ok(ApiResponse.success("Protected API accessed.", "Protected API Accessed!"));
     }
 
     @GetMapping("/me")

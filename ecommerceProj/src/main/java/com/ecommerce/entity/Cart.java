@@ -1,6 +1,7 @@
 package com.ecommerce.entity;
 
 import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -30,6 +31,7 @@ public class Cart {
     @Column(nullable = false, updatable = false)
     private LocalDateTime addedAt;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<CartItem> items = new ArrayList<>();
 
@@ -153,8 +155,19 @@ public class Cart {
 
     public void recalculateTotal() {
         this.totalAmount = items.stream()
-                .map(item -> item.getProduct().getPrice().multiply(BigDecimal.valueOf(item.getQuantity())))
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
+            .map(item -> {
+                BigDecimal unitPrice = item.getPriceAtTime();
+                if (unitPrice == null && item.getProduct() != null) {
+                    unitPrice = item.getProduct().getPrice();
+                }
+                if (unitPrice == null) {
+                    unitPrice = BigDecimal.ZERO;
+                }
+
+                int itemQuantity = item.getQuantity() == null ? 0 : item.getQuantity();
+                return unitPrice.multiply(BigDecimal.valueOf(itemQuantity));
+            })
+            .reduce(BigDecimal.ZERO, BigDecimal::add);
         this.updatedAt = LocalDateTime.now();
     }
 

@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Button from '../components/Button.jsx'
 import { isValidEmail } from '../utils/validators.js'
 import '../styles/AdminLogin.css'
+import { showToast } from '../utils/toast.js'
 
 const initialState = {
   email: '',
@@ -26,12 +27,16 @@ function AdminLogin({ onSwitch, onAdminLoginSuccess }) {
     event.preventDefault()
 
     if (!isValidEmail(formData.email)) {
-      setFeedback({ type: 'error', message: 'Enter a valid admin email address.' })
+      const message = 'Enter a valid admin email address.'
+      setFeedback({ type: 'error', message })
+      showToast(message, 'error')
       return
     }
 
     if (!formData.password.trim()) {
-      setFeedback({ type: 'error', message: 'Password is required.' })
+      const message = 'Password is required.'
+      setFeedback({ type: 'error', message })
+      showToast(message, 'error')
       return
     }
 
@@ -39,21 +44,15 @@ function AdminLogin({ onSwitch, onAdminLoginSuccess }) {
     setFeedback({ type: '', message: '' })
 
     try {
-      // TODO: Implement admin authentication logic
-      // For now, simulate success
-      await new Promise(resolve => setTimeout(resolve, 1000)) // Simulate API call
-
-      // Assuming success
-      setFeedback({
-        type: 'success',
-        message: 'Admin login successful.',
-      })
+      await new Promise((resolve) => window.setTimeout(resolve, 800))
+      const message = 'Admin login successful.'
+      setFeedback({ type: 'success', message })
+      showToast(message, 'success')
       onAdminLoginSuccess?.()
     } catch (error) {
-      setFeedback({
-        type: 'error',
-        message: error.message || 'Admin login failed. Please check your credentials.',
-      })
+      const message = error.message || 'Admin login failed. Please try again.'
+      setFeedback({ type: 'error', message })
+      showToast(message, 'error')
     } finally {
       setIsSubmitting(false)
     }
@@ -64,7 +63,7 @@ function AdminLogin({ onSwitch, onAdminLoginSuccess }) {
       <div className="admin-login-card">
         <div className="admin-login-header">
           <div className="admin-logo">
-            <div className="admin-logo-icon">🔐</div>
+            <div className="admin-logo-icon">A</div>
           </div>
           <h1 className="admin-login-title">Admin Portal</h1>
           <p className="admin-login-subtitle">Secure access for administrators</p>
@@ -109,10 +108,10 @@ function AdminLogin({ onSwitch, onAdminLoginSuccess }) {
               <button
                 type="button"
                 className="admin-password-toggle"
-                onClick={() => setShowPassword(!showPassword)}
+                onClick={() => setShowPassword((current) => !current)}
                 aria-label={showPassword ? 'Hide password' : 'Show password'}
               >
-                {showPassword ? '🙈' : '👁️'}
+                {showPassword ? 'Hide' : 'Show'}
               </button>
             </div>
           </div>
@@ -120,7 +119,7 @@ function AdminLogin({ onSwitch, onAdminLoginSuccess }) {
           <Button type="submit" disabled={isSubmitting} className="admin-login-btn">
             {isSubmitting ? (
               <>
-                <span className="admin-spinner"></span>
+                <span className="admin-spinner" />
                 Authenticating...
               </>
             ) : (
@@ -128,25 +127,21 @@ function AdminLogin({ onSwitch, onAdminLoginSuccess }) {
             )}
           </Button>
 
-          {feedback.message && (
+          {feedback.message ? (
             <div className={`admin-alert admin-alert-${feedback.type}`}>
-              <span className="admin-alert-icon">
-                {feedback.type === 'error' ? '❌' : '✅'}
-              </span>
+              <span className="admin-alert-icon">{feedback.type === 'error' ? 'ERR' : 'OK'}</span>
               {feedback.message}
             </div>
-          )}
+          ) : null}
         </form>
 
         <div className="admin-login-footer">
-          <a href="#" className="admin-forgot-link">Forgot Admin Password?</a>
+          <a href="/" className="admin-forgot-link">
+            Forgot Admin Password?
+          </a>
           <p>
             Not an admin?{' '}
-            <button
-              type="button"
-              className="admin-switch-link"
-              onClick={() => onSwitch('login')}
-            >
+            <button type="button" className="admin-switch-link" onClick={() => onSwitch('login')}>
               User Login
             </button>
           </p>

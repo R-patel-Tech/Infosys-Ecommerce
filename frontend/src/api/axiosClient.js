@@ -1,16 +1,16 @@
 import axios from 'axios'
 import { API_BASE_URL } from '../config.js'
-import { getAuthToken } from '../services/authService.js'
+import { getAuthToken, clearAuthSession } from '../utils/session.js'
+import { isJwtExpired } from '../utils/jwt.js'
 
-function clearAuthSession() {
-  localStorage.removeItem('authToken')
-  localStorage.removeItem('userId')
-  localStorage.removeItem('userEmail')
-  localStorage.removeItem('adminAuth')
-  sessionStorage.removeItem('authToken')
-  sessionStorage.removeItem('userId')
-  sessionStorage.removeItem('userEmail')
-  sessionStorage.removeItem('adminAuth')
+function redirectToLogin() {
+  if (typeof window === 'undefined') {
+    return
+  }
+
+  if (window.location.pathname !== '/login') {
+    window.location.replace('/login')
+  }
 }
 
 const axiosClient = axios.create({
@@ -26,6 +26,12 @@ axiosClient.interceptors.request.use((config) => {
   const token = getAuthToken()
 
   if (token) {
+    if (isJwtExpired(token)) {
+      clearAuthSession()
+      redirectToLogin()
+      return Promise.reject(new Error('Your session has expired. Please sign in again.'))
+    }
+
     config.headers = config.headers || {}
     config.headers.Authorization = `Bearer ${token}`
   }
@@ -42,9 +48,9 @@ axiosClient.interceptors.response.use(
       error?.message ||
       'Request failed. Please try again.'
 
-    if (error?.response?.status === 401 && typeof window !== 'undefined' && window.location.pathname !== '/login') {
+    if (error?.response?.status === 401) {
       clearAuthSession()
-      window.location.replace('/login')
+      redirectToLogin()
     }
 
     const requestError = new Error(message)

@@ -1,99 +1,30 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Button from '../components/Button.jsx'
-import {
-  clearCart,
-  fetchCartForUser,
-  getStoredUserId,
-  removeCartItem,
-  resolveCartItemId,
-  resolveProductId,
-  updateCartQuantity,
-} from '../services/cartService.js'
+import { useCart } from '../hooks/useCart.js'
+import { getStoredUserId } from '../utils/session.js'
 import { formatCurrency } from '../utils/currency.js'
 import { getProductImage } from '../utils/productImage.js'
 import { showToast } from '../utils/toast.js'
 
-function calculateTotals(items) {
-  return items.reduce(
-    (accumulator, item) => {
-      const quantity = Number(item.quantity || 0)
-      const unitPrice = Number(item.priceAtTime ?? item.product?.price ?? 0)
-      const subtotal = Number.isFinite(Number(item.subtotal)) ? Number(item.subtotal) : unitPrice * quantity
-
-      accumulator.totalQuantity += quantity
-      accumulator.totalAmount += subtotal
-      return accumulator
-    },
-    { totalAmount: 0, totalQuantity: 0 }
-  )
-}
-
-function getCartItemId(item) {
-  return item?.cartItemId ?? item?.cartId ?? item?.id ?? ''
-}
-
 function Cart({ onBack }) {
   const navigate = useNavigate()
-  const [cart, setCart] = useState({ items: [], totalAmount: 0, totalQuantity: 0 })
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState('')
+  const userId = getStoredUserId()
+  const {
+    cart,
+    loading,
+    error,
+    loadCart,
+    clearUserCart,
+    setItemQuantity,
+    deleteItem,
+    setLoading,
+    setError,
+  } = useCart(userId)
   const [actionMessage, setActionMessage] = useState('')
   const [actionError, setActionError] = useState('')
   const [updatingId, setUpdatingId] = useState(null)
   const [removingId, setRemovingId] = useState(null)
-  const userId = getStoredUserId()
-
-  const totals = calculateTotals(cart.items)
-  const displayTotalAmount = Number.isFinite(Number(cart.totalAmount))
-    ? Number(cart.totalAmount)
-    : totals.totalAmount
-  const displayTotalQuantity = Number.isFinite(Number(cart.totalQuantity))
-    ? Number(cart.totalQuantity)
-    : totals.totalQuantity
-
-  async function loadCart() {
-    if (!userId) {
-      setLoading(false)
-      setCart({ items: [], totalAmount: 0, totalQuantity: 0 })
-      setError('')
-      setActionError('')
-      return
-    }
-
-    setLoading(true)
-    setError('')
-    setActionMessage('')
-    setActionError('')
-
-    try {
-      const nextCart = await fetchCartForUser(userId)
-      setCart(nextCart)
-    } catch (requestError) {
-      const message = requestError?.message || 'Unable to load cart.'
-      setError(message)
-      showToast(message, 'error')
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  useEffect(() => {
-    void loadCart()
-  }, [userId])
-
-  useEffect(() => {
-    if (!actionMessage && !actionError) {
-      return undefined
-    }
-
-    const timeout = window.setTimeout(() => {
-      setActionMessage('')
-      setActionError('')
-    }, 2400)
-
-    return () => window.clearTimeout(timeout)
-  }, [actionMessage, actionError])
 
   function handleLoginClick() {
     navigate('/login')
@@ -115,8 +46,7 @@ function Cart({ onBack }) {
     setActionError('')
 
     try {
-      await clearCart(userId)
-      await loadCart()
+      await clearUserCart()
       showToast('Cart cleared successfully', 'success')
     } catch (requestError) {
       const message = requestError?.message || 'Unable to clear cart.'
@@ -142,11 +72,7 @@ function Cart({ onBack }) {
   }
 
   async function updateQuantity(cartItem, nextQuantity) {
-    const latestCart = await fetchCartForUser(userId)
-    const cartItemId = resolveCartItemId(
-      latestCart.items.find((item) => resolveProductId(item) === resolveProductId(cartItem)) || cartItem
-    )
-
+    const cartItemId = cartItem?.cartItemId ?? cartItem?.cartId ?? cartItem?.id ?? ''
     if (!cartItemId || nextQuantity < 1) {
       return
     }
@@ -157,12 +83,7 @@ function Cart({ onBack }) {
     setActionError('')
 
     try {
-      await updateCartQuantity({
-        cartItemId,
-        quantity: nextQuantity,
-      })
-
-      await loadCart()
+      await setItemQuantity(cartItem, nextQuantity)
       setActionMessage('Cart updated successfully.')
       showToast('Cart updated successfully', 'success')
     } catch (requestError) {
@@ -175,10 +96,7 @@ function Cart({ onBack }) {
   }
 
   async function removeItem(cartItem) {
-    const latestCart = await fetchCartForUser(userId)
-    const cartItemId = resolveCartItemId(
-      latestCart.items.find((item) => resolveProductId(item) === resolveProductId(cartItem)) || cartItem
-    )
+    const cartItemId = cartItem?.cartItemId ?? cartItem?.cartId ?? cartItem?.id ?? ''
     if (!cartItemId) {
       return
     }
@@ -189,8 +107,7 @@ function Cart({ onBack }) {
     setActionError('')
 
     try {
-      await removeCartItem(cartItemId)
-      await loadCart()
+      await deleteItem(cartItem)
       setActionMessage('Cart item removed successfully.')
       showToast('Cart item removed successfully', 'success')
     } catch (requestError) {
@@ -243,7 +160,7 @@ function Cart({ onBack }) {
           <div className="cart-layout">
             <div className="cart-items">
               {cart.items.map((item, index) => {
-                const itemId = getCartItemId(item)
+                const itemId = item.cartItemId ?? item.cartId ?? item.id ?? ''
                 const key = itemId || `${item.product?.productId ?? 'item'}-${index}`
                 const product = item.product || {}
                 const imageSrc = getProductImage(product)
@@ -315,11 +232,11 @@ function Cart({ onBack }) {
               <h2>Order Summary</h2>
               <div className="cart-summary-row">
                 <span>Subtotal</span>
-                <strong>{formatCurrency(displayTotalAmount)}</strong>
+                <strong>{formatCurrency(cart.totalAmount)}</strong>
               </div>
               <div className="cart-summary-row">
                 <span>Total quantity</span>
-                <strong>{displayTotalQuantity}</strong>
+                <strong>{cart.totalQuantity}</strong>
               </div>
               <div className="cart-summary-row cart-checkout-row">
                 <Button type="button" variant="secondary" onClick={handleClearCart} disabled={loading}>

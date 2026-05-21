@@ -1,25 +1,11 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Button from '../components/Button.jsx'
 import Navbar from '../components/Navbar.jsx'
 import ProductCard from '../components/ProductCard.jsx'
-import { get } from '../services/api.js'
-
-function normalizeProducts(data) {
-  if (Array.isArray(data)) {
-    return data
-  }
-
-  if (Array.isArray(data?.products)) {
-    return data.products
-  }
-
-  return []
-}
+import { useProducts } from '../hooks/useProducts.js'
 
 function Dashboard({ onLogout, onShowProducts, onShowCart, onShowOrders, onShowProfile }) {
-  const [products, setProducts] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState('')
+  const { products, loading, error } = useProducts()
   const [menuOpen, setMenuOpen] = useState(false)
   const totalProducts = products.length
   const totalCategories = new Set(products.map((product) => product.category?.trim()).filter(Boolean)).size
@@ -28,60 +14,35 @@ function Dashboard({ onLogout, onShowProducts, onShowCart, onShowOrders, onShowP
     return Number.isFinite(stock) && stock <= 5
   }).length
 
-  useEffect(() => {
-    async function fetchProducts() {
-      setLoading(true)
-      setError('')
-      try {
-        const data = await get('/products')
-        setProducts(normalizeProducts(data))
-      } catch (err) {
-        setError(err.message || 'Unable to load products.')
-      } finally {
-        setLoading(false)
-      }
+  const handleNavigation = (handler) => {
+    closeMenu()
+    if (typeof handler === 'function') {
+      handler()
     }
-
-    fetchProducts()
-  }, [])
+  }
 
   function closeMenu() {
     setMenuOpen(false)
   }
 
   function handleShowProducts() {
-    closeMenu()
-    if (typeof onShowProducts === 'function') {
-      onShowProducts()
-    }
+    handleNavigation(onShowProducts)
   }
 
   function handleShowCart() {
-    closeMenu()
-    if (typeof onShowCart === 'function') {
-      onShowCart()
-    }
+    handleNavigation(onShowCart)
   }
 
   function handleShowOrders() {
-    closeMenu()
-    if (typeof onShowOrders === 'function') {
-      onShowOrders()
-    }
+    handleNavigation(onShowOrders)
   }
 
   function handleShowProfile() {
-    closeMenu()
-    if (typeof onShowProfile === 'function') {
-      onShowProfile()
-    }
+    handleNavigation(onShowProfile)
   }
 
   function handleLogout() {
-    closeMenu()
-    if (typeof onLogout === 'function') {
-      onLogout()
-    }
+    handleNavigation(onLogout)
   }
 
   return (
@@ -113,14 +74,14 @@ function Dashboard({ onLogout, onShowProducts, onShowCart, onShowOrders, onShowP
             <Button type="button" onClick={handleShowProducts}>
               Browse Products
             </Button>
-          <Button type="button" variant="secondary" onClick={handleShowCart}>
-            View Cart
-          </Button>
-          <Button type="button" variant="secondary" onClick={handleShowOrders}>
-            Order History
-          </Button>
-        </div>
-      </section>
+            <Button type="button" variant="secondary" onClick={handleShowCart}>
+              View Cart
+            </Button>
+            <Button type="button" variant="secondary" onClick={handleShowOrders}>
+              Order History
+            </Button>
+          </div>
+        </section>
 
         <section className="dashboard-metrics" aria-label="Store metrics">
           <article className="dashboard-metric-card">
@@ -175,10 +136,7 @@ function Dashboard({ onLogout, onShowProducts, onShowCart, onShowOrders, onShowP
               <div className="product-grid">
                 {products.map((product, index) => {
                   const key = product.productId ?? product.id ?? `${product.name ?? 'product'}-${index}`
-
-                  return (
-                    <ProductCard key={key} product={product} />
-                  )
+                  return <ProductCard key={key} product={product} />
                 })}
               </div>
             )}

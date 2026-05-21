@@ -1,7 +1,9 @@
-import { isAuthenticated } from '../services/authService.js'
+import { useAuthSession } from '../hooks/useAuthSession.js'
 
 function ProtectedRoute({ children, onRequireAuth }) {
-  if (!isAuthenticated()) {
+  const authSession = useAuthSession()
+
+  if (!authSession.isAuthenticated()) {
     onRequireAuth()
     return null
   }

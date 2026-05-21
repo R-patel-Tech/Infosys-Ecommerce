@@ -1,16 +1,17 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Button from '../components/Button.jsx'
-import { checkoutCart, fetchCartForUser, getStoredUserId } from '../services/cartService.js'
+import { checkoutCart } from '../services/cartService.js'
 import { initiatePayment } from '../services/paymentService.js'
 import { formatCurrency } from '../utils/currency.js'
+import { getStoredUserEmail, getStoredUserId, saveLastOrder } from '../utils/session.js'
 import { showToast } from '../utils/toast.js'
+import { useCart } from '../hooks/useCart.js'
 
 function Checkout({ onBack }) {
   const navigate = useNavigate()
   const userId = getStoredUserId()
-  const [cart, setCart] = useState({ items: [], totalAmount: 0, totalQuantity: 0 })
-  const [cartLoading, setCartLoading] = useState(true)
+  const { cart, loading: cartLoading } = useCart(userId)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [fieldErrors, setFieldErrors] = useState({})
@@ -23,42 +24,6 @@ function Checkout({ onBack }) {
     pincode: '',
     paymentMethod: 'COD',
   })
-
-  function normalizeCart(data) {
-    if (!data || typeof data !== 'object') {
-      return { items: [], totalAmount: 0, totalQuantity: 0 }
-    }
-
-    const items = Array.isArray(data.items) ? data.items : []
-    return {
-      items,
-      totalAmount: Number(data.totalAmount ?? 0) || 0,
-      totalQuantity: Number(data.totalQuantity ?? 0) || 0,
-    }
-  }
-
-  useEffect(() => {
-    async function loadCart() {
-      if (!userId) {
-        setCartLoading(false)
-        return
-      }
-
-      setCartLoading(true)
-      try {
-        const nextCart = await fetchCartForUser(userId)
-        setCart(normalizeCart(nextCart))
-      } catch (requestError) {
-        const nextMessage = requestError?.message || 'Unable to load cart summary.'
-        setError(nextMessage)
-        showToast(nextMessage, 'error')
-      } finally {
-        setCartLoading(false)
-      }
-    }
-
-    void loadCart()
-  }, [userId])
 
   function handleBack() {
     if (typeof onBack === 'function') {
@@ -129,7 +94,7 @@ function Checkout({ onBack }) {
       }
 
       if (form.paymentMethod === 'COD') {
-        sessionStorage.setItem('lastOrder', JSON.stringify(response))
+        saveLastOrder(response)
         navigate('/order-success', {
           state: response,
           replace: true,
@@ -141,12 +106,12 @@ function Checkout({ onBack }) {
           checkoutOrder: payment,
           customer: {
             name: form.name,
-            email: sessionStorage.getItem('userEmail') || '',
+            email: getStoredUserEmail(),
             phone: form.phone,
           },
         })
 
-        sessionStorage.setItem('lastOrder', JSON.stringify(verification))
+        saveLastOrder(verification)
         navigate('/order-success', {
           state: verification,
           replace: true,

@@ -1,25 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Button from '../components/Button.jsx'
 import OrderDetailsModal from '../components/OrderDetailsModal.jsx'
-import { getUserOrders, getStoredLastOrderHistory } from '../services/orderService.js'
 import { formatCurrency } from '../utils/currency.js'
-
-function formatOrderDate(value) {
-  if (!value) {
-    return 'Date unavailable'
-  }
-
-  const date = new Date(value)
-  if (Number.isNaN(date.getTime())) {
-    return 'Date unavailable'
-  }
-
-  return new Intl.DateTimeFormat('en-IN', {
-    dateStyle: 'medium',
-    timeStyle: 'short',
-  }).format(date)
-}
+import { useOrders } from '../hooks/useOrders.js'
+import { formatDateTime } from '../utils/date.js'
 
 function getStatusClass(status) {
   const normalized = String(status || '').toLowerCase()
@@ -37,61 +22,8 @@ function getStatusClass(status) {
 
 function OrderHistory() {
   const navigate = useNavigate()
-  const [orders, setOrders] = useState([])
+  const { orders, loading, error } = useOrders()
   const [selectedOrder, setSelectedOrder] = useState(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState('')
-
-  useEffect(() => {
-    let isMounted = true
-
-    async function loadOrders() {
-      setLoading(true)
-      setError('')
-
-      try {
-        const data = await getUserOrders()
-        const sorted = [...data].sort((left, right) => {
-          const leftTime = new Date(left.orderDate || 0).getTime()
-          const rightTime = new Date(right.orderDate || 0).getTime()
-          return rightTime - leftTime
-        })
-
-        if (!isMounted) {
-          return
-        }
-
-        if (sorted.length > 0) {
-          setOrders(sorted)
-        } else {
-          setOrders(getStoredLastOrderHistory())
-        }
-      } catch (err) {
-        if (!isMounted) {
-          return
-        }
-
-        const fallbackOrders = getStoredLastOrderHistory()
-
-        if (fallbackOrders.length > 0) {
-          setOrders(fallbackOrders)
-          setError('')
-        } else {
-          setError(err.message || 'Unable to load your orders.')
-        }
-      } finally {
-        if (isMounted) {
-          setLoading(false)
-        }
-      }
-    }
-
-    loadOrders()
-
-    return () => {
-      isMounted = false
-    }
-  }, [])
 
   return (
     <main className="page-shell dashboard-shell">
@@ -140,7 +72,7 @@ function OrderHistory() {
                 {orders.map((order) => (
                   <tr key={order.orderId}>
                     <td>#{order.orderId}</td>
-                    <td>{formatOrderDate(order.orderDate)}</td>
+                    <td>{formatDateTime(order.orderDate)}</td>
                     <td>{formatCurrency(order.totalAmount)}</td>
                     <td>
                       <span className={getStatusClass(order.status)}>

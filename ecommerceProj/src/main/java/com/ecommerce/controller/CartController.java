@@ -1,22 +1,36 @@
 package com.ecommerce.controller;
 
-import com.ecommerce.entity.CartItem;
+import com.ecommerce.dto.AddToCartRequest;
+import com.ecommerce.dto.ApiResponse;
+import com.ecommerce.dto.UpdateCartRequest;
 import com.ecommerce.service.CartService;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/cart")
-@CrossOrigin(origins = "*", allowedHeaders = "*", methods = {
-    RequestMethod.GET,
-    RequestMethod.POST,
-    RequestMethod.PUT,
-    RequestMethod.DELETE,
-    RequestMethod.OPTIONS
-})
+@CrossOrigin(
+    origins = "*",
+    allowedHeaders = "*",
+    methods = {
+        RequestMethod.GET,
+        RequestMethod.POST,
+        RequestMethod.PUT,
+        RequestMethod.DELETE,
+        RequestMethod.OPTIONS
+    }
+)
 public class CartController {
 
     private final CartService cartService;
@@ -26,14 +40,9 @@ public class CartController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<String> addToCart(@Valid @RequestBody AddToCartRequest request) {
-        cartService.addToCart(
-            request.getUserId(),
-            request.getProductId(),
-            request.getQuantity()
-        );
-
-        return ResponseEntity.ok("Item added to cart");
+    public ResponseEntity<ApiResponse<String>> addToCart(@Valid @RequestBody AddToCartRequest request) {
+        cartService.addToCart(request.getUserId(), request.getProductId(), request.getQuantity());
+        return ResponseEntity.ok(ApiResponse.success("Item added to cart", "Item added to cart"));
     }
 
     @GetMapping("/{userId}")
@@ -47,82 +56,20 @@ public class CartController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<String> updateCart(@Valid @RequestBody UpdateCartRequest request) {
+    public ResponseEntity<ApiResponse<String>> updateCart(@Valid @RequestBody UpdateCartRequest request) {
         cartService.updateCartItemQuantity(request.getCartId(), request.getQuantity());
-        return ResponseEntity.ok("Cart updated successfully");
+        return ResponseEntity.ok(ApiResponse.success("Cart updated successfully", "Cart updated successfully"));
     }
 
     @DeleteMapping("/remove/{cartId}")
-    public ResponseEntity<String> removeFromCart(@PathVariable Integer cartId) {
+    public ResponseEntity<ApiResponse<String>> removeFromCart(@PathVariable Integer cartId) {
         cartService.removeCartItem(cartId);
-        return ResponseEntity.ok("Cart item removed successfully");
+        return ResponseEntity.ok(ApiResponse.success("Cart item removed successfully", "Cart item removed successfully"));
     }
 
     @DeleteMapping("/clear/{userId}")
-    public ResponseEntity<String> clearCart(@PathVariable Integer userId) {
+    public ResponseEntity<ApiResponse<String>> clearCart(@PathVariable Integer userId) {
         cartService.clearCart(userId);
-        return ResponseEntity.ok("Cart cleared");
+        return ResponseEntity.ok(ApiResponse.success("Cart cleared", "Cart cleared"));
     }
-
-    public static class AddToCartRequest {
-        @NotNull(message = "User ID is required")
-        private Integer userId;
-
-        @NotNull(message = "Product ID is required")
-        private Integer productId;
-
-        @NotNull(message = "Quantity is required")
-        @Min(value = 1, message = "Quantity must be at least 1")
-        private Integer quantity;
-
-        public Integer getProductId() {
-            return productId;
-        }
-
-        public void setProductId(Integer productId) {
-            this.productId = productId;
-        }
-
-        public Integer getUserId() {
-            return userId;
-        }
-
-        public void setUserId(Integer userId) {
-            this.userId = userId;
-        }
-
-        public Integer getQuantity() {
-            return quantity;
-        }
-
-        public void setQuantity(Integer quantity) {
-            this.quantity = quantity;
-        }
-    }
-
-    public static class UpdateCartRequest {
-        @NotNull(message = "Cart ID is required")
-        private Integer cartId;
-
-        @NotNull(message = "Quantity is required")
-        @Min(value = 1, message = "Quantity must be at least 1")
-        private Integer quantity;
-
-        public Integer getCartId() {
-            return cartId;
-        }
-
-        public void setCartId(Integer cartId) {
-            this.cartId = cartId;
-        }
-
-        public Integer getQuantity() {
-            return quantity;
-        }
-
-        public void setQuantity(Integer quantity) {
-            this.quantity = quantity;
-        }
-    }
-
 }

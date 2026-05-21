@@ -33,13 +33,9 @@ class CartControllerIntegrationTest {
                     "productId", 1,
                     "quantity", 1
                 ))))
-            .andDo(result -> System.out.println("ADD STATUS=" + result.getResponse().getStatus()))
-            .andDo(result -> System.out.println("ADD BODY=" + result.getResponse().getContentAsString()))
             .andExpect(status().isOk());
 
         mockMvc.perform(get("/api/cart/1"))
-            .andDo(result -> System.out.println("GET STATUS=" + result.getResponse().getStatus()))
-            .andDo(result -> System.out.println("GET BODY=" + result.getResponse().getContentAsString()))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.items").isArray());
     }

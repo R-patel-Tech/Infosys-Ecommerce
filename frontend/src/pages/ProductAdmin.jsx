@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Button from '../components/Button.jsx'
-import { del, get, post, put } from '../services/api.js'
+import { del, post, put } from '../services/api.js'
 import { formatCurrency } from '../utils/currency.js'
 import { getProductImage } from '../utils/productImage.js'
+import { useProducts } from '../hooks/useProducts.js'
 
 const initialFormState = {
   name: '',
@@ -11,18 +12,6 @@ const initialFormState = {
   category: '',
   imageUrl: '',
   stockQuantity: '',
-}
-
-function normalizeProducts(data) {
-  if (Array.isArray(data)) {
-    return data
-  }
-
-  if (Array.isArray(data?.products)) {
-    return data.products
-  }
-
-  return []
 }
 
 function formatShortNumber(value) {
@@ -58,33 +47,13 @@ function getInventoryStats(products) {
 }
 
 function ProductAdmin({ onBack }) {
-  const [products, setProducts] = useState([])
+  const { products, loading, error, setProducts, loadProducts, setError } = useProducts()
   const [formData, setFormData] = useState(initialFormState)
-  const [loading, setLoading] = useState(true)
   const [submitting, setSubmitting] = useState(false)
-  const [error, setError] = useState('')
   const [feedback, setFeedback] = useState('')
   const [editingProduct, setEditingProduct] = useState(null)
   const [clearingAll, setClearingAll] = useState(false)
   const stats = getInventoryStats(products)
-
-  async function loadProducts() {
-    setLoading(true)
-    setError('')
-
-    try {
-      const data = await get('/products')
-      setProducts(normalizeProducts(data))
-    } catch (err) {
-      setError(err.message || 'Unable to load products.')
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  useEffect(() => {
-    loadProducts()
-  }, [])
 
   function handleChange(event) {
     const { name, value } = event.target
@@ -233,7 +202,7 @@ function ProductAdmin({ onBack }) {
       setProducts((current) => current.filter((product) => (product.productId ?? product.id) !== productId))
       setFeedback('Product deleted successfully.')
     } catch (err) {
-      setError('Unable to delete product.')
+      setError(err.message || 'Unable to delete product.')
     }
   }
 
@@ -252,7 +221,7 @@ function ProductAdmin({ onBack }) {
       setProducts([])
       setFeedback('All products cleared successfully.')
     } catch (err) {
-      setError('Unable to clear all products.')
+      setError(err.message || 'Unable to clear all products.')
     } finally {
       setClearingAll(false)
     }

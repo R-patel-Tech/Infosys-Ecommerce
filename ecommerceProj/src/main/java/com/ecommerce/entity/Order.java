@@ -155,7 +155,7 @@ public class Order {
 
     public void recalculateTotalAmount() {
         this.totalAmount = orderItems.stream()
-            .map(OrderItem::getSubtotal)
+            .map(item -> item.getSubtotal() == null ? BigDecimal.ZERO : item.getSubtotal())
             .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 

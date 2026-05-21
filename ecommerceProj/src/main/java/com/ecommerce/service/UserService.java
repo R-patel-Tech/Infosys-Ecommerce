@@ -46,14 +46,15 @@ public class UserService {
         }
     }
 
-    public User registerUser(User user) {
+    public UserProfileResponse registerUser(User user) {
         Optional<User> existingUser = userRepository.findByEmail(user.getEmail());
         if (existingUser.isPresent()) {
             throw new IllegalArgumentException("Email already registered");
         }
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepository.save(user);
+        User savedUser = userRepository.save(user);
+        return toProfileResponse(savedUser);
     }
 
     public Map<String, Object> loginUser(String email, String password) {

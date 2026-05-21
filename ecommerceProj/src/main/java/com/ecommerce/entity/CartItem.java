@@ -39,7 +39,7 @@ public class CartItem {
         this.cart = cart;
         this.product = product;
         this.quantity = quantity;
-        this.priceAtTime = product.getPrice();
+        this.priceAtTime = product == null ? BigDecimal.ZERO : product.getPrice();
     }
 
     public Integer getCartItemId() {
@@ -87,6 +87,8 @@ public class CartItem {
 
     // Helper method to calculate subtotal
     public BigDecimal getSubtotal() {
-        return priceAtTime.multiply(BigDecimal.valueOf(quantity));
+        BigDecimal unitPrice = priceAtTime == null ? BigDecimal.ZERO : priceAtTime;
+        int itemQuantity = quantity == null ? 0 : quantity;
+        return unitPrice.multiply(BigDecimal.valueOf(itemQuantity));
     }
 }

@@ -38,34 +38,6 @@ public class CartService {
         this.productRepository = productRepository;
     }
 
-    public Cart createCart(Cart cart) {
-        return cartRepository.save(cart);
-    }
-
-    public Cart getCartById(Integer cartId) {
-        return cartRepository.findById(cartId)
-                .orElseThrow(() -> new IllegalArgumentException("Cart not found"));
-    }
-
-    public List<Cart> getAllCarts() {
-        return cartRepository.findAll();
-    }
-
-    public List<Cart> getCartsByUser(User user) {
-        return cartRepository.findAllByUserOrderByUpdatedAtDesc(user);
-    }
-
-    public List<Cart> getCartsByProduct(Product product) {
-        return cartRepository.findByProductOrderByAddedAtDesc(product);
-    }
-
-    public Cart getActiveCartByUserId(Integer userId) {
-        User user = requireUser(userId);
-
-        return cartRepository.findByUserAndStatus(user, Cart.CartStatus.ACTIVE)
-            .orElseGet(() -> new Cart(user));
-    }
-
     @Transactional
     public Cart getCartWithItemsByUserId(Integer userId) {
         User user = requireUser(userId);
@@ -221,28 +193,6 @@ public class CartService {
         cartRepository.save(cart);
 
         return summary;
-    }
-
-    @Transactional
-    public Cart updateCart(Integer cartId, Cart cartDetails) {
-        Cart existingCart = getCartById(cartId);
-
-        existingCart.setUser(cartDetails.getUser());
-        existingCart.setProduct(cartDetails.getProduct());
-        existingCart.setQuantity(cartDetails.getQuantity());
-        existingCart.setAddedAt(cartDetails.getAddedAt() != null ? cartDetails.getAddedAt() : existingCart.getAddedAt());
-        existingCart.setTotalAmount(cartDetails.getTotalAmount());
-        existingCart.setStatus(cartDetails.getStatus());
-
-        return cartRepository.save(existingCart);
-    }
-
-    public void deleteCart(Integer cartId) {
-        if (!cartRepository.existsById(cartId)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cart not found");
-        }
-
-        cartRepository.deleteById(cartId);
     }
 
     private static CartItemSummary toCartItemSummary(CartItem item) {

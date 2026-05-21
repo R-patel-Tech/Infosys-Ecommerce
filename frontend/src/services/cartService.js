@@ -1,27 +1,9 @@
 import { del, get, post, put } from './api.js'
+import { getStoredUserId as readStoredUserId } from '../utils/session.js'
+import { normalizeCart } from '../utils/normalizers.js'
 
 export function getStoredUserId() {
-  const userId = sessionStorage.getItem('userId')
-  return userId && userId.trim() ? userId : ''
-}
-
-function normalizeCart(data) {
-  if (!data || typeof data !== 'object') {
-    return { items: [], totalAmount: 0, totalQuantity: 0 }
-  }
-
-  const source = data.cart && typeof data.cart === 'object' ? data.cart : data
-  const items = Array.isArray(source.items)
-    ? source.items
-    : Array.isArray(source.cartItems)
-      ? source.cartItems
-      : []
-
-  return {
-    items,
-    totalAmount: Number(source.totalAmount ?? source.totalPrice ?? 0) || 0,
-    totalQuantity: Number(source.totalQuantity ?? source.totalItems ?? 0) || 0,
-  }
+  return readStoredUserId()
 }
 
 function getItemProductId(item) {
@@ -65,7 +47,7 @@ export async function addProductToCart({ userId, productId, quantity = 1 }) {
     throw new Error('Missing user or product information.')
   }
 
-  const data = await post('/cart/add', {
+  await post('/cart/add', {
     userId: normalizeId(userId),
     productId: normalizeId(productId),
     quantity,
