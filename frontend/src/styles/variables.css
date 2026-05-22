@@ -3,21 +3,27 @@
   --text-h: #0f172a;
   --text-muted: #64748b;
   --bg: #eef4f8;
-  --surface: rgba(255, 255, 255, 0.92);
-  --border: rgba(148, 163, 184, 0.24);
+  --surface: rgba(255, 255, 255, 0.86);
+  --surface-strong: rgba(255, 255, 255, 0.96);
+  --glass: rgba(255, 255, 255, 0.72);
+  --border: rgba(148, 163, 184, 0.22);
   --accent: #0f766e;
-  --accent-strong: #0284c7;
+  --accent-strong: #2563eb;
+  --accent-deep: #312e81;
   --danger: #b91c1c;
   --success: #166534;
   --shadow: 0 24px 60px rgba(15, 23, 42, 0.12);
+  --shadow-soft: 0 14px 30px rgba(15, 23, 42, 0.08);
+  --shadow-lift: 0 24px 48px rgba(15, 23, 42, 0.16);
   --sans: 'Segoe UI', system-ui, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
 
   /* Additional colors for modern UI */
-  --primary: #667eea;
-  --primary-dark: #5a67d8;
-  --secondary: #764ba2;
-  --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --primary: #4f7cff;
+  --primary-dark: #3352d6;
+  --secondary: #5b3df5;
+  --gradient: linear-gradient(135deg, #4f7cff 0%, #5b3df5 52%, #7c3aed 100%);
+  --gradient-soft: linear-gradient(135deg, rgba(79, 124, 255, 0.16), rgba(91, 61, 245, 0.16));
   --card-bg: #ffffff;
   --input-bg: #ffffff;
   --input-border: #e2e8f0;
