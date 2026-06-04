@@ -3,6 +3,7 @@ import {
   getAuthToken,
   getStoredUserEmail,
   getStoredUserId,
+  hasValidAuthToken,
   isAdminAuthenticated,
   saveAuthSession,
   setAdminAuthenticated,
@@ -35,10 +36,9 @@ export function useAuthSession() {
     getAuthToken,
     getStoredUserId,
     getStoredUserEmail,
-    isAuthenticated: () => Boolean(getAuthToken()),
+    isAuthenticated: () => hasValidAuthToken(),
     isAdminAuthenticated,
     saveAuthSession,
     setAdminAuthenticated,
   }
 }
-

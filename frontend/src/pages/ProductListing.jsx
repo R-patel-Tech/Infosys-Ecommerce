@@ -111,19 +111,17 @@ function ProductListing({ onBack, onShowDetails }) {
 
           {loading ? (
             <p className="product-state">Loading products...</p>
-          ) : error ? (
-            <p className="product-state product-state-error">{error}</p>
           ) : products.length === 0 ? (
             <div className="product-state product-empty-state">
-              <p>No products match the current filters.</p>
-              <Button
-                type="button"
-                variant="secondary"
-                size="small"
-                onClick={handleResetFilters}
-              >
-                Clear filters
-              </Button>
+              <p>{error || 'No products match the current filters.'}</p>
+              <div className="product-filter-actions">
+                <Button type="button" variant="secondary" size="small" onClick={handleResetFilters}>
+                  Clear filters
+                </Button>
+                <Button type="button" variant="secondary" size="small" onClick={loadProducts}>
+                  Retry
+                </Button>
+              </div>
             </div>
           ) : (
             <div className="product-grid">

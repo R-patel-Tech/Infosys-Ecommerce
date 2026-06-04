@@ -116,7 +116,7 @@ function App() {
         <Route
           path="/dashboard"
           element={
-            <ProtectedRoute onRequireAuth={() => navigate('/login', { replace: true })}>
+            <ProtectedRoute>
               <Dashboard
                 onLogout={handleLogout}
                 onShowProducts={handleShowProducts}
@@ -130,7 +130,7 @@ function App() {
         <Route
           path="/products"
           element={
-            <ProtectedRoute onRequireAuth={() => navigate('/login', { replace: true })}>
+            <ProtectedRoute>
               <ProductListing
                 onBack={() => navigate('/dashboard')}
                 onShowDetails={handleShowProductDetails}
@@ -141,7 +141,7 @@ function App() {
         <Route
           path="/products/:productId"
           element={
-            <ProtectedRoute onRequireAuth={() => navigate('/login', { replace: true })}>
+            <ProtectedRoute>
               <ProductDetails onBack={() => navigate('/products')} />
             </ProtectedRoute>
           }
@@ -149,7 +149,7 @@ function App() {
         <Route
           path="/cart"
           element={
-            <ProtectedRoute onRequireAuth={() => navigate('/login', { replace: true })}>
+            <ProtectedRoute>
               <Cart onBack={() => navigate('/dashboard')} />
             </ProtectedRoute>
           }
@@ -157,7 +157,7 @@ function App() {
         <Route
           path="/checkout"
           element={
-            <ProtectedRoute onRequireAuth={() => navigate('/login', { replace: true })}>
+            <ProtectedRoute>
               <Checkout onBack={() => navigate('/cart')} />
             </ProtectedRoute>
           }
@@ -165,7 +165,7 @@ function App() {
         <Route
           path="/order-success"
           element={
-            <ProtectedRoute onRequireAuth={() => navigate('/login', { replace: true })}>
+            <ProtectedRoute>
               <OrderSuccess />
             </ProtectedRoute>
           }
@@ -173,7 +173,7 @@ function App() {
         <Route
           path="/orders"
           element={
-            <ProtectedRoute onRequireAuth={() => navigate('/login', { replace: true })}>
+            <ProtectedRoute>
               <OrderHistory />
             </ProtectedRoute>
           }
@@ -181,7 +181,7 @@ function App() {
         <Route
           path="/profile"
           element={
-            <ProtectedRoute onRequireAuth={() => navigate('/login', { replace: true })}>
+            <ProtectedRoute>
               <Profile onLogout={handleLogout} />
             </ProtectedRoute>
           }

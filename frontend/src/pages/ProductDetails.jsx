@@ -113,7 +113,11 @@ function ProductDetails({ productId, onBack }) {
       setActionMessage('Added to cart')
       showToast('Item added to cart', 'success')
     } catch (err) {
-      const message = err.message || 'Unable to add item to cart.'
+      const rawMessage = err?.message || ''
+      const message =
+        rawMessage && !/internal server error/i.test(rawMessage)
+          ? rawMessage
+          : 'Unable to add item to cart right now. Please try again.'
       setActionError(message)
       showToast(message, 'error')
     } finally {

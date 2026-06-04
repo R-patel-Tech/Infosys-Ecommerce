@@ -1,11 +1,11 @@
 import { useAuthSession } from '../hooks/useAuthSession.js'
+import { Navigate } from 'react-router-dom'
 
-function ProtectedRoute({ children, onRequireAuth }) {
+function ProtectedRoute({ children }) {
   const authSession = useAuthSession()
 
   if (!authSession.isAuthenticated()) {
-    onRequireAuth()
-    return null
+    return <Navigate to="/login" replace />
   }
 
   return children

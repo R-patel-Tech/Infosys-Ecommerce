@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { API_BASE_URL } from '../config.js'
-import { getAuthToken, clearAuthSession } from '../utils/session.js'
+import { clearAuthSession, getAuthToken, hasValidAuthToken } from '../utils/session.js'
 import { isJwtExpired } from '../utils/jwt.js'
 
 function redirectToLogin() {
@@ -23,10 +23,14 @@ const axiosClient = axios.create({
 })
 
 axiosClient.interceptors.request.use((config) => {
+  if (config.skipAuthHeader) {
+    return config
+  }
+
   const token = getAuthToken()
 
   if (token) {
-    if (isJwtExpired(token)) {
+    if (!hasValidAuthToken() || isJwtExpired(token)) {
       clearAuthSession()
       redirectToLogin()
       return Promise.reject(new Error('Your session has expired. Please sign in again.'))

@@ -38,7 +38,9 @@ export async function fetchCartForUser(userId) {
     return normalizeCart()
   }
 
-  const data = await get(`/cart/${encodeURIComponent(normalizeId(userId))}`)
+  const data = await get(`/cart/${encodeURIComponent(normalizeId(userId))}`, {
+    skipAuthHeader: true,
+  })
   return normalizeCart(data)
 }
 
@@ -51,9 +53,15 @@ export async function addProductToCart({ userId, productId, quantity = 1 }) {
     userId: normalizeId(userId),
     productId: normalizeId(productId),
     quantity,
+  }, {
+    skipAuthHeader: true,
   })
 
-  return fetchCartForUser(userId)
+  try {
+    return await fetchCartForUser(userId)
+  } catch {
+    return normalizeCart()
+  }
 }
 
 export async function updateCartQuantity({ cartItemId, quantity }) {
@@ -67,6 +75,8 @@ export async function updateCartQuantity({ cartItemId, quantity }) {
   const data = await put('/cart/update', {
     cartId: resolvedCartId,
     quantity,
+  }, {
+    skipAuthHeader: true,
   })
 
   return normalizeCart(data?.cart || data)
@@ -80,12 +90,18 @@ export async function removeCartItem(cartItemId) {
     throw new Error('Missing cart item id.')
   }
 
-  await del(`/cart/remove/${encodeURIComponent(resolvedCartId)}`, { withCredentials: false })
+  await del(`/cart/remove/${encodeURIComponent(resolvedCartId)}`, {
+    withCredentials: false,
+    skipAuthHeader: true,
+  })
   return true
 }
 
 export async function clearCart(userId) {
-  await del(`/cart/clear/${encodeURIComponent(normalizeId(userId))}`, { withCredentials: false })
+  await del(`/cart/clear/${encodeURIComponent(normalizeId(userId))}`, {
+    withCredentials: false,
+    skipAuthHeader: true,
+  })
   return true
 }
 
@@ -94,7 +110,9 @@ export async function checkoutCart(userId, orderData = {}) {
     throw new Error('Missing user id.')
   }
 
-  const data = await post(`/checkout/${encodeURIComponent(normalizeId(userId))}`, orderData)
+  const data = await post(`/checkout/${encodeURIComponent(normalizeId(userId))}`, orderData, {
+    skipAuthHeader: true,
+  })
   return data
 }
 

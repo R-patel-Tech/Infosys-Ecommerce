@@ -1,17 +1,17 @@
 import axiosClient from '../api/axiosClient.js'
 
-export async function get(path) {
-  const response = await axiosClient.get(path)
+export async function get(path, config = {}) {
+  const response = await axiosClient.get(path, config)
   return response.data
 }
 
-export async function post(path, payload) {
-  const response = await axiosClient.post(path, payload)
+export async function post(path, payload, config = {}) {
+  const response = await axiosClient.post(path, payload, config)
   return response.data
 }
 
-export async function put(path, payload) {
-  const response = await axiosClient.put(path, payload)
+export async function put(path, payload, config = {}) {
+  const response = await axiosClient.put(path, payload, config)
   return response.data
 }
 

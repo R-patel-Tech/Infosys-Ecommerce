@@ -1,0 +1,38 @@
+export const defaultProducts = [
+  {
+    productId: 1,
+    name: 'Wireless Headphones',
+    description: 'Comfortable over-ear headphones with active noise cancellation.',
+    price: 129.99,
+    category: 'Electronics',
+    imageUrl: 'https://images.unsplash.com/photo-1511376777868-611b54f68947?auto=format&fit=crop&w=800&q=80',
+    stockQuantity: 32,
+  },
+  {
+    productId: 2,
+    name: 'Classic Leather Wallet',
+    description: 'Premium genuine leather wallet with multiple card slots and RFID protection.',
+    price: 49.99,
+    category: 'Accessories',
+    imageUrl: 'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=800&q=80',
+    stockQuantity: 18,
+  },
+  {
+    productId: 3,
+    name: 'Electric Standing Desk',
+    description: 'Height-adjustable desk designed for comfort and productivity.',
+    price: 399.99,
+    category: 'Home Office',
+    imageUrl: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=800&q=80',
+    stockQuantity: 7,
+  },
+  {
+    productId: 4,
+    name: 'Stainless Steel Water Bottle',
+    description: 'Reusable insulated water bottle that keeps drinks cold for 24 hours.',
+    price: 24.99,
+    category: 'Fitness',
+    imageUrl: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80',
+    stockQuantity: 60,
+  },
+]

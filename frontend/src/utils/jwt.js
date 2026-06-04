@@ -34,10 +34,13 @@ export function parseJwt(token) {
 export function isJwtExpired(token, clockSkewSeconds = 30) {
   const payload = parseJwt(token)
   if (!payload?.exp) {
-    return false
+    return true
   }
 
   const now = Math.floor(Date.now() / 1000)
   return Number(payload.exp) <= now + clockSkewSeconds
 }
 
+export function isJwtValid(token, clockSkewSeconds = 30) {
+  return !isJwtExpired(token, clockSkewSeconds)
+}

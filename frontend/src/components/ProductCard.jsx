@@ -70,7 +70,11 @@ function ProductCard({ product, onShowDetails }) {
       showToast('Item added to cart', 'success')
     } catch (error) {
       setMessageType('error')
-      const nextMessage = error?.message || 'Unable to add item to cart.'
+      const rawMessage = error?.message || ''
+      const nextMessage =
+        rawMessage && !/internal server error/i.test(rawMessage)
+          ? rawMessage
+          : 'Unable to add item to cart right now. Please try again.'
       setMessage(nextMessage)
       showToast(nextMessage, 'error')
     } finally {

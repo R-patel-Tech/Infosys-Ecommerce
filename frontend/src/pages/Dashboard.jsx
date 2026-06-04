@@ -111,7 +111,7 @@ function TruckIcon() {
 }
 
 function Dashboard({ onLogout, onShowProducts, onShowCart, onShowOrders, onShowProfile }) {
-  const { products, loading, error } = useProducts()
+  const { products, loading, error, loadProducts } = useProducts()
   const [menuOpen, setMenuOpen] = useState(false)
   const totalProducts = products.length
   const totalCategories = new Set(products.map((product) => product.category?.trim()).filter(Boolean)).size
@@ -241,12 +241,17 @@ function Dashboard({ onLogout, onShowProducts, onShowCart, onShowOrders, onShowP
                   </article>
                 ))}
               </div>
-            ) : error ? (
-              <p className="alert alert-error">{error}</p>
             ) : products.length === 0 ? (
               <div className="dashboard-empty-state">
-                <h3>No products available.</h3>
-                <p>Once products are added from the backend, they will appear here automatically.</p>
+                <h3>{error ? 'Unable to load products right now.' : 'No products available.'}</h3>
+                <p>
+                  {error
+                    ? 'The live catalog is temporarily unavailable. You can try loading again.'
+                    : 'Once products are added from the backend, they will appear here automatically.'}
+                </p>
+                <Button type="button" variant="secondary" onClick={loadProducts}>
+                  Retry
+                </Button>
               </div>
             ) : (
               <div className="product-grid">

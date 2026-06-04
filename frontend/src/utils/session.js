@@ -1,3 +1,5 @@
+import { isJwtValid } from './jwt.js'
+
 const AUTH_TOKEN_KEY = 'authToken'
 const USER_ID_KEY = 'userId'
 const USER_EMAIL_KEY = 'userEmail'
@@ -68,6 +70,12 @@ export function getAuthToken() {
   return getStoredValue(AUTH_TOKEN_KEY)
 }
 
+export function hasValidAuthToken() {
+  const token = getAuthToken()
+
+  return Boolean(token) && isJwtValid(token)
+}
+
 export function getStoredUserId() {
   const userId = getStoredValue(USER_ID_KEY)
   return userId && userId.trim() ? userId : ''
@@ -112,4 +120,3 @@ export function readLastOrder() {
     return null
   }
 }
-
