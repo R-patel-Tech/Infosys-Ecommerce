@@ -18,33 +18,43 @@ public class HomePage extends BasePage {
     }
 
     public boolean isLoaded() {
-        return isDisplayed(dashboardHeading) || isDisplayed(dashboardNavbar);
+        return waitUtils.waitForElementVisible(dashboardHeading) != null
+                || waitUtils.waitForElementVisible(dashboardNavbar) != null;
     }
 
     public ProductPage clickBrowseProducts() {
+        waitUtils.waitForElementClickable(browseProductsButton);
         click(browseProductsButton);
+        waitUtils.waitForPageLoad();
         waitForUrlContains("/products");
         return new ProductPage(driver, wait);
     }
 
     public CartPage clickViewCart() {
+        waitUtils.waitForElementClickable(viewCartButton);
         click(viewCartButton);
+        waitUtils.waitForPageLoad();
         waitForUrlContains("/cart");
         return new CartPage(driver, wait);
     }
 
     public LoginPage clickLogout() {
+        waitUtils.waitForElementClickable(logoutButton);
         click(logoutButton);
+        waitUtils.waitForPageLoad();
         waitForUrlContains("/login");
         return new LoginPage(driver, wait);
     }
 
     public void openProfile() {
+        waitUtils.waitForElementClickable(profileButton);
         click(profileButton);
     }
 
     public void openOrderHistory() {
+        waitUtils.waitForElementClickable(orderHistoryButton);
         click(orderHistoryButton);
+        waitUtils.waitForPageLoad();
         waitForUrlContains("/orders");
     }
 }

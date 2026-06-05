@@ -4,24 +4,26 @@ import java.time.Duration;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import utils.WaitUtils;
 
 public abstract class BasePage {
     protected final WebDriver driver;
+    protected final WaitUtils waitUtils;
     protected final WebDriverWait wait;
 
     protected BasePage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
         this.wait = wait;
+        this.waitUtils = new WaitUtils(driver, wait);
     }
 
     protected WebElement visible(By locator) {
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+        return waitUtils.waitForElementVisible(locator);
     }
 
     protected WebElement clickable(By locator) {
-        return wait.until(ExpectedConditions.elementToBeClickable(locator));
+        return waitUtils.waitForElementClickable(locator);
     }
 
     protected void click(By locator) {
@@ -43,11 +45,11 @@ public abstract class BasePage {
     }
 
     protected void waitForUrlContains(String fragment) {
-        wait.until(ExpectedConditions.urlContains(fragment));
+        waitUtils.waitForUrlContains(fragment);
     }
 
     protected void waitForUrlToBe(String url) {
-        wait.until(ExpectedConditions.urlToBe(url));
+        waitUtils.waitForUrlToBe(url);
     }
 
     protected void pause(long millis) {

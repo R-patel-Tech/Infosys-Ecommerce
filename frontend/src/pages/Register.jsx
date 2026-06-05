@@ -12,6 +12,9 @@ const initialState = {
   confirmPassword: '',
 }
 
+const MAX_NAME_LENGTH = 80
+const NAME_PATTERN = /^[A-Za-z][A-Za-z\s.'-]*$/
+
 function getPasswordStrength(password) {
   if (!password) {
     return ''
@@ -50,10 +53,25 @@ function Register({ onSwitch }) {
 
   async function handleSubmit(event) {
     event.preventDefault()
+    const trimmedName = formData.name.trim()
 
-    if (!formData.name.trim()) {
+    if (!trimmedName) {
       setFeedback({ type: 'error', message: 'Name is required.' })
       showToast('Name is required.', 'error')
+      return
+    }
+
+    if (trimmedName.length > MAX_NAME_LENGTH) {
+      const message = `Name must not exceed ${MAX_NAME_LENGTH} characters.`
+      setFeedback({ type: 'error', message })
+      showToast(message, 'error')
+      return
+    }
+
+    if (!NAME_PATTERN.test(trimmedName)) {
+      const message = 'Name can contain only letters, spaces, apostrophes, periods, and hyphens.'
+      setFeedback({ type: 'error', message })
+      showToast(message, 'error')
       return
     }
 
@@ -87,7 +105,7 @@ function Register({ onSwitch }) {
 
     try {
       const data = await registerUser({
-        name: formData.name.trim(),
+        name: trimmedName,
         phone: formData.phone.trim(),
         email: formData.email.trim(),
         password: formData.password,
@@ -132,6 +150,7 @@ function Register({ onSwitch }) {
                   onChange={handleChange}
                   placeholder="Enter your full name"
                   autoComplete="name"
+                  maxLength={MAX_NAME_LENGTH}
                   required
                   className="form-input"
                 />

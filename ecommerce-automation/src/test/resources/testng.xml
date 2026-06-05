@@ -8,9 +8,12 @@
     <test name="UI Regression">
         <classes>
             <class name="tests.LoginTest"/>
+            <class name="tests.RegistrationTest"/>
+            <class name="tests.RegistrationFieldValidationTest"/>
             <class name="tests.SearchTest"/>
             <class name="tests.CartTest"/>
             <class name="tests.CheckoutTest"/>
+            <class name="tests.AlertPopupTest"/>
         </classes>
     </test>
 </suite>

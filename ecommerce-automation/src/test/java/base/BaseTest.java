@@ -3,6 +3,8 @@ package base;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import java.time.Duration;
 import java.util.Locale;
+import java.util.HashMap;
+import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
@@ -40,6 +42,9 @@ public abstract class BaseTest {
             default:
                 WebDriverManager.chromedriver().setup();
                 ChromeOptions chromeOptions = new ChromeOptions();
+                Map<String, Object> chromePrefs = new HashMap<>();
+                chromePrefs.put("profile.default_content_setting_values.notifications", 2);
+                chromeOptions.setExperimentalOption("prefs", chromePrefs);
                 chromeOptions.addArguments("--remote-allow-origins=*");
                 chromeOptions.addArguments("--start-maximized");
                 if (headless) {

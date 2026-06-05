@@ -18,19 +18,24 @@ public class LoginPage extends BasePage {
     }
 
     public boolean isLoaded() {
-        return isDisplayed(emailInput) && isDisplayed(passwordInput);
+        return waitUtils.waitForElementVisible(emailInput) != null
+                && waitUtils.waitForElementVisible(passwordInput) != null;
     }
 
     public HomePage login(String email, String password) {
         type(emailInput, email);
         type(passwordInput, password);
         click(signInButton);
+        waitUtils.waitForPageLoad();
         waitForDashboard();
         return new HomePage(driver, wait);
     }
 
-    public void clickSignUp() {
+    public RegistrationPage clickSignUp() {
         click(signUpButton);
+        waitUtils.waitForPageLoad();
+        waitForUrlContains("/register");
+        return new RegistrationPage(driver, wait);
     }
 
     public void clickAdminLogin() {
@@ -38,7 +43,12 @@ public class LoginPage extends BasePage {
     }
 
     public String getFeedbackMessage() {
-        return isDisplayed(feedbackAlert) ? textOf(feedbackAlert) : "";
+        return isDisplayed(feedbackAlert) ? waitUtils.waitForElementVisible(feedbackAlert).getText() : "";
+    }
+
+    public String waitForFeedbackMessage(String expectedText) {
+        waitUtils.waitForTextPresent(feedbackAlert, expectedText);
+        return getFeedbackMessage();
     }
 
     private void waitForDashboard() {
