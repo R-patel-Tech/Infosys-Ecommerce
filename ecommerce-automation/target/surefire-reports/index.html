@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+  <meta charset='utf-8'>
+  <title>TestNG reports</title>
+
+    <link type="text/css" href="testng-reports1.css" rel="stylesheet" id="ultra" />
+    <link type="text/css" href="testng-reports.css" rel="stylesheet" id="retro" disabled="false"/>
+    <script type="text/javascript" src="jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="testng-reports.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type='text/javascript'>
+      google.load('visualization', '1', {packages:['table']});
+      google.setOnLoadCallback(drawTable);
+      var suiteTableInitFunctions = new Array();
+      var suiteTableData = new Array();
+    </script>
+    <!--
+      <script type="text/javascript" src="jquery-ui/js/jquery-ui-1.8.16.custom.min.js"></script>
+     -->
+  </head>
+
+  <body>    <div class="top-banner-root">
+      <span class="top-banner-title-font">Test results</span>
+      <button id="button" class="button">Switch Retro Theme</button> <!-- button -->
+      <br/>
+      <span class="top-banner-font-1">1 suite, 2 failed tests</span>
+    </div> <!-- top-banner-root -->
+    <div class="navigator-root">
+      <div class="navigator-suite-header">
+        <span>All suites</span>
+        <a href="#" title="Collapse/expand all the suites" class="collapse-all-link">
+          <img src="collapseall.gif" class="collapse-all-icon">
+          </img> <!-- collapse-all-icon -->
+        </a> <!-- collapse-all-link -->
+      </div> <!-- navigator-suite-header -->
+      <div class="suite">
+        <div class="rounded-window">
+          <div class="suite-header light-rounded-window-top">
+            <a href="#" panel-name="suite-Ecommerce_Automation_Suite" class="navigator-link">
+              <span class="suite-name border-failed">Ecommerce Automation Suite</span>
+            </a> <!-- navigator-link -->
+          </div> <!-- suite-header light-rounded-window-top -->
+          <div class="navigator-suite-content">
+            <div class="suite-section-title">
+              <span>Info</span>
+            </div> <!-- suite-section-title -->
+            <div class="suite-section-content">
+              <ul>
+                <li>
+                  <a href="#" panel-name="test-xml-Ecommerce_Automation_Suite" class="navigator-link ">
+                    <span>C:\Users\91907\git\repository\ecommerce-automation\src\test\resources\testng.xml</span>
+                  </a> <!-- navigator-link  -->
+                </li>
+                <li>
+                  <a href="#" panel-name="testlist-Ecommerce_Automation_Suite" class="navigator-link ">
+                    <span class="test-stats">1 test</span>
+                  </a> <!-- navigator-link  -->
+                </li>
+                <li>
+                  <a href="#" panel-name="group-Ecommerce_Automation_Suite" class="navigator-link ">
+                    <span>0 groups</span>
+                  </a> <!-- navigator-link  -->
+                </li>
+                <li>
+                  <a href="#" panel-name="times-Ecommerce_Automation_Suite" class="navigator-link ">
+                    <span>Times</span>
+                  </a> <!-- navigator-link  -->
+                </li>
+                <li>
+                  <a href="#" panel-name="reporter-Ecommerce_Automation_Suite" class="navigator-link ">
+                    <span>Reporter output</span>
+                  </a> <!-- navigator-link  -->
+                </li>
+                <li>
+                  <a href="#" panel-name="ignored-methods-Ecommerce_Automation_Suite" class="navigator-link ">
+                    <span>Ignored methods</span>
+                  </a> <!-- navigator-link  -->
+                </li>
+                <li>
+                  <a href="#" panel-name="chronological-Ecommerce_Automation_Suite" class="navigator-link ">
+                    <span>Chronological view</span>
+                  </a> <!-- navigator-link  -->
+                </li>
+              </ul>
+            </div> <!-- suite-section-content -->
+            <div class="result-section">
+              <div class="suite-section-title">
+                <span>Results</span>
+              </div> <!-- suite-section-title -->
+              <div class="suite-section-content">
+                <ul>
+                  <li>
+                    <span class="method-stats">12 methods, 2 failed,   10 passed</span>
+                  </li>
+                  <li>
+                    <span class="method-list-title failed">Failed methods</span>
+                    <span class="show-or-hide-methods failed">
+                      <a href="#" panel-name="suite-Ecommerce_Automation_Suite" class="hide-methods failed suite-Ecommerce_Automation_Suite"> (hide)</a> <!-- hide-methods failed suite-Ecommerce_Automation_Suite -->
+                      <a href="#" panel-name="suite-Ecommerce_Automation_Suite" class="show-methods failed suite-Ecommerce_Automation_Suite"> (show)</a> <!-- show-methods failed suite-Ecommerce_Automation_Suite -->
+                    </span>
+                    <div class="method-list-content failed suite-Ecommerce_Automation_Suite">
+                      <span>
+                        <img src="failed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Ecommerce_Automation_Suite" title="tests.AlertPopupTest" class="method navigator-link" hash-for-method="handleAlertsAndPopups">handleAlertsAndPopups</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="failed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Ecommerce_Automation_Suite" title="tests.LoginTest" class="method navigator-link" hash-for-method="implementAssertionsForLoginLogoutStatus">implementAssertionsForLoginLogoutStatus</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                    </div> <!-- method-list-content failed suite-Ecommerce_Automation_Suite -->
+                  </li>
+                  <li>
+                    <span class="method-list-title passed">Passed methods</span>
+                    <span class="show-or-hide-methods passed">
+                      <a href="#" panel-name="suite-Ecommerce_Automation_Suite" class="hide-methods passed suite-Ecommerce_Automation_Suite"> (hide)</a> <!-- hide-methods passed suite-Ecommerce_Automation_Suite -->
+                      <a href="#" panel-name="suite-Ecommerce_Automation_Suite" class="show-methods passed suite-Ecommerce_Automation_Suite"> (show)</a> <!-- show-methods passed suite-Ecommerce_Automation_Suite -->
+                    </span>
+                    <div class="method-list-content passed suite-Ecommerce_Automation_Suite">
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Ecommerce_Automation_Suite" title="tests.LoginTest" class="method navigator-link" hash-for-method="automateLoginWithInvalidCredentials">automateLoginWithInvalidCredentials</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Ecommerce_Automation_Suite" title="tests.LoginTest" class="method navigator-link" hash-for-method="automateLoginWithValidCredentials">automateLoginWithValidCredentials</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Ecommerce_Automation_Suite" title="tests.RegistrationTest" class="method navigator-link" hash-for-method="automateUserRegistrationFlow">automateUserRegistrationFlow</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Ecommerce_Automation_Suite" title="tests.RegistrationTest" class="method navigator-link" hash-for-method="validateEmailFormatAndInvalidInputMessages">validateEmailFormatAndInvalidInputMessages</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Ecommerce_Automation_Suite" title="tests.LoginTest" class="method navigator-link" hash-for-method="validateErrorMessagesAndMandatoryFields">validateErrorMessagesAndMandatoryFields</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Ecommerce_Automation_Suite" title="tests.RegistrationTest" class="method navigator-link" hash-for-method="validateInvalidInputMessage">validateInvalidInputMessage</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Ecommerce_Automation_Suite" title="tests.RegistrationTest" class="method navigator-link" hash-for-method="validateMandatoryAndBlankFieldMessages">validateMandatoryAndBlankFieldMessages</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Ecommerce_Automation_Suite" title="tests.NavigationTest" class="method navigator-link" hash-for-method="verifyBasicNavigationBetweenLoginAndRegisterPages">verifyBasicNavigationBetweenLoginAndRegisterPages</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Ecommerce_Automation_Suite" title="tests.WaitTest" class="method navigator-link" hash-for-method="verifyExplicitWaitForValidationText">verifyExplicitWaitForValidationText</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Ecommerce_Automation_Suite" title="tests.WaitTest" class="method navigator-link" hash-for-method="verifyImplicitAndExplicitWaits">verifyImplicitAndExplicitWaits</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                    </div> <!-- method-list-content passed suite-Ecommerce_Automation_Suite -->
+                  </li>
+                </ul>
+              </div> <!-- suite-section-content -->
+            </div> <!-- result-section -->
+          </div> <!-- navigator-suite-content -->
+        </div> <!-- rounded-window -->
+      </div> <!-- suite -->
+    </div> <!-- navigator-root -->
+    <div class="wrapper">
+      <div class="main-panel-root">
+        <div panel-name="suite-Ecommerce_Automation_Suite" class="panel Ecommerce_Automation_Suite">
+          <div class="suite-Ecommerce_Automation_Suite-class-failed">
+            <div class="main-panel-header rounded-window-top">
+              <img src="failed.png"/>
+              <span class="class-name">tests.AlertPopupTest</span>
+            </div> <!-- main-panel-header rounded-window-top -->
+            <div class="main-panel-content rounded-window-bottom">
+              <div class="method">
+                <div class="method-content">
+                  <a name="handleAlertsAndPopups">
+                  </a> <!-- handleAlertsAndPopups -->
+                  <span class="method-name">handleAlertsAndPopups</span>
+                  <div class="stack-trace">java.lang.AssertionError: Popup demo page did not load. expected [true] but found [false]
+	at tests.AlertPopupTest.handleAlertsAndPopups(AlertPopupTest.java:16)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+... Removed 32 stack frames
+</div> <!-- stack-trace -->
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+            </div> <!-- main-panel-content rounded-window-bottom -->
+          </div> <!-- suite-Ecommerce_Automation_Suite-class-failed -->
+          <div class="suite-Ecommerce_Automation_Suite-class-failed">
+            <div class="main-panel-header rounded-window-top">
+              <img src="failed.png"/>
+              <span class="class-name">tests.LoginTest</span>
+            </div> <!-- main-panel-header rounded-window-top -->
+            <div class="main-panel-content rounded-window-bottom">
+              <div class="method">
+                <div class="method-content">
+                  <a name="implementAssertionsForLoginLogoutStatus">
+                  </a> <!-- implementAssertionsForLoginLogoutStatus -->
+                  <span class="method-name">implementAssertionsForLoginLogoutStatus</span>
+                  <div class="stack-trace">java.lang.AssertionError: expected [true] but found [false]
+	at tests.LoginTest.implementAssertionsForLoginLogoutStatus(LoginTest.java:66)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+... Removed 33 stack frames
+</div> <!-- stack-trace -->
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+            </div> <!-- main-panel-content rounded-window-bottom -->
+          </div> <!-- suite-Ecommerce_Automation_Suite-class-failed -->
+          <div class="suite-Ecommerce_Automation_Suite-class-passed">
+            <div class="main-panel-header rounded-window-top">
+              <img src="passed.png"/>
+              <span class="class-name">tests.NavigationTest</span>
+            </div> <!-- main-panel-header rounded-window-top -->
+            <div class="main-panel-content rounded-window-bottom">
+              <div class="method">
+                <div class="method-content">
+                  <a name="verifyBasicNavigationBetweenLoginAndRegisterPages">
+                  </a> <!-- verifyBasicNavigationBetweenLoginAndRegisterPages -->
+                  <span class="method-name">verifyBasicNavigationBetweenLoginAndRegisterPages</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+            </div> <!-- main-panel-content rounded-window-bottom -->
+          </div> <!-- suite-Ecommerce_Automation_Suite-class-passed -->
+          <div class="suite-Ecommerce_Automation_Suite-class-passed">
+            <div class="main-panel-header rounded-window-top">
+              <img src="passed.png"/>
+              <span class="class-name">tests.LoginTest</span>
+            </div> <!-- main-panel-header rounded-window-top -->
+            <div class="main-panel-content rounded-window-bottom">
+              <div class="method">
+                <div class="method-content">
+                  <a name="automateLoginWithInvalidCredentials">
+                  </a> <!-- automateLoginWithInvalidCredentials -->
+                  <span class="method-name">automateLoginWithInvalidCredentials</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="automateLoginWithValidCredentials">
+                  </a> <!-- automateLoginWithValidCredentials -->
+                  <span class="method-name">automateLoginWithValidCredentials</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="validateErrorMessagesAndMandatoryFields">
+                  </a> <!-- validateErrorMessagesAndMandatoryFields -->
+                  <span class="method-name">validateErrorMessagesAndMandatoryFields</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+            </div> <!-- main-panel-content rounded-window-bottom -->
+          </div> <!-- suite-Ecommerce_Automation_Suite-class-passed -->
+          <div class="suite-Ecommerce_Automation_Suite-class-passed">
+            <div class="main-panel-header rounded-window-top">
+              <img src="passed.png"/>
+              <span class="class-name">tests.RegistrationTest</span>
+            </div> <!-- main-panel-header rounded-window-top -->
+            <div class="main-panel-content rounded-window-bottom">
+              <div class="method">
+                <div class="method-content">
+                  <a name="automateUserRegistrationFlow">
+                  </a> <!-- automateUserRegistrationFlow -->
+                  <span class="method-name">automateUserRegistrationFlow</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="validateEmailFormatAndInvalidInputMessages">
+                  </a> <!-- validateEmailFormatAndInvalidInputMessages -->
+                  <span class="method-name">validateEmailFormatAndInvalidInputMessages</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="validateInvalidInputMessage">
+                  </a> <!-- validateInvalidInputMessage -->
+                  <span class="method-name">validateInvalidInputMessage</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="validateMandatoryAndBlankFieldMessages">
+                  </a> <!-- validateMandatoryAndBlankFieldMessages -->
+                  <span class="method-name">validateMandatoryAndBlankFieldMessages</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+            </div> <!-- main-panel-content rounded-window-bottom -->
+          </div> <!-- suite-Ecommerce_Automation_Suite-class-passed -->
+          <div class="suite-Ecommerce_Automation_Suite-class-passed">
+            <div class="main-panel-header rounded-window-top">
+              <img src="passed.png"/>
+              <span class="class-name">tests.WaitTest</span>
+            </div> <!-- main-panel-header rounded-window-top -->
+            <div class="main-panel-content rounded-window-bottom">
+              <div class="method">
+                <div class="method-content">
+                  <a name="verifyExplicitWaitForValidationText">
+                  </a> <!-- verifyExplicitWaitForValidationText -->
+                  <span class="method-name">verifyExplicitWaitForValidationText</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="verifyImplicitAndExplicitWaits">
+                  </a> <!-- verifyImplicitAndExplicitWaits -->
+                  <span class="method-name">verifyImplicitAndExplicitWaits</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+            </div> <!-- main-panel-content rounded-window-bottom -->
+          </div> <!-- suite-Ecommerce_Automation_Suite-class-passed -->
+        </div> <!-- panel Ecommerce_Automation_Suite -->
+        <div panel-name="test-xml-Ecommerce_Automation_Suite" class="panel">
+          <div class="main-panel-header rounded-window-top">
+            <span class="header-content">C:\Users\91907\git\repository\ecommerce-automation\src\test\resources\testng.xml</span>
+          </div> <!-- main-panel-header rounded-window-top -->
+          <div class="main-panel-content rounded-window-bottom">
+            <pre>
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!DOCTYPE suite SYSTEM &quot;https://testng.org/testng-1.0.dtd&quot;&gt;
+&lt;suite name=&quot;Ecommerce Automation Suite&quot; guice-stage=&quot;DEVELOPMENT&quot; verbose=&quot;0&quot;&gt;
+  &lt;test thread-count=&quot;5&quot; name=&quot;US013-US015&quot; verbose=&quot;0&quot;&gt;
+    &lt;classes&gt;
+      &lt;class name=&quot;tests.NavigationTest&quot;/&gt;
+      &lt;class name=&quot;tests.WaitTest&quot;/&gt;
+      &lt;class name=&quot;tests.AlertPopupTest&quot;/&gt;
+      &lt;class name=&quot;tests.RegistrationTest&quot;/&gt;
+      &lt;class name=&quot;tests.LoginTest&quot;/&gt;
+    &lt;/classes&gt;
+  &lt;/test&gt; &lt;!-- US013-US015 --&gt;
+&lt;/suite&gt; &lt;!-- Ecommerce Automation Suite --&gt;
+            </pre>
+          </div> <!-- main-panel-content rounded-window-bottom -->
+        </div> <!-- panel -->
+        <div panel-name="testlist-Ecommerce_Automation_Suite" class="panel">
+          <div class="main-panel-header rounded-window-top">
+            <span class="header-content">Tests for Ecommerce Automation Suite</span>
+          </div> <!-- main-panel-header rounded-window-top -->
+          <div class="main-panel-content rounded-window-bottom">
+            <ul>
+              <li>
+                <span class="test-name">US013-US015 (5 classes)</span>
+              </li>
+            </ul>
+          </div> <!-- main-panel-content rounded-window-bottom -->
+        </div> <!-- panel -->
+        <div panel-name="group-Ecommerce_Automation_Suite" class="panel">
+          <div class="main-panel-header rounded-window-top">
+            <span class="header-content">Groups for Ecommerce Automation Suite</span>
+          </div> <!-- main-panel-header rounded-window-top -->
+          <div class="main-panel-content rounded-window-bottom">
+          </div> <!-- main-panel-content rounded-window-bottom -->
+        </div> <!-- panel -->
+        <div panel-name="times-Ecommerce_Automation_Suite" class="panel">
+          <div class="main-panel-header rounded-window-top">
+            <span class="header-content">Times for Ecommerce Automation Suite</span>
+          </div> <!-- main-panel-header rounded-window-top -->
+          <div class="main-panel-content rounded-window-bottom">
+            <div class="times-div">
+              <script type="text/javascript">
+suiteTableInitFunctions.push('tableData_Ecommerce_Automation_Suite');
+function tableData_Ecommerce_Automation_Suite() {
+var data = new google.visualization.DataTable();
+data.addColumn('number', 'Number');
+data.addColumn('string', 'Method');
+data.addColumn('string', 'Class');
+data.addColumn('number', 'Time (ms)');
+data.addRows(12);
+data.setCell(0, 0, 0)
+data.setCell(0, 1, 'handleAlertsAndPopups')
+data.setCell(0, 2, 'tests.AlertPopupTest')
+data.setCell(0, 3, 11292);
+data.setCell(1, 0, 1)
+data.setCell(1, 1, 'automateLoginWithValidCredentials')
+data.setCell(1, 2, 'tests.LoginTest')
+data.setCell(1, 3, 3497);
+data.setCell(2, 0, 2)
+data.setCell(2, 1, 'implementAssertionsForLoginLogoutStatus')
+data.setCell(2, 2, 'tests.LoginTest')
+data.setCell(2, 3, 3202);
+data.setCell(3, 0, 3)
+data.setCell(3, 1, 'automateUserRegistrationFlow')
+data.setCell(3, 2, 'tests.RegistrationTest')
+data.setCell(3, 3, 1895);
+data.setCell(4, 0, 4)
+data.setCell(4, 1, 'validateErrorMessagesAndMandatoryFields')
+data.setCell(4, 2, 'tests.LoginTest')
+data.setCell(4, 3, 1546);
+data.setCell(5, 0, 5)
+data.setCell(5, 1, 'validateEmailFormatAndInvalidInputMessages')
+data.setCell(5, 2, 'tests.RegistrationTest')
+data.setCell(5, 3, 1499);
+data.setCell(6, 0, 6)
+data.setCell(6, 1, 'validateInvalidInputMessage')
+data.setCell(6, 2, 'tests.RegistrationTest')
+data.setCell(6, 3, 1478);
+data.setCell(7, 0, 7)
+data.setCell(7, 1, 'verifyExplicitWaitForValidationText')
+data.setCell(7, 2, 'tests.WaitTest')
+data.setCell(7, 3, 1438);
+data.setCell(8, 0, 8)
+data.setCell(8, 1, 'verifyBasicNavigationBetweenLoginAndRegisterPages')
+data.setCell(8, 2, 'tests.NavigationTest')
+data.setCell(8, 3, 1417);
+data.setCell(9, 0, 9)
+data.setCell(9, 1, 'verifyImplicitAndExplicitWaits')
+data.setCell(9, 2, 'tests.WaitTest')
+data.setCell(9, 3, 1282);
+data.setCell(10, 0, 10)
+data.setCell(10, 1, 'automateLoginWithInvalidCredentials')
+data.setCell(10, 2, 'tests.LoginTest')
+data.setCell(10, 3, 1194);
+data.setCell(11, 0, 11)
+data.setCell(11, 1, 'validateMandatoryAndBlankFieldMessages')
+data.setCell(11, 2, 'tests.RegistrationTest')
+data.setCell(11, 3, 978);
+window.suiteTableData['Ecommerce_Automation_Suite']= { tableData: data, tableDiv: 'times-div-Ecommerce_Automation_Suite'}
+return data;
+}
+              </script>
+              <span class="suite-total-time">Total running time: 30 seconds</span>
+              <div id="times-div-Ecommerce_Automation_Suite">
+              </div> <!-- times-div-Ecommerce_Automation_Suite -->
+            </div> <!-- times-div -->
+          </div> <!-- main-panel-content rounded-window-bottom -->
+        </div> <!-- panel -->
+        <div panel-name="reporter-Ecommerce_Automation_Suite" class="panel">
+          <div class="main-panel-header rounded-window-top">
+            <span class="header-content">Reporter output for Ecommerce Automation Suite</span>
+          </div> <!-- main-panel-header rounded-window-top -->
+          <div class="main-panel-content rounded-window-bottom">
+          </div> <!-- main-panel-content rounded-window-bottom -->
+        </div> <!-- panel -->
+        <div panel-name="ignored-methods-Ecommerce_Automation_Suite" class="panel">
+          <div class="main-panel-header rounded-window-top">
+            <span class="header-content">0 ignored methods</span>
+          </div> <!-- main-panel-header rounded-window-top -->
+          <div class="main-panel-content rounded-window-bottom">
+          </div> <!-- main-panel-content rounded-window-bottom -->
+        </div> <!-- panel -->
+        <div panel-name="chronological-Ecommerce_Automation_Suite" class="panel">
+          <div class="main-panel-header rounded-window-top">
+            <span class="header-content">Methods in chronological order</span>
+          </div> <!-- main-panel-header rounded-window-top -->
+          <div class="main-panel-content rounded-window-bottom">
+            <div class="chronological-class">
+              <div class="chronological-class-name">tests.NavigationTest</div> <!-- chronological-class-name -->
+              <div class="configuration-method before">
+                <span class="method-name">setUpBrowser</span>
+                <span class="method-start">0 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">verifyBasicNavigationBetweenLoginAndRegisterPages</span>
+                <span class="method-start">1627 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDownBrowser</span>
+                <span class="method-start">3046 ms</span>
+              </div> <!-- configuration-method after -->
+            </div> <!-- chronological-class -->
+            <div class="chronological-class">
+              <div class="chronological-class-name">tests.WaitTest</div> <!-- chronological-class-name -->
+              <div class="configuration-method before">
+                <span class="method-name">setUpBrowser</span>
+                <span class="method-start">3225 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">verifyExplicitWaitForValidationText</span>
+                <span class="method-start">4290 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDownBrowser</span>
+                <span class="method-start">5728 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setUpBrowser</span>
+                <span class="method-start">5912 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">verifyImplicitAndExplicitWaits</span>
+                <span class="method-start">6599 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDownBrowser</span>
+                <span class="method-start">7881 ms</span>
+              </div> <!-- configuration-method after -->
+            </div> <!-- chronological-class -->
+            <div class="chronological-class">
+              <div class="chronological-class-name">tests.AlertPopupTest</div> <!-- chronological-class-name -->
+              <div class="configuration-method before">
+                <span class="method-name">setUpBrowser</span>
+                <span class="method-start">8029 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <img src="failed.png">
+                </img>
+                <span class="method-name">handleAlertsAndPopups</span>
+                <span class="method-start">8989 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDownBrowser</span>
+                <span class="method-start">20286 ms</span>
+              </div> <!-- configuration-method after -->
+            </div> <!-- chronological-class -->
+            <div class="chronological-class">
+              <div class="chronological-class-name">tests.RegistrationTest</div> <!-- chronological-class-name -->
+              <div class="configuration-method before">
+                <span class="method-name">setUpBrowser</span>
+                <span class="method-start">20443 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">automateUserRegistrationFlow</span>
+                <span class="method-start">21332 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDownBrowser</span>
+                <span class="method-start">23227 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setUpBrowser</span>
+                <span class="method-start">23370 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">validateEmailFormatAndInvalidInputMessages</span>
+                <span class="method-start">24268 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDownBrowser</span>
+                <span class="method-start">25768 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setUpBrowser</span>
+                <span class="method-start">25957 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">validateInvalidInputMessage</span>
+                <span class="method-start">26983 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDownBrowser</span>
+                <span class="method-start">28461 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setUpBrowser</span>
+                <span class="method-start">28604 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">validateMandatoryAndBlankFieldMessages</span>
+                <span class="method-start">29662 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDownBrowser</span>
+                <span class="method-start">30640 ms</span>
+              </div> <!-- configuration-method after -->
+            </div> <!-- chronological-class -->
+            <div class="chronological-class">
+              <div class="chronological-class-name">tests.LoginTest</div> <!-- chronological-class-name -->
+              <div class="configuration-method before">
+                <span class="method-name">setUpBrowser</span>
+                <span class="method-start">30790 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">automateLoginWithInvalidCredentials</span>
+                <span class="method-start">31720 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDownBrowser</span>
+                <span class="method-start">32914 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setUpBrowser</span>
+                <span class="method-start">33079 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">automateLoginWithValidCredentials</span>
+                <span class="method-start">34014 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDownBrowser</span>
+                <span class="method-start">37512 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setUpBrowser</span>
+                <span class="method-start">37739 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <img src="failed.png">
+                </img>
+                <span class="method-name">implementAssertionsForLoginLogoutStatus</span>
+                <span class="method-start">38802 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDownBrowser</span>
+                <span class="method-start">42004 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setUpBrowser</span>
+                <span class="method-start">42155 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">validateErrorMessagesAndMandatoryFields</span>
+                <span class="method-start">43347 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDownBrowser</span>
+                <span class="method-start">44894 ms</span>
+              </div> <!-- configuration-method after -->
+          </div> <!-- main-panel-content rounded-window-bottom -->
+        </div> <!-- panel -->
+      </div> <!-- main-panel-root -->
+    </div> <!-- wrapper -->
+  </body>
+<script type="text/javascript" src="testng-reports2.js"></script>
+</html>

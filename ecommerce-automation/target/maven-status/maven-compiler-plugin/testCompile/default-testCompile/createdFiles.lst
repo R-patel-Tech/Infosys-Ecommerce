@@ -1,4 +1,6 @@
 base\BaseTest.class
+tests\NavigationTest.class
 tests\RegistrationTest.class
+tests\WaitTest.class
 tests\LoginTest.class
 tests\AlertPopupTest.class

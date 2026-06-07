@@ -81,6 +81,7 @@ public class PopupPage extends BasePage {
     private final By modalResult = By.id("modal-result");
     private final By notificationResult = By.id("notification-result");
     private final By browserNotificationButton = By.id("browser-notification");
+    private final By toolbar = By.cssSelector(".toolbar");
 
     public PopupPage(WebDriver driver) {
         super(driver);
@@ -90,11 +91,17 @@ public class PopupPage extends BasePage {
         String encodedHtml = URLEncoder.encode(DEMO_HTML, StandardCharsets.UTF_8);
         driver.get("data:text/html;charset=utf-8," + encodedHtml);
         waitUtils.waitForPageLoad();
+        // Additional wait for data URL content to render
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
         return this;
     }
 
     public boolean isLoaded() {
-        return isDisplayed(jsAlertButton);
+        return isDisplayed(toolbar) && isDisplayed(jsAlertButton);
     }
 
     public void clickJavaScriptAlertButton() {

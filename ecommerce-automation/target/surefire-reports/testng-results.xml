@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="12" passed="10" failed="2" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2026-06-07T12:56:06 IST" name="Ecommerce Automation Suite" finished-at="2026-06-07T12:56:51 IST" duration-ms="45117">
+    <groups>
+    </groups>
+    <test started-at="2026-06-07T12:56:06 IST" name="US013-US015" finished-at="2026-06-07T12:56:51 IST" duration-ms="45117">
+      <class name="tests.LoginTest">
+        <test-method is-config="true" signature="setUpBrowser()[pri:0, instance:tests.LoginTest@4b5a5ed1]" started-at="2026-06-07T12:56:37 IST" name="setUpBrowser" finished-at="2026-06-07T12:56:38 IST" duration-ms="930" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUpBrowser -->
+        <test-method signature="automateLoginWithInvalidCredentials()[pri:0, instance:tests.LoginTest@4b5a5ed1]" started-at="2026-06-07T12:56:38 IST" name="automateLoginWithInvalidCredentials" finished-at="2026-06-07T12:56:39 IST" duration-ms="1194" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- automateLoginWithInvalidCredentials -->
+        <test-method is-config="true" signature="tearDownBrowser()[pri:0, instance:tests.LoginTest@4b5a5ed1]" started-at="2026-06-07T12:56:39 IST" name="tearDownBrowser" finished-at="2026-06-07T12:56:39 IST" duration-ms="165" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDownBrowser -->
+        <test-method is-config="true" signature="setUpBrowser()[pri:0, instance:tests.LoginTest@4b5a5ed1]" started-at="2026-06-07T12:56:39 IST" name="setUpBrowser" finished-at="2026-06-07T12:56:40 IST" duration-ms="935" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUpBrowser -->
+        <test-method signature="automateLoginWithValidCredentials()[pri:0, instance:tests.LoginTest@4b5a5ed1]" started-at="2026-06-07T12:56:40 IST" name="automateLoginWithValidCredentials" finished-at="2026-06-07T12:56:44 IST" duration-ms="3497" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- automateLoginWithValidCredentials -->
+        <test-method is-config="true" signature="tearDownBrowser()[pri:0, instance:tests.LoginTest@4b5a5ed1]" started-at="2026-06-07T12:56:44 IST" name="tearDownBrowser" finished-at="2026-06-07T12:56:44 IST" duration-ms="225" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDownBrowser -->
+        <test-method is-config="true" signature="setUpBrowser()[pri:0, instance:tests.LoginTest@4b5a5ed1]" started-at="2026-06-07T12:56:44 IST" name="setUpBrowser" finished-at="2026-06-07T12:56:45 IST" duration-ms="1063" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUpBrowser -->
+        <test-method signature="implementAssertionsForLoginLogoutStatus()[pri:0, instance:tests.LoginTest@4b5a5ed1]" started-at="2026-06-07T12:56:45 IST" name="implementAssertionsForLoginLogoutStatus" finished-at="2026-06-07T12:56:48 IST" duration-ms="3202" status="FAIL">
+          <exception class="java.lang.AssertionError">
+            <message>
+              <![CDATA[expected [true] but found [false]]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.AssertionError: expected [true] but found [false]
+at org.testng.Assert.fail(Assert.java:111)
+at org.testng.Assert.failNotEquals(Assert.java:1590)
+at org.testng.Assert.assertTrue(Assert.java:57)
+at org.testng.Assert.assertTrue(Assert.java:67)
+at tests.LoginTest.implementAssertionsForLoginLogoutStatus(LoginTest.java:66)
+at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:697)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:1005)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+at org.testng.TestRunner.privateRun(TestRunner.java:744)
+at org.testng.TestRunner.run(TestRunner.java:616)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:413)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:373)
+at org.testng.SuiteRunner.run(SuiteRunner.java:312)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1274)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1208)
+at org.testng.TestNG.runSuites(TestNG.java:1112)
+at org.testng.TestNG.run(TestNG.java:1079)
+at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:308)
+at org.apache.maven.surefire.testng.TestNGXmlTestSuite.execute(TestNGXmlTestSuite.java:71)
+at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:113)
+at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.AssertionError -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- implementAssertionsForLoginLogoutStatus -->
+        <test-method is-config="true" signature="tearDownBrowser()[pri:0, instance:tests.LoginTest@4b5a5ed1]" started-at="2026-06-07T12:56:48 IST" name="tearDownBrowser" finished-at="2026-06-07T12:56:48 IST" duration-ms="150" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDownBrowser -->
+        <test-method is-config="true" signature="setUpBrowser()[pri:0, instance:tests.LoginTest@4b5a5ed1]" started-at="2026-06-07T12:56:48 IST" name="setUpBrowser" finished-at="2026-06-07T12:56:50 IST" duration-ms="1192" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUpBrowser -->
+        <test-method signature="validateErrorMessagesAndMandatoryFields()[pri:0, instance:tests.LoginTest@4b5a5ed1]" started-at="2026-06-07T12:56:50 IST" name="validateErrorMessagesAndMandatoryFields" finished-at="2026-06-07T12:56:51 IST" duration-ms="1546" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- validateErrorMessagesAndMandatoryFields -->
+        <test-method is-config="true" signature="tearDownBrowser()[pri:0, instance:tests.LoginTest@4b5a5ed1]" started-at="2026-06-07T12:56:51 IST" name="tearDownBrowser" finished-at="2026-06-07T12:56:51 IST" duration-ms="194" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDownBrowser -->
+      </class> <!-- tests.LoginTest -->
+      <class name="tests.WaitTest">
+        <test-method is-config="true" signature="setUpBrowser()[pri:0, instance:tests.WaitTest@1ed1993a]" started-at="2026-06-07T12:56:09 IST" name="setUpBrowser" finished-at="2026-06-07T12:56:10 IST" duration-ms="1064" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUpBrowser -->
+        <test-method signature="verifyExplicitWaitForValidationText()[pri:0, instance:tests.WaitTest@1ed1993a]" started-at="2026-06-07T12:56:10 IST" name="verifyExplicitWaitForValidationText" finished-at="2026-06-07T12:56:12 IST" duration-ms="1438" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- verifyExplicitWaitForValidationText -->
+        <test-method is-config="true" signature="tearDownBrowser()[pri:0, instance:tests.WaitTest@1ed1993a]" started-at="2026-06-07T12:56:12 IST" name="tearDownBrowser" finished-at="2026-06-07T12:56:12 IST" duration-ms="183" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDownBrowser -->
+        <test-method is-config="true" signature="setUpBrowser()[pri:0, instance:tests.WaitTest@1ed1993a]" started-at="2026-06-07T12:56:12 IST" name="setUpBrowser" finished-at="2026-06-07T12:56:13 IST" duration-ms="687" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUpBrowser -->
+        <test-method signature="verifyImplicitAndExplicitWaits()[pri:0, instance:tests.WaitTest@1ed1993a]" started-at="2026-06-07T12:56:13 IST" name="verifyImplicitAndExplicitWaits" finished-at="2026-06-07T12:56:14 IST" duration-ms="1282" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- verifyImplicitAndExplicitWaits -->
+        <test-method is-config="true" signature="tearDownBrowser()[pri:0, instance:tests.WaitTest@1ed1993a]" started-at="2026-06-07T12:56:14 IST" name="tearDownBrowser" finished-at="2026-06-07T12:56:14 IST" duration-ms="147" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDownBrowser -->
+      </class> <!-- tests.WaitTest -->
+      <class name="tests.AlertPopupTest">
+        <test-method is-config="true" signature="setUpBrowser()[pri:0, instance:tests.AlertPopupTest@1f3f4916]" started-at="2026-06-07T12:56:14 IST" name="setUpBrowser" finished-at="2026-06-07T12:56:15 IST" duration-ms="959" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUpBrowser -->
+        <test-method signature="handleAlertsAndPopups()[pri:0, instance:tests.AlertPopupTest@1f3f4916]" started-at="2026-06-07T12:56:15 IST" name="handleAlertsAndPopups" finished-at="2026-06-07T12:56:26 IST" duration-ms="11292" status="FAIL">
+          <exception class="java.lang.AssertionError">
+            <message>
+              <![CDATA[Popup demo page did not load. expected [true] but found [false]]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.AssertionError: Popup demo page did not load. expected [true] but found [false]
+at org.testng.Assert.fail(Assert.java:111)
+at org.testng.Assert.failNotEquals(Assert.java:1590)
+at org.testng.Assert.assertTrue(Assert.java:57)
+at tests.AlertPopupTest.handleAlertsAndPopups(AlertPopupTest.java:16)
+at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:141)
+at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:697)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:230)
+at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:1005)
+at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:203)
+at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:154)
+at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:134)
+at java.base/java.util.ArrayList.forEach(ArrayList.java:1604)
+at org.testng.TestRunner.privateRun(TestRunner.java:744)
+at org.testng.TestRunner.run(TestRunner.java:616)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:421)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:413)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:373)
+at org.testng.SuiteRunner.run(SuiteRunner.java:312)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1274)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1208)
+at org.testng.TestNG.runSuites(TestNG.java:1112)
+at org.testng.TestNG.run(TestNG.java:1079)
+at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:308)
+at org.apache.maven.surefire.testng.TestNGXmlTestSuite.execute(TestNGXmlTestSuite.java:71)
+at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:113)
+at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.AssertionError -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- handleAlertsAndPopups -->
+        <test-method is-config="true" signature="tearDownBrowser()[pri:0, instance:tests.AlertPopupTest@1f3f4916]" started-at="2026-06-07T12:56:26 IST" name="tearDownBrowser" finished-at="2026-06-07T12:56:27 IST" duration-ms="156" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDownBrowser -->
+      </class> <!-- tests.AlertPopupTest -->
+      <class name="tests.RegistrationTest">
+        <test-method is-config="true" signature="setUpBrowser()[pri:0, instance:tests.RegistrationTest@794cb805]" started-at="2026-06-07T12:56:27 IST" name="setUpBrowser" finished-at="2026-06-07T12:56:28 IST" duration-ms="888" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUpBrowser -->
+        <test-method signature="automateUserRegistrationFlow()[pri:0, instance:tests.RegistrationTest@794cb805]" started-at="2026-06-07T12:56:28 IST" name="automateUserRegistrationFlow" finished-at="2026-06-07T12:56:29 IST" duration-ms="1895" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- automateUserRegistrationFlow -->
+        <test-method is-config="true" signature="tearDownBrowser()[pri:0, instance:tests.RegistrationTest@794cb805]" started-at="2026-06-07T12:56:29 IST" name="tearDownBrowser" finished-at="2026-06-07T12:56:30 IST" duration-ms="142" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDownBrowser -->
+        <test-method is-config="true" signature="setUpBrowser()[pri:0, instance:tests.RegistrationTest@794cb805]" started-at="2026-06-07T12:56:30 IST" name="setUpBrowser" finished-at="2026-06-07T12:56:30 IST" duration-ms="898" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUpBrowser -->
+        <test-method signature="validateEmailFormatAndInvalidInputMessages()[pri:0, instance:tests.RegistrationTest@794cb805]" started-at="2026-06-07T12:56:30 IST" name="validateEmailFormatAndInvalidInputMessages" finished-at="2026-06-07T12:56:32 IST" duration-ms="1499" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- validateEmailFormatAndInvalidInputMessages -->
+        <test-method is-config="true" signature="tearDownBrowser()[pri:0, instance:tests.RegistrationTest@794cb805]" started-at="2026-06-07T12:56:32 IST" name="tearDownBrowser" finished-at="2026-06-07T12:56:32 IST" duration-ms="188" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDownBrowser -->
+        <test-method is-config="true" signature="setUpBrowser()[pri:0, instance:tests.RegistrationTest@794cb805]" started-at="2026-06-07T12:56:32 IST" name="setUpBrowser" finished-at="2026-06-07T12:56:33 IST" duration-ms="1026" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUpBrowser -->
+        <test-method signature="validateInvalidInputMessage()[pri:0, instance:tests.RegistrationTest@794cb805]" started-at="2026-06-07T12:56:33 IST" name="validateInvalidInputMessage" finished-at="2026-06-07T12:56:35 IST" duration-ms="1478" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- validateInvalidInputMessage -->
+        <test-method is-config="true" signature="tearDownBrowser()[pri:0, instance:tests.RegistrationTest@794cb805]" started-at="2026-06-07T12:56:35 IST" name="tearDownBrowser" finished-at="2026-06-07T12:56:35 IST" duration-ms="142" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDownBrowser -->
+        <test-method is-config="true" signature="setUpBrowser()[pri:0, instance:tests.RegistrationTest@794cb805]" started-at="2026-06-07T12:56:35 IST" name="setUpBrowser" finished-at="2026-06-07T12:56:36 IST" duration-ms="1057" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUpBrowser -->
+        <test-method signature="validateMandatoryAndBlankFieldMessages()[pri:0, instance:tests.RegistrationTest@794cb805]" started-at="2026-06-07T12:56:36 IST" name="validateMandatoryAndBlankFieldMessages" finished-at="2026-06-07T12:56:37 IST" duration-ms="978" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- validateMandatoryAndBlankFieldMessages -->
+        <test-method is-config="true" signature="tearDownBrowser()[pri:0, instance:tests.RegistrationTest@794cb805]" started-at="2026-06-07T12:56:37 IST" name="tearDownBrowser" finished-at="2026-06-07T12:56:37 IST" duration-ms="149" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDownBrowser -->
+      </class> <!-- tests.RegistrationTest -->
+      <class name="tests.NavigationTest">
+        <test-method is-config="true" signature="setUpBrowser()[pri:0, instance:tests.NavigationTest@4df50bcc]" started-at="2026-06-07T12:56:06 IST" name="setUpBrowser" finished-at="2026-06-07T12:56:08 IST" duration-ms="1624" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUpBrowser -->
+        <test-method signature="verifyBasicNavigationBetweenLoginAndRegisterPages()[pri:0, instance:tests.NavigationTest@4df50bcc]" started-at="2026-06-07T12:56:08 IST" name="verifyBasicNavigationBetweenLoginAndRegisterPages" finished-at="2026-06-07T12:56:09 IST" duration-ms="1417" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- verifyBasicNavigationBetweenLoginAndRegisterPages -->
+        <test-method is-config="true" signature="tearDownBrowser()[pri:0, instance:tests.NavigationTest@4df50bcc]" started-at="2026-06-07T12:56:09 IST" name="tearDownBrowser" finished-at="2026-06-07T12:56:09 IST" duration-ms="177" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDownBrowser -->
+      </class> <!-- tests.NavigationTest -->
+    </test> <!-- US013-US015 -->
+  </suite> <!-- Ecommerce Automation Suite -->
+</testng-results>

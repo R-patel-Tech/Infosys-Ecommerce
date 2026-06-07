@@ -9,9 +9,11 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class WaitUtils {
+    private final WebDriver driver;
     private final WebDriverWait wait;
 
     public WaitUtils(WebDriver driver) {
+        this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(ConfigReader.getInstance().getIntProperty("explicitWait", 15)));
     }
 
@@ -29,5 +31,15 @@ public class WaitUtils {
 
     public void waitForPageLoad() {
         wait.until(driver -> "complete".equals(String.valueOf(((JavascriptExecutor) driver).executeScript("return document.readyState"))));
+    }
+
+    public boolean isElementVisible(By locator) {
+        try {
+            WebDriverWait quickWait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            quickWait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

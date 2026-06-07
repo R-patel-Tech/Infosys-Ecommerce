@@ -37,6 +37,6 @@ public abstract class BasePage {
     }
 
     protected boolean isDisplayed(By locator) {
-        return driver.findElements(locator).stream().anyMatch(WebElement::isDisplayed);
+        return waitUtils.isElementVisible(locator);
     }
 }

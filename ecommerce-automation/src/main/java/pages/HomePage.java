@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class HomePage extends BasePage {
-    private final By welcomeHeading = By.xpath("//h1[normalize-space()='Welcome back']");
+    private final By dashboardMetrics = By.cssSelector(".dashboard-metrics");
     private final By logoutButton = By.cssSelector(".navbar-logout");
 
     public HomePage(WebDriver driver) {
@@ -13,7 +13,7 @@ public class HomePage extends BasePage {
     }
 
     public boolean isLoaded() {
-        return isDisplayed(welcomeHeading);
+        return isDisplayed(dashboardMetrics);
     }
 
     public String getTitle() {
@@ -25,6 +25,7 @@ public class HomePage extends BasePage {
     }
 
     public LoginPage logout() {
+        waitUtils.waitForPageLoad();
         click(logoutButton);
         waitUtils.waitForPageLoad();
         return new LoginPage(driver);
