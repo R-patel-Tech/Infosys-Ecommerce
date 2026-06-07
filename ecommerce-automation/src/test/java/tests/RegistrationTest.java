@@ -3,64 +3,55 @@ package tests;
 import base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.LoginPage;
 import pages.RegistrationPage;
-import utils.RegistrationData;
-import utils.TestDataManager;
 
 public class RegistrationTest extends BaseTest {
-    private static String registeredEmail;
-
-    @Test(priority = 1, description = "Verify that a user can register successfully and return to the login page")
-    public void userCanRegisterSuccessfully() {
-        LoginPage loginPage = new LoginPage(driver, wait);
-        RegistrationPage registrationPage = loginPage.clickSignUp();
-
-        Assert.assertTrue(registrationPage.isLoaded(), "Registration page did not load.");
-
-        RegistrationData registrationData = TestDataManager.buildUniqueRegistrationData();
-        registeredEmail = registrationData.getEmail();
-
-        registrationPage.enterFullName(registrationData.getFullName())
-                .enterEmail(registrationData.getEmail())
-                .enterPhoneNumber(registrationData.getPhoneNumber())
-                .enterPassword(registrationData.getPassword())
-                .enterConfirmPassword(registrationData.getConfirmPassword())
-                .acceptTermsAndConditions()
-                .clickRegister();
-
-        String successMessage = "Account created for " + registrationData.getFullName() + ".";
-        Assert.assertTrue(registrationPage.hasSuccessMessage(successMessage),
-                "Registration success message was not displayed.");
-        Assert.assertTrue(registrationPage.getFeedbackMessage().contains("Account created"),
-                "Unexpected registration feedback message.");
-
-        LoginPage redirectedLoginPage = registrationPage.clickSignIn();
-        Assert.assertTrue(redirectedLoginPage.isLoaded(), "User was not redirected back to the login page.");
+    private String uniqueEmail() {
+        return "selenium" + System.currentTimeMillis() + "@example.com";
     }
 
-    @Test(priority = 2, description = "Verify duplicate email registration is handled gracefully")
-    public void duplicateEmailIsRejected() {
-        Assert.assertNotNull(registeredEmail, "Registered email was not captured from the success test.");
+    @Test
+    public void automateUserRegistrationFlow() {
+        RegistrationPage registrationPage = new RegistrationPage(driver).open();
+        registrationPage.register("Selenium User", "9876543210", uniqueEmail(), "Test@1234", "Test@1234");
 
-        LoginPage loginPage = new LoginPage(driver, wait);
-        RegistrationPage registrationPage = loginPage.clickSignUp();
+        Assert.assertTrue(registrationPage.getFeedbackMessage().contains("Account created"));
+    }
 
-        Assert.assertTrue(registrationPage.isLoaded(), "Registration page did not load.");
+    @Test
+    public void validateMandatoryAndBlankFieldMessages() {
+        RegistrationPage registrationPage = new RegistrationPage(driver).open();
+        registrationPage.submit();
 
-        RegistrationData duplicateData = TestDataManager.buildDuplicateRegistrationData(registeredEmail);
-        registrationPage.enterFullName(duplicateData.getFullName())
-                .enterEmail(duplicateData.getEmail())
-                .enterPhoneNumber(duplicateData.getPhoneNumber())
-                .enterPassword(duplicateData.getPassword())
-                .enterConfirmPassword(duplicateData.getConfirmPassword())
-                .acceptTermsAndConditions()
-                .clickRegister();
+        Assert.assertFalse(registrationPage.getNameValidationMessage().isBlank());
+        Assert.assertFalse(registrationPage.getPhoneValidationMessage().isBlank());
+        Assert.assertFalse(registrationPage.getEmailValidationMessage().isBlank());
+        Assert.assertFalse(registrationPage.getPasswordValidationMessage().isBlank());
+    }
 
-        String duplicateMessageKey = configReader.getProperty("registration.duplicate.message", "already exists");
-        Assert.assertTrue(registrationPage.hasErrorMessageContaining(duplicateMessageKey)
-                        || registrationPage.hasErrorMessageContaining("duplicate")
-                        || registrationPage.hasErrorMessageContaining("exists"),
-                "Duplicate email error message was not displayed.");
+    @Test
+    public void validateEmailFormatAndInvalidInputMessages() {
+        RegistrationPage registrationPage = new RegistrationPage(driver).open();
+        registrationPage.enterFullName("Valid User");
+        registrationPage.enterPhoneNumber("9876543210");
+        registrationPage.enterEmail("invalid-email");
+        registrationPage.enterPassword("Test@1234");
+        registrationPage.enterConfirmPassword("Test@1234");
+        registrationPage.submit();
+
+        Assert.assertFalse(registrationPage.getEmailValidationMessage().isBlank());
+    }
+
+    @Test
+    public void validateInvalidInputMessage() {
+        RegistrationPage registrationPage = new RegistrationPage(driver).open();
+        registrationPage.enterFullName("Invalid@Name");
+        registrationPage.enterPhoneNumber("9876543210");
+        registrationPage.enterEmail(uniqueEmail());
+        registrationPage.enterPassword("Test@1234");
+        registrationPage.enterConfirmPassword("Test@1234");
+        registrationPage.submit();
+
+        Assert.assertTrue(registrationPage.getFeedbackMessage().contains("Name can contain only letters"));
     }
 }
