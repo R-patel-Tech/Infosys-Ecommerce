@@ -41,11 +41,25 @@ public class LoginPage extends BasePage {
         waitUtils.waitForPageLoad();
     }
 
-    public HomePage login(String email, String password) {
+    public LoginPage login(String email, String password) {
         enterEmail(email);
         enterPassword(password);
         clickLogin();
-        return new HomePage(driver);
+        return this;
+    }
+
+    public HomePage loginToDashboard(String email, String password) {
+        enterEmail(email);
+        enterPassword(password);
+        clickLogin();
+        HomePage homePage = new HomePage(driver);
+        homePage.waitUntilLoaded();
+        return homePage;
+    }
+
+    public LoginPage waitUntilLoaded() {
+        waitUtils.waitForVisibility(emailInput);
+        return this;
     }
 
     public RegistrationPage navigateToRegister() {

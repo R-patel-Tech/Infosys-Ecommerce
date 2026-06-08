@@ -16,6 +16,11 @@ public class HomePage extends BasePage {
         return isDisplayed(dashboardMetrics);
     }
 
+    public HomePage waitUntilLoaded() {
+        waitUtils.waitForVisibility(dashboardMetrics);
+        return this;
+    }
+
     public String getTitle() {
         return driver.getTitle();
     }
@@ -25,9 +30,10 @@ public class HomePage extends BasePage {
     }
 
     public LoginPage logout() {
-        waitUtils.waitForPageLoad();
         click(logoutButton);
-        waitUtils.waitForPageLoad();
-        return new LoginPage(driver);
+        waitUtils.waitForUrlContains("/login");
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.waitUntilLoaded();
+        return loginPage;
     }
 }

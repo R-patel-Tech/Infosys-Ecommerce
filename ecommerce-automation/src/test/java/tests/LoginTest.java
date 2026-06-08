@@ -23,7 +23,7 @@ public class LoginTest extends BaseTest {
     @Test
     public void automateLoginWithValidCredentials() {
         String email = seedRegisteredUser();
-        HomePage homePage = new LoginPage(driver).open().login(email, "Test@1234");
+        HomePage homePage = new LoginPage(driver).open().loginToDashboard(email, "Test@1234");
 
         Assert.assertTrue(homePage.isLoaded(), "Dashboard/home page did not load after login.");
         Assert.assertEquals(homePage.getTitle(), "Raj_ecommerce");
@@ -56,7 +56,7 @@ public class LoginTest extends BaseTest {
     @Test
     public void implementAssertionsForLoginLogoutStatus() {
         String email = seedRegisteredUser();
-        HomePage homePage = new LoginPage(driver).open().login(email, "Test@1234");
+        HomePage homePage = new LoginPage(driver).open().loginToDashboard(email, "Test@1234");
 
         Assert.assertTrue(homePage.isLoaded());
         Assert.assertEquals(homePage.getTitle(), "Raj_ecommerce");

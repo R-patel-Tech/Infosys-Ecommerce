@@ -33,6 +33,10 @@ public class WaitUtils {
         wait.until(driver -> "complete".equals(String.valueOf(((JavascriptExecutor) driver).executeScript("return document.readyState"))));
     }
 
+    public boolean waitForUrlContains(String fragment) {
+        return wait.until(ExpectedConditions.urlContains(fragment));
+    }
+
     public boolean isElementVisible(By locator) {
         try {
             WebDriverWait quickWait = new WebDriverWait(driver, Duration.ofSeconds(10));

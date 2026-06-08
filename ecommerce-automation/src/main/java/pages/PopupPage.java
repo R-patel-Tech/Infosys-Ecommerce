@@ -1,8 +1,8 @@
 package pages;
 
 import base.BasePage;
-import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -88,15 +88,9 @@ public class PopupPage extends BasePage {
     }
 
     public PopupPage openDemoPage() {
-        String encodedHtml = URLEncoder.encode(DEMO_HTML, StandardCharsets.UTF_8);
-        driver.get("data:text/html;charset=utf-8," + encodedHtml);
+        String encodedHtml = Base64.getEncoder().encodeToString(DEMO_HTML.getBytes(StandardCharsets.UTF_8));
+        driver.get("data:text/html;charset=utf-8;base64," + encodedHtml);
         waitUtils.waitForPageLoad();
-        // Additional wait for data URL content to render
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
         return this;
     }
 
