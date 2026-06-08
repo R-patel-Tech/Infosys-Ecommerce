@@ -19,12 +19,24 @@ public class LoginPage extends BasePage {
     public LoginPage open() {
         driver.get(baseUrl() + "/login");
         waitUtils.waitForPageLoad();
+        // Wait for 2 seconds to observe execution
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
         return this;
     }
 
     public LoginPage openHome() {
         driver.get(baseUrl());
         waitUtils.waitForPageLoad();
+        // Wait for 2 seconds to observe execution
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
         return this;
     }
 
@@ -39,6 +51,12 @@ public class LoginPage extends BasePage {
     public void clickLogin() {
         click(signInButton);
         waitUtils.waitForPageLoad();
+        // Wait for 2 seconds to observe execution
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     public LoginPage login(String email, String password) {
@@ -54,6 +72,12 @@ public class LoginPage extends BasePage {
         clickLogin();
         HomePage homePage = new HomePage(driver);
         homePage.waitUntilLoaded();
+        // Wait for 2 seconds to observe execution
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
         return homePage;
     }
 

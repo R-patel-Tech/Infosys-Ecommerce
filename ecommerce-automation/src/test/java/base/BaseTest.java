@@ -16,6 +16,12 @@ public abstract class BaseTest {
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(configReader.getIntProperty("implicitWait", 10)));
         driver.get(configReader.getProperty("baseUrl", "http://localhost:5173"));
+        // Wait for 2 seconds to observe execution
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     @AfterMethod(alwaysRun = true)
