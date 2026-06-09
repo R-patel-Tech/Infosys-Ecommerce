@@ -22,16 +22,11 @@ public class HomePage extends BasePage {
         return this;
     }
 
-    public String getTitle() {
-        return driver.getTitle();
+    public boolean isUserLoggedIn() {
+        return isLoaded() && getCurrentUrl().contains("/dashboard");
     }
 
-    public String getCurrentUrl() {
-        return driver.getCurrentUrl();
-    }
-
-    public LoginPage logout() {
-        // Some apps require opening a profile/user menu before logout
+    public LoginPage clickLogout() {
         try {
             if (isDisplayed(profileMenu)) {
                 click(profileMenu);
@@ -42,14 +37,12 @@ public class HomePage extends BasePage {
 
         click(logoutButton);
         waitUtils.waitForUrlContains("/login");
-        // Wait for 2 seconds to observe execution
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
         LoginPage loginPage = new LoginPage(driver);
         loginPage.waitUntilLoaded();
         return loginPage;
+    }
+
+    public LoginPage logout() {
+        return clickLogout();
     }
 }

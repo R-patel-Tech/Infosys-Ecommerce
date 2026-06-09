@@ -4,3 +4,4 @@ tests\RegistrationTest.class
 tests\WaitTest.class
 tests\LoginTest.class
 tests\AlertPopupTest.class
+tests\LogoutSessionTests.class

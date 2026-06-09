@@ -1,4 +1,5 @@
 base\BasePage.class
+utils\LoginUtils.class
 base\DriverFactory.class
 utils\AlertUtils.class
 pages\LoginPage.class

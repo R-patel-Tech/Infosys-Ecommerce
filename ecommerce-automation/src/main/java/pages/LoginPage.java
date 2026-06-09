@@ -17,26 +17,18 @@ public class LoginPage extends BasePage {
     }
 
     public LoginPage open() {
-        driver.get(baseUrl() + "/login");
-        waitUtils.waitForPageLoad();
-        // Wait for 2 seconds to observe execution
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
+        navigateTo("/login");
         return this;
     }
 
-    public LoginPage openHome() {
-        driver.get(baseUrl());
+    public RegistrationPage navigateToRegister() {
+        click(signUpButton);
         waitUtils.waitForPageLoad();
-        // Wait for 2 seconds to observe execution
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
+        return new RegistrationPage(driver);
+    }
+
+    public LoginPage openHome() {
+        navigateTo("/");
         return this;
     }
 
@@ -51,7 +43,6 @@ public class LoginPage extends BasePage {
     public void clickLogin() {
         click(signInButton);
         waitUtils.waitForPageLoad();
-        // Wait for 2 seconds to observe execution
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
@@ -72,12 +63,6 @@ public class LoginPage extends BasePage {
         clickLogin();
         HomePage homePage = new HomePage(driver);
         homePage.waitUntilLoaded();
-        // Wait for 2 seconds to observe execution
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
         return homePage;
     }
 
@@ -86,26 +71,16 @@ public class LoginPage extends BasePage {
         return this;
     }
 
-    public RegistrationPage navigateToRegister() {
-        click(signUpButton);
-        waitUtils.waitForPageLoad();
-        return new RegistrationPage(driver);
-    }
-
     public boolean isLoaded() {
         return isDisplayed(emailInput) && isDisplayed(passwordInput) && isDisplayed(titleHeading);
     }
 
+    public String getErrorMessage() {
+        return getFeedbackMessage();
+    }
+
     public String getFeedbackMessage() {
         return isDisplayed(feedbackAlert) ? textOf(feedbackAlert) : "";
-    }
-
-    public String getTitle() {
-        return driver.getTitle();
-    }
-
-    public String getCurrentUrl() {
-        return driver.getCurrentUrl();
     }
 
     public String getEmailValidationMessage() {
@@ -114,9 +89,5 @@ public class LoginPage extends BasePage {
 
     public String getPasswordValidationMessage() {
         return driver.findElement(passwordInput).getAttribute("validationMessage");
-    }
-
-    private String baseUrl() {
-        return utils.ConfigReader.getInstance().getProperty("baseUrl", "http://localhost:5173");
     }
 }

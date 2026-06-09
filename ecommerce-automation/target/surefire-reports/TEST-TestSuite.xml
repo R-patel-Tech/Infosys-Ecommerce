@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="TestSuite" time="215.798" tests="12" errors="0" skipped="0" failures="0" flakes="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="TestSuite" time="215.121" tests="12" errors="0" skipped="0" failures="0" flakes="0">
   <properties>
     <property name="java.specification.version" value="25"/>
-    <property name="webdriver.chrome.driver" value="C:\Users\91907\.cache\selenium\chromedriver\win64\149.0.7827.54\chromedriver.exe"/>
+    <property name="webdriver.chrome.driver" value="C:\Users\91907\.cache\selenium\chromedriver\win64\149.0.7827.55\chromedriver.exe"/>
     <property name="sun.cpu.isalist" value="amd64"/>
     <property name="sun.jnu.encoding" value="Cp1252"/>
     <property name="java.class.path" value="C:\Users\91907\git\repository\ecommerce-automation\target\test-classes;C:\Users\91907\git\repository\ecommerce-automation\target\classes;C:\Users\91907\.m2\repository\org\seleniumhq\selenium\selenium-java\4.44.0\selenium-java-4.44.0.jar;C:\Users\91907\.m2\repository\org\seleniumhq\selenium\selenium-api\4.44.0\selenium-api-4.44.0.jar;C:\Users\91907\.m2\repository\org\jspecify\jspecify\1.0.0\jspecify-1.0.0.jar;C:\Users\91907\.m2\repository\org\seleniumhq\selenium\selenium-chrome-driver\4.44.0\selenium-chrome-driver-4.44.0.jar;C:\Users\91907\.m2\repository\com\google\auto\service\auto-service-annotations\1.1.1\auto-service-annotations-1.1.1.jar;C:\Users\91907\.m2\repository\org\seleniumhq\selenium\selenium-chromium-driver\4.44.0\selenium-chromium-driver-4.44.0.jar;C:\Users\91907\.m2\repository\org\seleniumhq\selenium\selenium-json\4.44.0\selenium-json-4.44.0.jar;C:\Users\91907\.m2\repository\org\seleniumhq\selenium\selenium-manager\4.44.0\selenium-manager-4.44.0.jar;C:\Users\91907\.m2\repository\org\seleniumhq\selenium\selenium-devtools-v146\4.44.0\selenium-devtools-v146-4.44.0.jar;C:\Users\91907\.m2\repository\org\seleniumhq\selenium\selenium-devtools-v147\4.44.0\selenium-devtools-v147-4.44.0.jar;C:\Users\91907\.m2\repository\org\seleniumhq\selenium\selenium-devtools-v148\4.44.0\selenium-devtools-v148-4.44.0.jar;C:\Users\91907\.m2\repository\org\seleniumhq\selenium\selenium-edge-driver\4.44.0\selenium-edge-driver-4.44.0.jar;C:\Users\91907\.m2\repository\org\seleniumhq\selenium\selenium-firefox-driver\4.44.0\selenium-firefox-driver-4.44.0.jar;C:\Users\91907\.m2\repository\org\seleniumhq\selenium\selenium-http\4.44.0\selenium-http-4.44.0.jar;C:\Users\91907\.m2\repository\org\seleniumhq\selenium\selenium-ie-driver\4.44.0\selenium-ie-driver-4.44.0.jar;C:\Users\91907\.m2\repository\org\seleniumhq\selenium\selenium-remote-driver\4.44.0\selenium-remote-driver-4.44.0.jar;C:\Users\91907\.m2\repository\com\google\guava\guava\33.6.0-jre\guava-33.6.0-jre.jar;C:\Users\91907\.m2\repository\com\google\guava\failureaccess\1.0.3\failureaccess-1.0.3.jar;C:\Users\91907\.m2\repository\com\google\guava\listenablefuture\9999.0-empty-to-avoid-conflict-with-guava\listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar;C:\Users\91907\.m2\repository\com\google\j2objc\j2objc-annotations\3.1\j2objc-annotations-3.1.jar;C:\Users\91907\.m2\repository\io\opentelemetry\opentelemetry-api\1.62.0\opentelemetry-api-1.62.0.jar;C:\Users\91907\.m2\repository\io\opentelemetry\opentelemetry-context\1.62.0\opentelemetry-context-1.62.0.jar;C:\Users\91907\.m2\repository\io\opentelemetry\opentelemetry-common\1.62.0\opentelemetry-common-1.62.0.jar;C:\Users\91907\.m2\repository\io\opentelemetry\opentelemetry-exporter-logging\1.62.0\opentelemetry-exporter-logging-1.62.0.jar;C:\Users\91907\.m2\repository\io\opentelemetry\opentelemetry-sdk-common\1.62.0\opentelemetry-sdk-common-1.62.0.jar;C:\Users\91907\.m2\repository\io\opentelemetry\opentelemetry-sdk-extension-autoconfigure-spi\1.62.0\opentelemetry-sdk-extension-autoconfigure-spi-1.62.0.jar;C:\Users\91907\.m2\repository\io\opentelemetry\opentelemetry-sdk-extension-autoconfigure\1.62.0\opentelemetry-sdk-extension-autoconfigure-1.62.0.jar;C:\Users\91907\.m2\repository\io\opentelemetry\opentelemetry-sdk-trace\1.62.0\opentelemetry-sdk-trace-1.62.0.jar;C:\Users\91907\.m2\repository\io\opentelemetry\opentelemetry-sdk\1.62.0\opentelemetry-sdk-1.62.0.jar;C:\Users\91907\.m2\repository\io\opentelemetry\opentelemetry-sdk-metrics\1.62.0\opentelemetry-sdk-metrics-1.62.0.jar;C:\Users\91907\.m2\repository\io\opentelemetry\opentelemetry-sdk-logs\1.62.0\opentelemetry-sdk-logs-1.62.0.jar;C:\Users\91907\.m2\repository\net\bytebuddy\byte-buddy\1.18.8-jdk5\byte-buddy-1.18.8-jdk5.jar;C:\Users\91907\.m2\repository\org\seleniumhq\selenium\selenium-os\4.44.0\selenium-os-4.44.0.jar;C:\Users\91907\.m2\repository\org\seleniumhq\selenium\selenium-safari-driver\4.44.0\selenium-safari-driver-4.44.0.jar;C:\Users\91907\.m2\repository\org\seleniumhq\selenium\selenium-support\4.44.0\selenium-support-4.44.0.jar;C:\Users\91907\.m2\repository\org\testng\testng\7.12.0\testng-7.12.0.jar;C:\Users\91907\.m2\repository\org\slf4j\slf4j-api\2.0.16\slf4j-api-2.0.16.jar;C:\Users\91907\.m2\repository\org\jcommander\jcommander\1.83\jcommander-1.83.jar;C:\Users\91907\.m2\repository\org\webjars\jquery\3.7.1\jquery-3.7.1.jar;C:\Users\91907\.m2\repository\io\github\bonigarcia\webdrivermanager\6.3.4\webdrivermanager-6.3.4.jar;C:\Users\91907\.m2\repository\com\google\code\gson\gson\2.13.2\gson-2.13.2.jar;C:\Users\91907\.m2\repository\com\google\errorprone\error_prone_annotations\2.41.0\error_prone_annotations-2.41.0.jar;C:\Users\91907\.m2\repository\com\github\docker-java\docker-java\3.7.1\docker-java-3.7.1.jar;C:\Users\91907\.m2\repository\com\github\docker-java\docker-java-core\3.7.1\docker-java-core-3.7.1.jar;C:\Users\91907\.m2\repository\com\github\docker-java\docker-java-api\3.7.1\docker-java-api-3.7.1.jar;C:\Users\91907\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.20\jackson-annotations-2.20.jar;C:\Users\91907\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.20.1\jackson-databind-2.20.1.jar;C:\Users\91907\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.20.1\jackson-core-2.20.1.jar;C:\Users\91907\.m2\repository\org\slf4j\jcl-over-slf4j\1.7.30\jcl-over-slf4j-1.7.30.jar;C:\Users\91907\.m2\repository\com\github\docker-java\docker-java-transport-httpclient5\3.7.1\docker-java-transport-httpclient5-3.7.1.jar;C:\Users\91907\.m2\repository\com\github\docker-java\docker-java-transport\3.7.1\docker-java-transport-3.7.1.jar;C:\Users\91907\.m2\repository\net\java\dev\jna\jna\5.18.1\jna-5.18.1.jar;C:\Users\91907\.m2\repository\org\brotli\dec\0.1.2\dec-0.1.2.jar;C:\Users\91907\.m2\repository\org\apache\commons\commons-lang3\3.20.0\commons-lang3-3.20.0.jar;C:\Users\91907\.m2\repository\org\apache\commons\commons-compress\1.28.0\commons-compress-1.28.0.jar;C:\Users\91907\.m2\repository\commons-codec\commons-codec\1.19.0\commons-codec-1.19.0.jar;C:\Users\91907\.m2\repository\commons-io\commons-io\2.20.0\commons-io-2.20.0.jar;C:\Users\91907\.m2\repository\org\apache\httpcomponents\client5\httpclient5\5.6\httpclient5-5.6.jar;C:\Users\91907\.m2\repository\org\apache\httpcomponents\core5\httpcore5\5.4\httpcore5-5.4.jar;C:\Users\91907\.m2\repository\org\apache\httpcomponents\core5\httpcore5-h2\5.4\httpcore5-h2-5.4.jar;"/>
@@ -16,7 +16,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="IN"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-25\bin"/>
-    <property name="sun.java.command" value="C:\Users\91907\AppData\Local\Temp\surefire11993480991684836454\surefirebooter-20260608193041875_3.jar C:\Users\91907\AppData\Local\Temp\surefire11993480991684836454 2026-06-08T19-30-41_718-jvmRun1 surefire-20260608193041875_1tmp surefire_0-20260608193041875_2tmp"/>
+    <property name="sun.java.command" value="C:\Users\91907\AppData\Local\Temp\surefire1874510559250242187\surefirebooter-20260609192723534_3.jar C:\Users\91907\AppData\Local\Temp\surefire1874510559250242187 2026-06-09T19-27-23_384-jvmRun1 surefire-20260609192723534_1tmp surefire_0-20260609192723534_2tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="C:\Users\91907\git\repository\ecommerce-automation\target\test-classes;C:\Users\91907\git\repository\ecommerce-automation\target\classes;C:\Users\91907\.m2\repository\org\seleniumhq\selenium\selenium-java\4.44.0\selenium-java-4.44.0.jar;C:\Users\91907\.m2\repository\org\seleniumhq\selenium\selenium-api\4.44.0\selenium-api-4.44.0.jar;C:\Users\91907\.m2\repository\org\jspecify\jspecify\1.0.0\jspecify-1.0.0.jar;C:\Users\91907\.m2\repository\org\seleniumhq\selenium\selenium-chrome-driver\4.44.0\selenium-chrome-driver-4.44.0.jar;C:\Users\91907\.m2\repository\com\google\auto\service\auto-service-annotations\1.1.1\auto-service-annotations-1.1.1.jar;C:\Users\91907\.m2\repository\org\seleniumhq\selenium\selenium-chromium-driver\4.44.0\selenium-chromium-driver-4.44.0.jar;C:\Users\91907\.m2\repository\org\seleniumhq\selenium\selenium-json\4.44.0\selenium-json-4.44.0.jar;C:\Users\91907\.m2\repository\org\seleniumhq\selenium\selenium-manager\4.44.0\selenium-manager-4.44.0.jar;C:\Users\91907\.m2\repository\org\seleniumhq\selenium\selenium-devtools-v146\4.44.0\selenium-devtools-v146-4.44.0.jar;C:\Users\91907\.m2\repository\org\seleniumhq\selenium\selenium-devtools-v147\4.44.0\selenium-devtools-v147-4.44.0.jar;C:\Users\91907\.m2\repository\org\seleniumhq\selenium\selenium-devtools-v148\4.44.0\selenium-devtools-v148-4.44.0.jar;C:\Users\91907\.m2\repository\org\seleniumhq\selenium\selenium-edge-driver\4.44.0\selenium-edge-driver-4.44.0.jar;C:\Users\91907\.m2\repository\org\seleniumhq\selenium\selenium-firefox-driver\4.44.0\selenium-firefox-driver-4.44.0.jar;C:\Users\91907\.m2\repository\org\seleniumhq\selenium\selenium-http\4.44.0\selenium-http-4.44.0.jar;C:\Users\91907\.m2\repository\org\seleniumhq\selenium\selenium-ie-driver\4.44.0\selenium-ie-driver-4.44.0.jar;C:\Users\91907\.m2\repository\org\seleniumhq\selenium\selenium-remote-driver\4.44.0\selenium-remote-driver-4.44.0.jar;C:\Users\91907\.m2\repository\com\google\guava\guava\33.6.0-jre\guava-33.6.0-jre.jar;C:\Users\91907\.m2\repository\com\google\guava\failureaccess\1.0.3\failureaccess-1.0.3.jar;C:\Users\91907\.m2\repository\com\google\guava\listenablefuture\9999.0-empty-to-avoid-conflict-with-guava\listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar;C:\Users\91907\.m2\repository\com\google\j2objc\j2objc-annotations\3.1\j2objc-annotations-3.1.jar;C:\Users\91907\.m2\repository\io\opentelemetry\opentelemetry-api\1.62.0\opentelemetry-api-1.62.0.jar;C:\Users\91907\.m2\repository\io\opentelemetry\opentelemetry-context\1.62.0\opentelemetry-context-1.62.0.jar;C:\Users\91907\.m2\repository\io\opentelemetry\opentelemetry-common\1.62.0\opentelemetry-common-1.62.0.jar;C:\Users\91907\.m2\repository\io\opentelemetry\opentelemetry-exporter-logging\1.62.0\opentelemetry-exporter-logging-1.62.0.jar;C:\Users\91907\.m2\repository\io\opentelemetry\opentelemetry-sdk-common\1.62.0\opentelemetry-sdk-common-1.62.0.jar;C:\Users\91907\.m2\repository\io\opentelemetry\opentelemetry-sdk-extension-autoconfigure-spi\1.62.0\opentelemetry-sdk-extension-autoconfigure-spi-1.62.0.jar;C:\Users\91907\.m2\repository\io\opentelemetry\opentelemetry-sdk-extension-autoconfigure\1.62.0\opentelemetry-sdk-extension-autoconfigure-1.62.0.jar;C:\Users\91907\.m2\repository\io\opentelemetry\opentelemetry-sdk-trace\1.62.0\opentelemetry-sdk-trace-1.62.0.jar;C:\Users\91907\.m2\repository\io\opentelemetry\opentelemetry-sdk\1.62.0\opentelemetry-sdk-1.62.0.jar;C:\Users\91907\.m2\repository\io\opentelemetry\opentelemetry-sdk-metrics\1.62.0\opentelemetry-sdk-metrics-1.62.0.jar;C:\Users\91907\.m2\repository\io\opentelemetry\opentelemetry-sdk-logs\1.62.0\opentelemetry-sdk-logs-1.62.0.jar;C:\Users\91907\.m2\repository\net\bytebuddy\byte-buddy\1.18.8-jdk5\byte-buddy-1.18.8-jdk5.jar;C:\Users\91907\.m2\repository\org\seleniumhq\selenium\selenium-os\4.44.0\selenium-os-4.44.0.jar;C:\Users\91907\.m2\repository\org\seleniumhq\selenium\selenium-safari-driver\4.44.0\selenium-safari-driver-4.44.0.jar;C:\Users\91907\.m2\repository\org\seleniumhq\selenium\selenium-support\4.44.0\selenium-support-4.44.0.jar;C:\Users\91907\.m2\repository\org\testng\testng\7.12.0\testng-7.12.0.jar;C:\Users\91907\.m2\repository\org\slf4j\slf4j-api\2.0.16\slf4j-api-2.0.16.jar;C:\Users\91907\.m2\repository\org\jcommander\jcommander\1.83\jcommander-1.83.jar;C:\Users\91907\.m2\repository\org\webjars\jquery\3.7.1\jquery-3.7.1.jar;C:\Users\91907\.m2\repository\io\github\bonigarcia\webdrivermanager\6.3.4\webdrivermanager-6.3.4.jar;C:\Users\91907\.m2\repository\com\google\code\gson\gson\2.13.2\gson-2.13.2.jar;C:\Users\91907\.m2\repository\com\google\errorprone\error_prone_annotations\2.41.0\error_prone_annotations-2.41.0.jar;C:\Users\91907\.m2\repository\com\github\docker-java\docker-java\3.7.1\docker-java-3.7.1.jar;C:\Users\91907\.m2\repository\com\github\docker-java\docker-java-core\3.7.1\docker-java-core-3.7.1.jar;C:\Users\91907\.m2\repository\com\github\docker-java\docker-java-api\3.7.1\docker-java-api-3.7.1.jar;C:\Users\91907\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.20\jackson-annotations-2.20.jar;C:\Users\91907\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.20.1\jackson-databind-2.20.1.jar;C:\Users\91907\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.20.1\jackson-core-2.20.1.jar;C:\Users\91907\.m2\repository\org\slf4j\jcl-over-slf4j\1.7.30\jcl-over-slf4j-1.7.30.jar;C:\Users\91907\.m2\repository\com\github\docker-java\docker-java-transport-httpclient5\3.7.1\docker-java-transport-httpclient5-3.7.1.jar;C:\Users\91907\.m2\repository\com\github\docker-java\docker-java-transport\3.7.1\docker-java-transport-3.7.1.jar;C:\Users\91907\.m2\repository\net\java\dev\jna\jna\5.18.1\jna-5.18.1.jar;C:\Users\91907\.m2\repository\org\brotli\dec\0.1.2\dec-0.1.2.jar;C:\Users\91907\.m2\repository\org\apache\commons\commons-lang3\3.20.0\commons-lang3-3.20.0.jar;C:\Users\91907\.m2\repository\org\apache\commons\commons-compress\1.28.0\commons-compress-1.28.0.jar;C:\Users\91907\.m2\repository\commons-codec\commons-codec\1.19.0\commons-codec-1.19.0.jar;C:\Users\91907\.m2\repository\commons-io\commons-io\2.20.0\commons-io-2.20.0.jar;C:\Users\91907\.m2\repository\org\apache\httpcomponents\client5\httpclient5\5.6\httpclient5-5.6.jar;C:\Users\91907\.m2\repository\org\apache\httpcomponents\core5\httpcore5\5.4\httpcore5-5.4.jar;C:\Users\91907\.m2\repository\org\apache\httpcomponents\core5\httpcore5-h2\5.4\httpcore5-h2-5.4.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -31,7 +31,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\91907\AppData\Local\Temp\surefire11993480991684836454\surefirebooter-20260608193041875_3.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\91907\AppData\Local\Temp\surefire1874510559250242187\surefirebooter-20260609192723534_3.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="25.0.1+8-LTS-27"/>
@@ -60,66 +60,66 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="69.0"/>
   </properties>
-  <testcase name="verifyBasicNavigationBetweenLoginAndRegisterPages" classname="tests.NavigationTest" time="6.748">
+  <testcase name="verifyBasicNavigationBetweenLoginAndRegisterPages" classname="tests.NavigationTest" time="7.014">
     <system-err><![CDATA[SLF4J(W): No SLF4J providers were found.
 SLF4J(W): Defaulting to no-operation (NOP) logger implementation
 SLF4J(W): See https://www.slf4j.org/codes.html#noProviders for further details.
-Jun 08, 2026 7:30:44 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+Jun 09, 2026 7:27:26 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
 WARNING: Unable to find an exact match for CDP version 149, returning the closest version; found: 148; Please update to a Selenium version that supports CDP version 149
 ]]></system-err>
   </testcase>
-  <testcase name="verifyExplicitWaitForValidationText" classname="tests.WaitTest" time="13.783">
-    <system-err><![CDATA[Jun 08, 2026 7:30:54 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+  <testcase name="verifyExplicitWaitForValidationText" classname="tests.WaitTest" time="13.972">
+    <system-err><![CDATA[Jun 09, 2026 7:27:36 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
 WARNING: Unable to find an exact match for CDP version 149, returning the closest version; found: 148; Please update to a Selenium version that supports CDP version 149
 ]]></system-err>
   </testcase>
-  <testcase name="verifyImplicitAndExplicitWaits" classname="tests.WaitTest" time="4.469">
-    <system-err><![CDATA[Jun 08, 2026 7:31:11 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+  <testcase name="verifyImplicitAndExplicitWaits" classname="tests.WaitTest" time="4.537">
+    <system-err><![CDATA[Jun 09, 2026 7:27:53 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
 WARNING: Unable to find an exact match for CDP version 149, returning the closest version; found: 148; Please update to a Selenium version that supports CDP version 149
 ]]></system-err>
   </testcase>
-  <testcase name="handleAlertsAndPopups" classname="tests.AlertPopupTest" time="13.151">
-    <system-err><![CDATA[Jun 08, 2026 7:31:19 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+  <testcase name="handleAlertsAndPopups" classname="tests.AlertPopupTest" time="13.318">
+    <system-err><![CDATA[Jun 09, 2026 7:28:01 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
 WARNING: Unable to find an exact match for CDP version 149, returning the closest version; found: 148; Please update to a Selenium version that supports CDP version 149
 ]]></system-err>
   </testcase>
-  <testcase name="automateUserRegistrationFlow" classname="tests.RegistrationTest" time="13.82">
-    <system-err><![CDATA[Jun 08, 2026 7:31:35 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+  <testcase name="automateUserRegistrationFlow" classname="tests.RegistrationTest" time="13.902">
+    <system-err><![CDATA[Jun 09, 2026 7:28:18 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
 WARNING: Unable to find an exact match for CDP version 149, returning the closest version; found: 148; Please update to a Selenium version that supports CDP version 149
 ]]></system-err>
   </testcase>
-  <testcase name="validateEmailFormatAndInvalidInputMessages" classname="tests.RegistrationTest" time="13.735">
-    <system-err><![CDATA[Jun 08, 2026 7:31:52 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+  <testcase name="validateEmailFormatAndInvalidInputMessages" classname="tests.RegistrationTest" time="13.912">
+    <system-err><![CDATA[Jun 09, 2026 7:28:35 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
 WARNING: Unable to find an exact match for CDP version 149, returning the closest version; found: 148; Please update to a Selenium version that supports CDP version 149
 ]]></system-err>
   </testcase>
-  <testcase name="validateInvalidInputMessage" classname="tests.RegistrationTest" time="13.783">
-    <system-err><![CDATA[Jun 08, 2026 7:32:09 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+  <testcase name="validateInvalidInputMessage" classname="tests.RegistrationTest" time="13.934">
+    <system-err><![CDATA[Jun 09, 2026 7:28:53 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
 WARNING: Unable to find an exact match for CDP version 149, returning the closest version; found: 148; Please update to a Selenium version that supports CDP version 149
 ]]></system-err>
   </testcase>
-  <testcase name="validateMandatoryAndBlankFieldMessages" classname="tests.RegistrationTest" time="2.973">
-    <system-err><![CDATA[Jun 08, 2026 7:32:26 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+  <testcase name="validateMandatoryAndBlankFieldMessages" classname="tests.RegistrationTest" time="3.06">
+    <system-err><![CDATA[Jun 09, 2026 7:29:10 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
 WARNING: Unable to find an exact match for CDP version 149, returning the closest version; found: 148; Please update to a Selenium version that supports CDP version 149
 ]]></system-err>
   </testcase>
-  <testcase name="automateLoginWithInvalidCredentials" classname="tests.LoginTest" time="10.636">
-    <system-err><![CDATA[Jun 08, 2026 7:32:32 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+  <testcase name="automateLoginWithInvalidCredentials" classname="tests.LoginTest" time="10.812">
+    <system-err><![CDATA[Jun 09, 2026 7:29:16 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
 WARNING: Unable to find an exact match for CDP version 149, returning the closest version; found: 148; Please update to a Selenium version that supports CDP version 149
 ]]></system-err>
   </testcase>
-  <testcase name="automateLoginWithValidCredentials" classname="tests.LoginTest" time="26.264">
-    <system-err><![CDATA[Jun 08, 2026 7:32:46 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+  <testcase name="automateLoginWithValidCredentials" classname="tests.LoginTest" time="24.737">
+    <system-err><![CDATA[Jun 09, 2026 7:29:31 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
 WARNING: Unable to find an exact match for CDP version 149, returning the closest version; found: 148; Please update to a Selenium version that supports CDP version 149
 ]]></system-err>
   </testcase>
-  <testcase name="implementAssertionsForLoginLogoutStatus" classname="tests.LoginTest" time="40.473">
-    <system-err><![CDATA[Jun 08, 2026 7:33:16 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+  <testcase name="implementAssertionsForLoginLogoutStatus" classname="tests.LoginTest" time="36.889">
+    <system-err><![CDATA[Jun 09, 2026 7:29:59 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
 WARNING: Unable to find an exact match for CDP version 149, returning the closest version; found: 148; Please update to a Selenium version that supports CDP version 149
 ]]></system-err>
   </testcase>
-  <testcase name="validateErrorMessagesAndMandatoryFields" classname="tests.LoginTest" time="14.806">
-    <system-err><![CDATA[Jun 08, 2026 7:34:00 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+  <testcase name="validateErrorMessagesAndMandatoryFields" classname="tests.LoginTest" time="15.087">
+    <system-err><![CDATA[Jun 09, 2026 7:30:39 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
 WARNING: Unable to find an exact match for CDP version 149, returning the closest version; found: 148; Please update to a Selenium version that supports CDP version 149
 ]]></system-err>
   </testcase>

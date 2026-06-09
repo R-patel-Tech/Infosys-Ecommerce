@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import pages.HomePage;
 import pages.LoginPage;
 import pages.RegistrationPage;
+import utils.LoginUtils;
 
 public class LoginTest extends BaseTest {
     private String uniqueEmail() {
@@ -23,7 +24,8 @@ public class LoginTest extends BaseTest {
     @Test
     public void automateLoginWithValidCredentials() {
         String email = seedRegisteredUser();
-        HomePage homePage = new LoginPage(driver).open().loginToDashboard(email, "Test@1234");
+        LoginUtils loginUtils = new LoginUtils(driver);
+        HomePage homePage = loginUtils.loginWithValidCredentials(email, "Test@1234");
 
         Assert.assertTrue(homePage.isLoaded(), "Dashboard/home page did not load after login.");
         Assert.assertEquals(homePage.getTitle(), "Raj_ecommerce");
@@ -32,11 +34,11 @@ public class LoginTest extends BaseTest {
 
     @Test
     public void automateLoginWithInvalidCredentials() {
-        LoginPage loginPage = new LoginPage(driver).open();
-        loginPage.login("invalid@example.com", "Wrong@1234");
+        LoginUtils loginUtils = new LoginUtils(driver);
+        LoginPage loginPage = loginUtils.loginWithInvalidCredentials("invalid@example.com", "Wrong@1234");
 
         Assert.assertFalse(loginPage.getCurrentUrl().contains("/dashboard"));
-        Assert.assertFalse(loginPage.getFeedbackMessage().isBlank());
+        Assert.assertFalse(loginPage.getErrorMessage().isBlank());
     }
 
     @Test
@@ -50,19 +52,20 @@ public class LoginTest extends BaseTest {
         loginPage.enterEmail("invalid@example.com");
         loginPage.enterPassword("Wrong@1234");
         loginPage.clickLogin();
-        Assert.assertFalse(loginPage.getFeedbackMessage().isBlank());
+        Assert.assertFalse(loginPage.getErrorMessage().isBlank());
     }
 
     @Test
     public void implementAssertionsForLoginLogoutStatus() {
         String email = seedRegisteredUser();
-        HomePage homePage = new LoginPage(driver).open().loginToDashboard(email, "Test@1234");
+        LoginUtils loginUtils = new LoginUtils(driver);
+        HomePage homePage = loginUtils.loginWithValidCredentials(email, "Test@1234");
 
         Assert.assertTrue(homePage.isLoaded());
         Assert.assertEquals(homePage.getTitle(), "Raj_ecommerce");
         Assert.assertTrue(homePage.getCurrentUrl().contains("/dashboard"));
 
-        LoginPage loginPage = homePage.logout();
+        LoginPage loginPage = loginUtils.logoutUser(homePage);
         Assert.assertTrue(loginPage.getCurrentUrl().contains("/login"));
     }
 }
