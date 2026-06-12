@@ -8,6 +8,7 @@
             <class name="tests.AlertPopupTest"/>
             <class name="tests.RegistrationTest"/>
             <class name="tests.LoginTest"/>
+            <class name="tests.ProductListingTest"/>
         </classes>
     </test>
 </suite>

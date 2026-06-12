@@ -111,6 +111,32 @@ public class ProductListingPage extends BasePage {
         }
     }
 
+    public List<WebElement> getProductCards() {
+        return driver.findElements(productCard);
+    }
+
+    public String getProductName(WebElement card) {
+        return card.findElement(productName).getText().trim();
+    }
+
+    public String getProductPrice(WebElement card) {
+        return card.findElement(productPrice).getText().trim();
+    }
+
+    public ProductDetailsPage openFirstProductDetails() {
+        List<WebElement> cards = getProductCards();
+        if (cards.isEmpty()) {
+            throw new IllegalStateException("No product cards found on the listing page.");
+        }
+
+        WebElement firstCard = cards.get(0);
+        WebElement clickableArea = firstCard.findElement(By.cssSelector(".product-card-body, .product-media"));
+        scrollTo(firstCard);
+        clickableArea.click();
+        waitUtils.waitForUrlContains("/products/");
+        return new ProductDetailsPage(driver);
+    }
+
     public void scrollThroughProductList() {
         List<WebElement> cards = new ArrayList<>(driver.findElements(productCard));
         for (WebElement card : cards) {

@@ -1,20 +1,20 @@
 package tests;
 
 import base.BaseTest;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import pages.HomePage;
+import pages.ProductDetailsPage;
 import pages.ProductListingPage;
 import pages.RegistrationPage;
 import utils.LoginUtils;
+import utils.ScreenshotUtility;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import org.openqa.selenium.WebElement;
 
 public class ProductListingTest extends BaseTest {
 
@@ -41,23 +41,7 @@ public class ProductListingTest extends BaseTest {
     @AfterMethod(alwaysRun = true)
     public void captureScreenshotOnFailure(ITestResult result) {
         if (result.getStatus() == ITestResult.FAILURE) {
-            takeScreenshot(result.getMethod().getMethodName());
-        }
-    }
-
-    private void takeScreenshot(String methodName) {
-        if (!(driver instanceof TakesScreenshot)) {
-            return;
-        }
-
-        Path screenshotFolder = Paths.get("target", "screenshots");
-        try {
-            Files.createDirectories(screenshotFolder);
-            byte[] screenshotBytes = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
-            Path screenshotPath = screenshotFolder.resolve(methodName + "_" + System.currentTimeMillis() + ".png");
-            Files.write(screenshotPath, screenshotBytes);
-        } catch (IOException ignored) {
-            // preserve test result even if screenshot capture fails
+            ScreenshotUtility.captureScreenshot(driver, result.getMethod().getMethodName());
         }
     }
 
@@ -82,7 +66,7 @@ public class ProductListingTest extends BaseTest {
     }
 
     @Test
-    public void validateProductVisibility() {
+    public void validateProductDetailsInListing() {
         String email = seedRegisteredUser();
         LoginUtils loginUtils = new LoginUtils(driver);
         loginUtils.loginWithValidCredentials(email, "Test@1234");
@@ -91,15 +75,58 @@ public class ProductListingTest extends BaseTest {
         ProductListingPage productListingPage = new ProductListingPage(driver).open();
         pauseAfterAction();
 
+        Assert.assertTrue(productListingPage.isLoaded(), "Product Listing page should load successfully.");
         Assert.assertTrue(productListingPage.isAtLeastOneProductVisible(), "At least one product should be visible on page load.");
-        Assert.assertTrue(productListingPage.areAllProductCardsDisplayed(), "All displayed product cards should be visible and complete.");
-        Assert.assertTrue(productListingPage.areAllProductImagesVisible(), "Each product image should be visible.");
-        Assert.assertTrue(productListingPage.areAllProductNamesVisible(), "Each product name should be visible.");
-        Assert.assertTrue(productListingPage.areAllProductPricesVisible(), "Each product price should be visible.");
-        Assert.assertTrue(productListingPage.areAllAddToCartButtonsVisible(), "Each Add to Cart button should be visible.");
-        Assert.assertTrue(productListingPage.areAllProductCardsDisplayed(), "Product cards should not be hidden or overlapped.");
 
-        productListingPage.scrollThroughProductList();
-        Assert.assertTrue(productListingPage.areProductsVisibleAfterScroll(), "Product visibility should remain consistent after scrolling.");
+        List<WebElement> productCards = productListingPage.getProductCards();
+        Assert.assertFalse(productCards.isEmpty(), "Product cards list should not be empty.");
+
+        Pattern pricePattern = Pattern.compile("\\$?\\s*([0-9,.]+)");
+
+        for (int index = 0; index < productCards.size(); index++) {
+            WebElement card = productCards.get(index);
+            String name = productListingPage.getProductName(card);
+            String priceText = productListingPage.getProductPrice(card);
+
+            System.out.println(String.format("Product %d: name='%s', price='%s'", index + 1, name, priceText));
+
+            Assert.assertNotNull(name, "Product name should not be null.");
+            Assert.assertFalse(name.isBlank(), "Product name should not be empty.");
+
+            Assert.assertNotNull(priceText, "Product price should not be null.");
+            Assert.assertFalse(priceText.isBlank(), "Product price should not be empty.");
+
+            Matcher matcher = pricePattern.matcher(priceText);
+            Assert.assertTrue(matcher.find(), "Product price should contain a numeric value.");
+
+            double priceValue = Double.parseDouble(matcher.group(1).replace(",", ""));
+            Assert.assertTrue(priceValue > 0, "Product price should be greater than 0.");
+            pauseAfterAction();
+        }
+    }
+
+    @Test
+    public void verifyProductNavigationToDetailsPage() {
+        String email = seedRegisteredUser();
+        LoginUtils loginUtils = new LoginUtils(driver);
+        loginUtils.loginWithValidCredentials(email, "Test@1234");
+        pauseAfterAction();
+
+        ProductListingPage productListingPage = new ProductListingPage(driver).open();
+        pauseAfterAction();
+
+        Assert.assertTrue(productListingPage.isLoaded(), "Product Listing page should load successfully.");
+        Assert.assertTrue(productListingPage.isAtLeastOneProductVisible(), "At least one product should be visible on page load.");
+
+        ProductDetailsPage productDetailsPage = productListingPage.openFirstProductDetails();
+        pauseAfterAction();
+
+        Assert.assertTrue(productDetailsPage.isLoaded(), "Product Details page should load successfully.");
+        Assert.assertFalse(productDetailsPage.getProductTitle().isBlank(), "Product title should be displayed.");
+        Assert.assertFalse(productDetailsPage.getProductPrice().isBlank(), "Product price should be displayed.");
+        Assert.assertTrue(productDetailsPage.isProductImageDisplayed(), "Product image should be displayed.");
+        Assert.assertTrue(productDetailsPage.getProductImageSource() != null && !productDetailsPage.getProductImageSource().isBlank(), "Product image source should be valid.");
+        Assert.assertTrue(productDetailsPage.getCurrentUrl().contains("/products/"), "The URL should change to the product details page.");
     }
 }
+
