@@ -2,160 +2,160 @@
 <testng-results ignored="0" total="12" passed="12" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2026-06-09T19:27:24 IST" name="Ecommerce Automation Suite" finished-at="2026-06-09T19:30:58 IST" duration-ms="214636">
+  <suite started-at="2026-06-12T06:55:11 IST" name="Ecommerce Automation Suite" finished-at="2026-06-12T06:59:10 IST" duration-ms="238955">
     <groups>
     </groups>
-    <test started-at="2026-06-09T19:27:24 IST" name="US013-US015" finished-at="2026-06-09T19:30:58 IST" duration-ms="214636">
+    <test started-at="2026-06-12T06:55:11 IST" name="US013-US015" finished-at="2026-06-12T06:59:10 IST" duration-ms="238955">
       <class name="tests.LoginTest">
-        <test-method is-config="true" signature="setUpBrowser()[pri:0, instance:tests.LoginTest@4b5a5ed1]" started-at="2026-06-09T19:29:16 IST" name="setUpBrowser" finished-at="2026-06-09T19:29:19 IST" duration-ms="3198" status="PASS">
+        <test-method is-config="true" signature="setUpBrowser()[pri:0, instance:tests.LoginTest@4b5a5ed1]" started-at="2026-06-12T06:57:31 IST" name="setUpBrowser" finished-at="2026-06-12T06:57:34 IST" duration-ms="3171" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUpBrowser -->
-        <test-method signature="automateLoginWithInvalidCredentials()[pri:0, instance:tests.LoginTest@4b5a5ed1]" started-at="2026-06-09T19:29:19 IST" name="automateLoginWithInvalidCredentials" finished-at="2026-06-09T19:29:30 IST" duration-ms="10813" status="PASS">
+        <test-method signature="automateLoginWithInvalidCredentials()[pri:0, instance:tests.LoginTest@4b5a5ed1]" started-at="2026-06-12T06:57:34 IST" name="automateLoginWithInvalidCredentials" finished-at="2026-06-12T06:57:45 IST" duration-ms="10748" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- automateLoginWithInvalidCredentials -->
-        <test-method is-config="true" signature="tearDownBrowser()[pri:0, instance:tests.LoginTest@4b5a5ed1]" started-at="2026-06-09T19:29:30 IST" name="tearDownBrowser" finished-at="2026-06-09T19:29:30 IST" duration-ms="219" status="PASS">
+        <test-method is-config="true" signature="tearDownBrowser()[pri:0, instance:tests.LoginTest@4b5a5ed1]" started-at="2026-06-12T06:57:45 IST" name="tearDownBrowser" finished-at="2026-06-12T06:57:45 IST" duration-ms="258" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDownBrowser -->
-        <test-method is-config="true" signature="setUpBrowser()[pri:0, instance:tests.LoginTest@4b5a5ed1]" started-at="2026-06-09T19:29:30 IST" name="setUpBrowser" finished-at="2026-06-09T19:29:33 IST" duration-ms="3251" status="PASS">
+        <test-method is-config="true" signature="setUpBrowser()[pri:0, instance:tests.LoginTest@4b5a5ed1]" started-at="2026-06-12T06:57:45 IST" name="setUpBrowser" finished-at="2026-06-12T06:57:48 IST" duration-ms="2888" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUpBrowser -->
-        <test-method signature="automateLoginWithValidCredentials()[pri:0, instance:tests.LoginTest@4b5a5ed1]" started-at="2026-06-09T19:29:33 IST" name="automateLoginWithValidCredentials" finished-at="2026-06-09T19:29:58 IST" duration-ms="24737" status="PASS">
+        <test-method signature="automateLoginWithValidCredentials()[pri:0, instance:tests.LoginTest@4b5a5ed1]" started-at="2026-06-12T06:57:48 IST" name="automateLoginWithValidCredentials" finished-at="2026-06-12T06:58:13 IST" duration-ms="24673" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- automateLoginWithValidCredentials -->
-        <test-method is-config="true" signature="tearDownBrowser()[pri:0, instance:tests.LoginTest@4b5a5ed1]" started-at="2026-06-09T19:29:58 IST" name="tearDownBrowser" finished-at="2026-06-09T19:29:58 IST" duration-ms="278" status="PASS">
+        <test-method is-config="true" signature="tearDownBrowser()[pri:0, instance:tests.LoginTest@4b5a5ed1]" started-at="2026-06-12T06:58:13 IST" name="tearDownBrowser" finished-at="2026-06-12T06:58:13 IST" duration-ms="209" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDownBrowser -->
-        <test-method is-config="true" signature="setUpBrowser()[pri:0, instance:tests.LoginTest@4b5a5ed1]" started-at="2026-06-09T19:29:58 IST" name="setUpBrowser" finished-at="2026-06-09T19:30:01 IST" duration-ms="3242" status="PASS">
+        <test-method is-config="true" signature="setUpBrowser()[pri:0, instance:tests.LoginTest@4b5a5ed1]" started-at="2026-06-12T06:58:13 IST" name="setUpBrowser" finished-at="2026-06-12T06:58:16 IST" duration-ms="2859" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUpBrowser -->
-        <test-method signature="implementAssertionsForLoginLogoutStatus()[pri:0, instance:tests.LoginTest@4b5a5ed1]" started-at="2026-06-09T19:30:01 IST" name="implementAssertionsForLoginLogoutStatus" finished-at="2026-06-09T19:30:38 IST" duration-ms="36890" status="PASS">
+        <test-method signature="implementAssertionsForLoginLogoutStatus()[pri:0, instance:tests.LoginTest@4b5a5ed1]" started-at="2026-06-12T06:58:16 IST" name="implementAssertionsForLoginLogoutStatus" finished-at="2026-06-12T06:58:53 IST" duration-ms="36388" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- implementAssertionsForLoginLogoutStatus -->
-        <test-method is-config="true" signature="tearDownBrowser()[pri:0, instance:tests.LoginTest@4b5a5ed1]" started-at="2026-06-09T19:30:38 IST" name="tearDownBrowser" finished-at="2026-06-09T19:30:38 IST" duration-ms="232" status="PASS">
+        <test-method is-config="true" signature="tearDownBrowser()[pri:0, instance:tests.LoginTest@4b5a5ed1]" started-at="2026-06-12T06:58:53 IST" name="tearDownBrowser" finished-at="2026-06-12T06:58:53 IST" duration-ms="211" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDownBrowser -->
-        <test-method is-config="true" signature="setUpBrowser()[pri:0, instance:tests.LoginTest@4b5a5ed1]" started-at="2026-06-09T19:30:38 IST" name="setUpBrowser" finished-at="2026-06-09T19:30:42 IST" duration-ms="3198" status="PASS">
+        <test-method is-config="true" signature="setUpBrowser()[pri:0, instance:tests.LoginTest@4b5a5ed1]" started-at="2026-06-12T06:58:53 IST" name="setUpBrowser" finished-at="2026-06-12T06:58:55 IST" duration-ms="2712" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUpBrowser -->
-        <test-method signature="validateErrorMessagesAndMandatoryFields()[pri:0, instance:tests.LoginTest@4b5a5ed1]" started-at="2026-06-09T19:30:42 IST" name="validateErrorMessagesAndMandatoryFields" finished-at="2026-06-09T19:30:57 IST" duration-ms="15087" status="PASS">
+        <test-method signature="validateErrorMessagesAndMandatoryFields()[pri:0, instance:tests.LoginTest@4b5a5ed1]" started-at="2026-06-12T06:58:55 IST" name="validateErrorMessagesAndMandatoryFields" finished-at="2026-06-12T06:59:10 IST" duration-ms="14793" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- validateErrorMessagesAndMandatoryFields -->
-        <test-method is-config="true" signature="tearDownBrowser()[pri:0, instance:tests.LoginTest@4b5a5ed1]" started-at="2026-06-09T19:30:57 IST" name="tearDownBrowser" finished-at="2026-06-09T19:30:58 IST" duration-ms="1739" status="PASS">
+        <test-method is-config="true" signature="tearDownBrowser()[pri:0, instance:tests.LoginTest@4b5a5ed1]" started-at="2026-06-12T06:59:10 IST" name="tearDownBrowser" finished-at="2026-06-12T06:59:10 IST" duration-ms="213" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDownBrowser -->
       </class> <!-- tests.LoginTest -->
       <class name="tests.WaitTest">
-        <test-method is-config="true" signature="setUpBrowser()[pri:0, instance:tests.WaitTest@1ed1993a]" started-at="2026-06-09T19:27:35 IST" name="setUpBrowser" finished-at="2026-06-09T19:27:38 IST" duration-ms="3332" status="PASS">
+        <test-method is-config="true" signature="setUpBrowser()[pri:0, instance:tests.WaitTest@1ed1993a]" started-at="2026-06-12T06:55:44 IST" name="setUpBrowser" finished-at="2026-06-12T06:55:48 IST" duration-ms="3666" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUpBrowser -->
-        <test-method signature="verifyExplicitWaitForValidationText()[pri:0, instance:tests.WaitTest@1ed1993a]" started-at="2026-06-09T19:27:38 IST" name="verifyExplicitWaitForValidationText" finished-at="2026-06-09T19:27:52 IST" duration-ms="13972" status="PASS">
+        <test-method signature="verifyExplicitWaitForValidationText()[pri:0, instance:tests.WaitTest@1ed1993a]" started-at="2026-06-12T06:55:48 IST" name="verifyExplicitWaitForValidationText" finished-at="2026-06-12T06:56:02 IST" duration-ms="14093" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- verifyExplicitWaitForValidationText -->
-        <test-method is-config="true" signature="tearDownBrowser()[pri:0, instance:tests.WaitTest@1ed1993a]" started-at="2026-06-09T19:27:52 IST" name="tearDownBrowser" finished-at="2026-06-09T19:27:53 IST" duration-ms="232" status="PASS">
+        <test-method is-config="true" signature="tearDownBrowser()[pri:0, instance:tests.WaitTest@1ed1993a]" started-at="2026-06-12T06:56:02 IST" name="tearDownBrowser" finished-at="2026-06-12T06:56:02 IST" duration-ms="359" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDownBrowser -->
-        <test-method is-config="true" signature="setUpBrowser()[pri:0, instance:tests.WaitTest@1ed1993a]" started-at="2026-06-09T19:27:53 IST" name="setUpBrowser" finished-at="2026-06-09T19:27:56 IST" duration-ms="3204" status="PASS">
+        <test-method is-config="true" signature="setUpBrowser()[pri:0, instance:tests.WaitTest@1ed1993a]" started-at="2026-06-12T06:56:02 IST" name="setUpBrowser" finished-at="2026-06-12T06:56:06 IST" duration-ms="3994" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUpBrowser -->
-        <test-method signature="verifyImplicitAndExplicitWaits()[pri:0, instance:tests.WaitTest@1ed1993a]" started-at="2026-06-09T19:27:56 IST" name="verifyImplicitAndExplicitWaits" finished-at="2026-06-09T19:28:00 IST" duration-ms="4536" status="PASS">
+        <test-method signature="verifyImplicitAndExplicitWaits()[pri:0, instance:tests.WaitTest@1ed1993a]" started-at="2026-06-12T06:56:06 IST" name="verifyImplicitAndExplicitWaits" finished-at="2026-06-12T06:56:13 IST" duration-ms="6150" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- verifyImplicitAndExplicitWaits -->
-        <test-method is-config="true" signature="tearDownBrowser()[pri:0, instance:tests.WaitTest@1ed1993a]" started-at="2026-06-09T19:28:00 IST" name="tearDownBrowser" finished-at="2026-06-09T19:28:00 IST" duration-ms="207" status="PASS">
+        <test-method is-config="true" signature="tearDownBrowser()[pri:0, instance:tests.WaitTest@1ed1993a]" started-at="2026-06-12T06:56:13 IST" name="tearDownBrowser" finished-at="2026-06-12T06:56:13 IST" duration-ms="396" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDownBrowser -->
       </class> <!-- tests.WaitTest -->
       <class name="tests.AlertPopupTest">
-        <test-method is-config="true" signature="setUpBrowser()[pri:0, instance:tests.AlertPopupTest@1f3f4916]" started-at="2026-06-09T19:28:00 IST" name="setUpBrowser" finished-at="2026-06-09T19:28:04 IST" duration-ms="3132" status="PASS">
+        <test-method is-config="true" signature="setUpBrowser()[pri:0, instance:tests.AlertPopupTest@1f3f4916]" started-at="2026-06-12T06:56:13 IST" name="setUpBrowser" finished-at="2026-06-12T06:56:16 IST" duration-ms="3531" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUpBrowser -->
-        <test-method signature="handleAlertsAndPopups()[pri:0, instance:tests.AlertPopupTest@1f3f4916]" started-at="2026-06-09T19:28:04 IST" name="handleAlertsAndPopups" finished-at="2026-06-09T19:28:17 IST" duration-ms="13317" status="PASS">
+        <test-method signature="handleAlertsAndPopups()[pri:0, instance:tests.AlertPopupTest@1f3f4916]" started-at="2026-06-12T06:56:16 IST" name="handleAlertsAndPopups" finished-at="2026-06-12T06:56:30 IST" duration-ms="13636" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- handleAlertsAndPopups -->
-        <test-method is-config="true" signature="tearDownBrowser()[pri:0, instance:tests.AlertPopupTest@1f3f4916]" started-at="2026-06-09T19:28:17 IST" name="tearDownBrowser" finished-at="2026-06-09T19:28:17 IST" duration-ms="221" status="PASS">
+        <test-method is-config="true" signature="tearDownBrowser()[pri:0, instance:tests.AlertPopupTest@1f3f4916]" started-at="2026-06-12T06:56:30 IST" name="tearDownBrowser" finished-at="2026-06-12T06:56:31 IST" duration-ms="443" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDownBrowser -->
       </class> <!-- tests.AlertPopupTest -->
       <class name="tests.RegistrationTest">
-        <test-method is-config="true" signature="setUpBrowser()[pri:0, instance:tests.RegistrationTest@794cb805]" started-at="2026-06-09T19:28:17 IST" name="setUpBrowser" finished-at="2026-06-09T19:28:20 IST" duration-ms="3245" status="PASS">
+        <test-method is-config="true" signature="setUpBrowser()[pri:0, instance:tests.RegistrationTest@794cb805]" started-at="2026-06-12T06:56:31 IST" name="setUpBrowser" finished-at="2026-06-12T06:56:34 IST" duration-ms="3547" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUpBrowser -->
-        <test-method signature="automateUserRegistrationFlow()[pri:0, instance:tests.RegistrationTest@794cb805]" started-at="2026-06-09T19:28:20 IST" name="automateUserRegistrationFlow" finished-at="2026-06-09T19:28:34 IST" duration-ms="13903" status="PASS">
+        <test-method signature="automateUserRegistrationFlow()[pri:0, instance:tests.RegistrationTest@794cb805]" started-at="2026-06-12T06:56:34 IST" name="automateUserRegistrationFlow" finished-at="2026-06-12T06:56:48 IST" duration-ms="14100" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- automateUserRegistrationFlow -->
-        <test-method is-config="true" signature="tearDownBrowser()[pri:0, instance:tests.RegistrationTest@794cb805]" started-at="2026-06-09T19:28:34 IST" name="tearDownBrowser" finished-at="2026-06-09T19:28:35 IST" duration-ms="209" status="PASS">
+        <test-method is-config="true" signature="tearDownBrowser()[pri:0, instance:tests.RegistrationTest@794cb805]" started-at="2026-06-12T06:56:48 IST" name="tearDownBrowser" finished-at="2026-06-12T06:56:49 IST" duration-ms="355" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDownBrowser -->
-        <test-method is-config="true" signature="setUpBrowser()[pri:0, instance:tests.RegistrationTest@794cb805]" started-at="2026-06-09T19:28:35 IST" name="setUpBrowser" finished-at="2026-06-09T19:28:38 IST" duration-ms="3219" status="PASS">
+        <test-method is-config="true" signature="setUpBrowser()[pri:0, instance:tests.RegistrationTest@794cb805]" started-at="2026-06-12T06:56:49 IST" name="setUpBrowser" finished-at="2026-06-12T06:56:52 IST" duration-ms="3083" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUpBrowser -->
-        <test-method signature="validateEmailFormatAndInvalidInputMessages()[pri:0, instance:tests.RegistrationTest@794cb805]" started-at="2026-06-09T19:28:38 IST" name="validateEmailFormatAndInvalidInputMessages" finished-at="2026-06-09T19:28:52 IST" duration-ms="13912" status="PASS">
+        <test-method signature="validateEmailFormatAndInvalidInputMessages()[pri:0, instance:tests.RegistrationTest@794cb805]" started-at="2026-06-12T06:56:52 IST" name="validateEmailFormatAndInvalidInputMessages" finished-at="2026-06-12T06:57:06 IST" duration-ms="14107" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- validateEmailFormatAndInvalidInputMessages -->
-        <test-method is-config="true" signature="tearDownBrowser()[pri:0, instance:tests.RegistrationTest@794cb805]" started-at="2026-06-09T19:28:52 IST" name="tearDownBrowser" finished-at="2026-06-09T19:28:52 IST" duration-ms="290" status="PASS">
+        <test-method is-config="true" signature="tearDownBrowser()[pri:0, instance:tests.RegistrationTest@794cb805]" started-at="2026-06-12T06:57:06 IST" name="tearDownBrowser" finished-at="2026-06-12T06:57:06 IST" duration-ms="439" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDownBrowser -->
-        <test-method is-config="true" signature="setUpBrowser()[pri:0, instance:tests.RegistrationTest@794cb805]" started-at="2026-06-09T19:28:52 IST" name="setUpBrowser" finished-at="2026-06-09T19:28:55 IST" duration-ms="2828" status="PASS">
+        <test-method is-config="true" signature="setUpBrowser()[pri:0, instance:tests.RegistrationTest@794cb805]" started-at="2026-06-12T06:57:06 IST" name="setUpBrowser" finished-at="2026-06-12T06:57:10 IST" duration-ms="3406" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUpBrowser -->
-        <test-method signature="validateInvalidInputMessage()[pri:0, instance:tests.RegistrationTest@794cb805]" started-at="2026-06-09T19:28:55 IST" name="validateInvalidInputMessage" finished-at="2026-06-09T19:29:09 IST" duration-ms="13934" status="PASS">
+        <test-method signature="validateInvalidInputMessage()[pri:0, instance:tests.RegistrationTest@794cb805]" started-at="2026-06-12T06:57:10 IST" name="validateInvalidInputMessage" finished-at="2026-06-12T06:57:24 IST" duration-ms="13988" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- validateInvalidInputMessage -->
-        <test-method is-config="true" signature="tearDownBrowser()[pri:0, instance:tests.RegistrationTest@794cb805]" started-at="2026-06-09T19:29:09 IST" name="tearDownBrowser" finished-at="2026-06-09T19:29:09 IST" duration-ms="236" status="PASS">
+        <test-method is-config="true" signature="tearDownBrowser()[pri:0, instance:tests.RegistrationTest@794cb805]" started-at="2026-06-12T06:57:24 IST" name="tearDownBrowser" finished-at="2026-06-12T06:57:24 IST" duration-ms="584" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDownBrowser -->
-        <test-method is-config="true" signature="setUpBrowser()[pri:0, instance:tests.RegistrationTest@794cb805]" started-at="2026-06-09T19:29:09 IST" name="setUpBrowser" finished-at="2026-06-09T19:29:12 IST" duration-ms="3239" status="PASS">
+        <test-method is-config="true" signature="setUpBrowser()[pri:0, instance:tests.RegistrationTest@794cb805]" started-at="2026-06-12T06:57:24 IST" name="setUpBrowser" finished-at="2026-06-12T06:57:28 IST" duration-ms="3752" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUpBrowser -->
-        <test-method signature="validateMandatoryAndBlankFieldMessages()[pri:0, instance:tests.RegistrationTest@794cb805]" started-at="2026-06-09T19:29:12 IST" name="validateMandatoryAndBlankFieldMessages" finished-at="2026-06-09T19:29:15 IST" duration-ms="3059" status="PASS">
+        <test-method signature="validateMandatoryAndBlankFieldMessages()[pri:0, instance:tests.RegistrationTest@794cb805]" started-at="2026-06-12T06:57:28 IST" name="validateMandatoryAndBlankFieldMessages" finished-at="2026-06-12T06:57:31 IST" duration-ms="3034" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- validateMandatoryAndBlankFieldMessages -->
-        <test-method is-config="true" signature="tearDownBrowser()[pri:0, instance:tests.RegistrationTest@794cb805]" started-at="2026-06-09T19:29:15 IST" name="tearDownBrowser" finished-at="2026-06-09T19:29:16 IST" duration-ms="302" status="PASS">
+        <test-method is-config="true" signature="tearDownBrowser()[pri:0, instance:tests.RegistrationTest@794cb805]" started-at="2026-06-12T06:57:31 IST" name="tearDownBrowser" finished-at="2026-06-12T06:57:31 IST" duration-ms="382" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDownBrowser -->
       </class> <!-- tests.RegistrationTest -->
       <class name="tests.NavigationTest">
-        <test-method is-config="true" signature="setUpBrowser()[pri:0, instance:tests.NavigationTest@4df50bcc]" started-at="2026-06-09T19:27:24 IST" name="setUpBrowser" finished-at="2026-06-09T19:27:28 IST" duration-ms="3919" status="PASS">
+        <test-method is-config="true" signature="setUpBrowser()[pri:0, instance:tests.NavigationTest@4df50bcc]" started-at="2026-06-12T06:55:12 IST" name="setUpBrowser" finished-at="2026-06-12T06:55:37 IST" duration-ms="25092" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUpBrowser -->
-        <test-method signature="verifyBasicNavigationBetweenLoginAndRegisterPages()[pri:0, instance:tests.NavigationTest@4df50bcc]" started-at="2026-06-09T19:27:28 IST" name="verifyBasicNavigationBetweenLoginAndRegisterPages" finished-at="2026-06-09T19:27:35 IST" duration-ms="7011" status="PASS">
+        <test-method signature="verifyBasicNavigationBetweenLoginAndRegisterPages()[pri:0, instance:tests.NavigationTest@4df50bcc]" started-at="2026-06-12T06:55:37 IST" name="verifyBasicNavigationBetweenLoginAndRegisterPages" finished-at="2026-06-12T06:55:44 IST" duration-ms="7203" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- verifyBasicNavigationBetweenLoginAndRegisterPages -->
-        <test-method is-config="true" signature="tearDownBrowser()[pri:0, instance:tests.NavigationTest@4df50bcc]" started-at="2026-06-09T19:27:35 IST" name="tearDownBrowser" finished-at="2026-06-09T19:27:35 IST" duration-ms="240" status="PASS">
+        <test-method is-config="true" signature="tearDownBrowser()[pri:0, instance:tests.NavigationTest@4df50bcc]" started-at="2026-06-12T06:55:44 IST" name="tearDownBrowser" finished-at="2026-06-12T06:55:44 IST" duration-ms="384" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDownBrowser -->
