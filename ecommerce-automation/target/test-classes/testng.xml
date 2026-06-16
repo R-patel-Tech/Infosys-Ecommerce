@@ -11,4 +11,11 @@
             <class name="tests.ProductListingTest"/>
         </classes>
     </test>
+
+    <test name="Product Feature Tests">
+        <classes>
+            <class name="tests.ProductSearchTest"/>
+            <class name="tests.ProductFilterTest"/>
+        </classes>
+    </test>
 </suite>

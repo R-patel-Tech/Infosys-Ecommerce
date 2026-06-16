@@ -3,6 +3,8 @@ package pages;
 import base.BasePage;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
+import utils.WaitUtility;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -39,7 +41,12 @@ public class ProductListingPage extends BasePage {
     }
 
     public int getProductCardCount() {
-        return driver.findElements(productCard).size();
+        try {
+            List<org.openqa.selenium.WebElement> cards = waitUtility.waitForAll(productCard);
+            return cards.size();
+        } catch (Exception e) {
+            return driver.findElements(productCard).size();
+        }
     }
 
     public boolean isAtLeastOneProductVisible() {
@@ -47,7 +54,12 @@ public class ProductListingPage extends BasePage {
     }
 
     public boolean areAllProductCardsDisplayed() {
-        List<WebElement> cards = driver.findElements(productCard);
+        List<WebElement> cards;
+        try {
+            cards = waitUtility.waitForAll(productCard);
+        } catch (Exception e) {
+            cards = driver.findElements(productCard);
+        }
         if (cards.isEmpty()) {
             return false;
         }
@@ -112,7 +124,11 @@ public class ProductListingPage extends BasePage {
     }
 
     public List<WebElement> getProductCards() {
-        return driver.findElements(productCard);
+        try {
+            return waitUtility.retryOnStale((Callable<List<WebElement>>) () -> driver.findElements(productCard), 3);
+        } catch (Exception e) {
+            return driver.findElements(productCard);
+        }
     }
 
     public String getProductName(WebElement card) {
@@ -131,17 +147,16 @@ public class ProductListingPage extends BasePage {
 
         WebElement firstCard = cards.get(0);
         WebElement clickableArea = firstCard.findElement(By.cssSelector(".product-card-body, .product-media"));
-        scrollTo(firstCard);
+        scrollToElement(firstCard);
         clickableArea.click();
         waitUtils.waitForUrlContains("/products/");
         return new ProductDetailsPage(driver);
     }
 
     public void scrollThroughProductList() {
-        List<WebElement> cards = new ArrayList<>(driver.findElements(productCard));
+        List<WebElement> cards = new ArrayList<>(getProductCards());
         for (WebElement card : cards) {
-            scrollTo(card);
-            pauseForObservation();
+            scrollToElement(card);
         }
     }
 

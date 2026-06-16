@@ -12,6 +12,7 @@ public final class ScreenshotUtility {
     private ScreenshotUtility() {
     }
 
+    // Preferred method used by tests: returns absolute path or null
     public static String captureScreenshot(WebDriver driver, String methodName) {
         if (!(driver instanceof TakesScreenshot)) {
             return null;
@@ -27,5 +28,10 @@ public final class ScreenshotUtility {
         } catch (IOException ignored) {
             return null;
         }
+    }
+
+    // Backwards-compatible alias
+    public static String capture(WebDriver driver, String name) {
+        return captureScreenshot(driver, name);
     }
 }
