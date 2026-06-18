@@ -18,6 +18,7 @@ public class ProductListingPage extends BasePage {
     private final By productName = By.cssSelector(".product-card-body h3");
     private final By productPrice = By.cssSelector(".product-price");
     private final By addToCartButton = By.cssSelector(".product-action-button");
+    private final By successMessage = By.cssSelector(".form-message.success");
 
     public ProductListingPage(WebDriver driver) {
         super(driver);
@@ -131,12 +132,73 @@ public class ProductListingPage extends BasePage {
         }
     }
 
+    public WebElement getProductCard(int index) {
+        List<WebElement> cards = getProductCards();
+        if (index < 0 || index >= cards.size()) {
+            throw new IllegalArgumentException("Product card index is out of bounds: " + index);
+        }
+
+        return cards.get(index);
+    }
+
     public String getProductName(WebElement card) {
         return card.findElement(productName).getText().trim();
     }
 
     public String getProductPrice(WebElement card) {
         return card.findElement(productPrice).getText().trim();
+    }
+
+    public ProductSnapshot getProductSnapshot(int index) {
+        WebElement card = getProductCard(index);
+        return new ProductSnapshot(getProductName(card), getProductPrice(card));
+    }
+
+    public int findFirstAddableProductIndex() {
+        List<WebElement> cards = getProductCards();
+        for (int index = 0; index < cards.size(); index++) {
+            WebElement card = cards.get(index);
+            WebElement button = card.findElement(addToCartButton);
+            if (button.isDisplayed() && button.isEnabled()) {
+                return index;
+            }
+        }
+
+        throw new IllegalStateException("No addable products were found on the listing page.");
+    }
+
+    public int findNextAddableProductIndex(int startIndex) {
+        List<WebElement> cards = getProductCards();
+        for (int index = Math.max(0, startIndex + 1); index < cards.size(); index++) {
+            WebElement button = cards.get(index).findElement(addToCartButton);
+            if (button.isDisplayed() && button.isEnabled()) {
+                return index;
+            }
+        }
+
+        throw new IllegalStateException("A second addable product was not found on the listing page.");
+    }
+
+    public ProductSnapshot addProductToCart(int index) {
+        WebElement card = getProductCard(index);
+        WebElement button = card.findElement(addToCartButton);
+
+        scrollToElement(card);
+        button.click();
+        waitUtils.waitForText(successMessage, "Added to cart");
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+
+        return getProductSnapshot(index);
+    }
+
+    public String getSuccessMessage(int index) {
+        WebElement card = getProductCard(index);
+        List<WebElement> messages = card.findElements(successMessage);
+        return messages.isEmpty() ? "" : messages.get(0).getText().trim();
     }
 
     public ProductDetailsPage openFirstProductDetails() {
@@ -205,6 +267,24 @@ public class ProductListingPage extends BasePage {
             Thread.sleep(2000);
         } catch (InterruptedException ex) {
             Thread.currentThread().interrupt();
+        }
+    }
+
+    public static class ProductSnapshot {
+        private final String name;
+        private final String price;
+
+        public ProductSnapshot(String name, String price) {
+            this.name = name;
+            this.price = price;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public String getPrice() {
+            return price;
         }
     }
 }

@@ -92,7 +92,7 @@
               <div class="suite-section-content">
                 <ul>
                   <li>
-                    <span class="method-stats">17 methods,   17 passed</span>
+                    <span class="method-stats">19 methods,   19 passed</span>
                   </li>
                   <li>
                     <span class="method-list-title passed">Passed methods</span>
@@ -101,6 +101,11 @@
                       <a href="#" panel-name="suite-Ecommerce_Automation_Suite" class="show-methods passed suite-Ecommerce_Automation_Suite"> (show)</a> <!-- show-methods passed suite-Ecommerce_Automation_Suite -->
                     </span>
                     <div class="method-list-content passed suite-Ecommerce_Automation_Suite">
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Ecommerce_Automation_Suite" title="tests.AddToCartTest" class="method navigator-link" hash-for-method="automateAddToCartFunctionality">automateAddToCartFunctionality</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
                       <span>
                         <img src="passed.png" width="3%"/>
                         <a href="#" panel-name="suite-Ecommerce_Automation_Suite" title="tests.LoginTest" class="method navigator-link" hash-for-method="automateLoginWithInvalidCredentials">automateLoginWithInvalidCredentials</a> <!-- method navigator-link -->
@@ -158,6 +163,11 @@
                       <br/>
                       <span>
                         <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-Ecommerce_Automation_Suite" title="tests.AddToCartTest" class="method navigator-link" hash-for-method="validateProductAddition">validateProductAddition</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
                         <a href="#" panel-name="suite-Ecommerce_Automation_Suite" title="tests.ProductListingTest" class="method navigator-link" hash-for-method="validateProductDetailsInListing">validateProductDetailsInListing</a> <!-- method navigator-link -->
                       </span>
                       <br/>
@@ -201,6 +211,43 @@
           <div class="suite-Ecommerce_Automation_Suite-class-passed">
             <div class="main-panel-header rounded-window-top">
               <img src="passed.png"/>
+              <span class="class-name">tests.AddToCartTest</span>
+            </div> <!-- main-panel-header rounded-window-top -->
+            <div class="main-panel-content rounded-window-bottom">
+              <div class="method">
+                <div class="method-content">
+                  <a name="automateAddToCartFunctionality">
+                  </a> <!-- automateAddToCartFunctionality -->
+                  <span class="method-name">automateAddToCartFunctionality</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="validateProductAddition">
+                  </a> <!-- validateProductAddition -->
+                  <span class="method-name">validateProductAddition</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+            </div> <!-- main-panel-content rounded-window-bottom -->
+          </div> <!-- suite-Ecommerce_Automation_Suite-class-passed -->
+          <div class="suite-Ecommerce_Automation_Suite-class-passed">
+            <div class="main-panel-header rounded-window-top">
+              <img src="passed.png"/>
+              <span class="class-name">tests.NavigationTest</span>
+            </div> <!-- main-panel-header rounded-window-top -->
+            <div class="main-panel-content rounded-window-bottom">
+              <div class="method">
+                <div class="method-content">
+                  <a name="verifyBasicNavigationBetweenLoginAndRegisterPages">
+                  </a> <!-- verifyBasicNavigationBetweenLoginAndRegisterPages -->
+                  <span class="method-name">verifyBasicNavigationBetweenLoginAndRegisterPages</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+            </div> <!-- main-panel-content rounded-window-bottom -->
+          </div> <!-- suite-Ecommerce_Automation_Suite-class-passed -->
+          <div class="suite-Ecommerce_Automation_Suite-class-passed">
+            <div class="main-panel-header rounded-window-top">
+              <img src="passed.png"/>
               <span class="class-name">tests.ProductListingTest</span>
             </div> <!-- main-panel-header rounded-window-top -->
             <div class="main-panel-content rounded-window-bottom">
@@ -223,21 +270,6 @@
                   <a name="verifyProductNavigationToDetailsPage">
                   </a> <!-- verifyProductNavigationToDetailsPage -->
                   <span class="method-name">verifyProductNavigationToDetailsPage</span>
-                </div> <!-- method-content -->
-              </div> <!-- method -->
-            </div> <!-- main-panel-content rounded-window-bottom -->
-          </div> <!-- suite-Ecommerce_Automation_Suite-class-passed -->
-          <div class="suite-Ecommerce_Automation_Suite-class-passed">
-            <div class="main-panel-header rounded-window-top">
-              <img src="passed.png"/>
-              <span class="class-name">tests.NavigationTest</span>
-            </div> <!-- main-panel-header rounded-window-top -->
-            <div class="main-panel-content rounded-window-bottom">
-              <div class="method">
-                <div class="method-content">
-                  <a name="verifyBasicNavigationBetweenLoginAndRegisterPages">
-                  </a> <!-- verifyBasicNavigationBetweenLoginAndRegisterPages -->
-                  <span class="method-name">verifyBasicNavigationBetweenLoginAndRegisterPages</span>
                 </div> <!-- method-content -->
               </div> <!-- method -->
             </div> <!-- main-panel-content rounded-window-bottom -->
@@ -409,6 +441,7 @@
     &lt;classes&gt;
       &lt;class name=&quot;tests.ProductSearchTest&quot;/&gt;
       &lt;class name=&quot;tests.ProductFilterTest&quot;/&gt;
+      &lt;class name=&quot;tests.AddToCartTest&quot;/&gt;
     &lt;/classes&gt;
   &lt;/test&gt; &lt;!-- Product Feature Tests --&gt;
 &lt;/suite&gt; &lt;!-- Ecommerce Automation Suite --&gt;
@@ -425,7 +458,7 @@
                 <span class="test-name">US013-US015 (6 classes)</span>
               </li>
               <li>
-                <span class="test-name">Product Feature Tests (2 classes)</span>
+                <span class="test-name">Product Feature Tests (3 classes)</span>
               </li>
             </ul>
           </div> <!-- main-panel-content rounded-window-bottom -->
@@ -451,80 +484,88 @@ data.addColumn('number', 'Number');
 data.addColumn('string', 'Method');
 data.addColumn('string', 'Class');
 data.addColumn('number', 'Time (ms)');
-data.addRows(17);
+data.addRows(19);
 data.setCell(0, 0, 0)
 data.setCell(0, 1, 'testFiltering')
 data.setCell(0, 2, 'tests.ProductFilterTest')
-data.setCell(0, 3, 63659);
+data.setCell(0, 3, 64315);
 data.setCell(1, 0, 1)
 data.setCell(1, 1, 'testProductSearchValidAndInvalid')
 data.setCell(1, 2, 'tests.ProductSearchTest')
-data.setCell(1, 3, 60025);
+data.setCell(1, 3, 59854);
 data.setCell(2, 0, 2)
-data.setCell(2, 1, 'validateProductListingPageLoadsSuccessfully')
-data.setCell(2, 2, 'tests.ProductListingTest')
-data.setCell(2, 3, 48362);
+data.setCell(2, 1, 'automateAddToCartFunctionality')
+data.setCell(2, 2, 'tests.AddToCartTest')
+data.setCell(2, 3, 52830);
 data.setCell(3, 0, 3)
-data.setCell(3, 1, 'validateProductDetailsInListing')
+data.setCell(3, 1, 'validateProductListingPageLoadsSuccessfully')
 data.setCell(3, 2, 'tests.ProductListingTest')
-data.setCell(3, 3, 39053);
+data.setCell(3, 3, 49620);
 data.setCell(4, 0, 4)
-data.setCell(4, 1, 'implementAssertionsForLoginLogoutStatus')
-data.setCell(4, 2, 'tests.LoginTest')
-data.setCell(4, 3, 37584);
+data.setCell(4, 1, 'validateProductAddition')
+data.setCell(4, 2, 'tests.AddToCartTest')
+data.setCell(4, 3, 43011);
 data.setCell(5, 0, 5)
-data.setCell(5, 1, 'verifyProductNavigationToDetailsPage')
+data.setCell(5, 1, 'validateProductDetailsInListing')
 data.setCell(5, 2, 'tests.ProductListingTest')
-data.setCell(5, 3, 35545);
+data.setCell(5, 3, 39254);
 data.setCell(6, 0, 6)
-data.setCell(6, 1, 'automateLoginWithValidCredentials')
-data.setCell(6, 2, 'tests.LoginTest')
-data.setCell(6, 3, 24847);
+data.setCell(6, 1, 'verifyProductNavigationToDetailsPage')
+data.setCell(6, 2, 'tests.ProductListingTest')
+data.setCell(6, 3, 37063);
 data.setCell(7, 0, 7)
-data.setCell(7, 1, 'validateErrorMessagesAndMandatoryFields')
+data.setCell(7, 1, 'implementAssertionsForLoginLogoutStatus')
 data.setCell(7, 2, 'tests.LoginTest')
-data.setCell(7, 3, 15570);
+data.setCell(7, 3, 36915);
 data.setCell(8, 0, 8)
-data.setCell(8, 1, 'automateUserRegistrationFlow')
-data.setCell(8, 2, 'tests.RegistrationTest')
-data.setCell(8, 3, 13954);
+data.setCell(8, 1, 'automateLoginWithValidCredentials')
+data.setCell(8, 2, 'tests.LoginTest')
+data.setCell(8, 3, 24632);
 data.setCell(9, 0, 9)
-data.setCell(9, 1, 'validateInvalidInputMessage')
-data.setCell(9, 2, 'tests.RegistrationTest')
-data.setCell(9, 3, 13886);
+data.setCell(9, 1, 'validateErrorMessagesAndMandatoryFields')
+data.setCell(9, 2, 'tests.LoginTest')
+data.setCell(9, 3, 15050);
 data.setCell(10, 0, 10)
-data.setCell(10, 1, 'verifyExplicitWaitForValidationText')
-data.setCell(10, 2, 'tests.WaitTest')
-data.setCell(10, 3, 13867);
+data.setCell(10, 1, 'validateInvalidInputMessage')
+data.setCell(10, 2, 'tests.RegistrationTest')
+data.setCell(10, 3, 14427);
 data.setCell(11, 0, 11)
-data.setCell(11, 1, 'validateEmailFormatAndInvalidInputMessages')
+data.setCell(11, 1, 'automateUserRegistrationFlow')
 data.setCell(11, 2, 'tests.RegistrationTest')
-data.setCell(11, 3, 13828);
+data.setCell(11, 3, 14367);
 data.setCell(12, 0, 12)
-data.setCell(12, 1, 'handleAlertsAndPopups')
-data.setCell(12, 2, 'tests.AlertPopupTest')
-data.setCell(12, 3, 13274);
+data.setCell(12, 1, 'verifyExplicitWaitForValidationText')
+data.setCell(12, 2, 'tests.WaitTest')
+data.setCell(12, 3, 14362);
 data.setCell(13, 0, 13)
-data.setCell(13, 1, 'automateLoginWithInvalidCredentials')
-data.setCell(13, 2, 'tests.LoginTest')
-data.setCell(13, 3, 10818);
+data.setCell(13, 1, 'validateEmailFormatAndInvalidInputMessages')
+data.setCell(13, 2, 'tests.RegistrationTest')
+data.setCell(13, 3, 14350);
 data.setCell(14, 0, 14)
-data.setCell(14, 1, 'verifyBasicNavigationBetweenLoginAndRegisterPages')
-data.setCell(14, 2, 'tests.NavigationTest')
-data.setCell(14, 3, 7158);
+data.setCell(14, 1, 'handleAlertsAndPopups')
+data.setCell(14, 2, 'tests.AlertPopupTest')
+data.setCell(14, 3, 13613);
 data.setCell(15, 0, 15)
-data.setCell(15, 1, 'verifyImplicitAndExplicitWaits')
-data.setCell(15, 2, 'tests.WaitTest')
-data.setCell(15, 3, 4587);
+data.setCell(15, 1, 'automateLoginWithInvalidCredentials')
+data.setCell(15, 2, 'tests.LoginTest')
+data.setCell(15, 3, 10765);
 data.setCell(16, 0, 16)
-data.setCell(16, 1, 'validateMandatoryAndBlankFieldMessages')
-data.setCell(16, 2, 'tests.RegistrationTest')
-data.setCell(16, 3, 3044);
+data.setCell(16, 1, 'verifyBasicNavigationBetweenLoginAndRegisterPages')
+data.setCell(16, 2, 'tests.NavigationTest')
+data.setCell(16, 3, 7315);
+data.setCell(17, 0, 17)
+data.setCell(17, 1, 'verifyImplicitAndExplicitWaits')
+data.setCell(17, 2, 'tests.WaitTest')
+data.setCell(17, 3, 5430);
+data.setCell(18, 0, 18)
+data.setCell(18, 1, 'validateMandatoryAndBlankFieldMessages')
+data.setCell(18, 2, 'tests.RegistrationTest')
+data.setCell(18, 3, 3092);
 window.suiteTableData['Ecommerce_Automation_Suite']= { tableData: data, tableDiv: 'times-div-Ecommerce_Automation_Suite'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 6 minutes</span>
+              <span class="suite-total-time">Total running time: 8 minutes</span>
               <div id="times-div-Ecommerce_Automation_Suite">
               </div> <!-- times-div-Ecommerce_Automation_Suite -->
             </div> <!-- times-div -->
@@ -557,236 +598,263 @@ return data;
               </div> <!-- configuration-method before -->
               <div class="test-method">
                 <span class="method-name">verifyBasicNavigationBetweenLoginAndRegisterPages</span>
-                <span class="method-start">6102 ms</span>
+                <span class="method-start">5574 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
                 <span class="method-name">tearDownBrowser</span>
-                <span class="method-start">13264 ms</span>
+                <span class="method-start">12893 ms</span>
               </div> <!-- configuration-method after -->
             </div> <!-- chronological-class -->
             <div class="chronological-class">
               <div class="chronological-class-name">tests.WaitTest</div> <!-- chronological-class-name -->
               <div class="configuration-method before">
                 <span class="method-name">setUpBrowser</span>
-                <span class="method-start">13499 ms</span>
+                <span class="method-start">13568 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
                 <span class="method-name">verifyExplicitWaitForValidationText</span>
-                <span class="method-start">17848 ms</span>
+                <span class="method-start">17439 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
                 <span class="method-name">tearDownBrowser</span>
-                <span class="method-start">31716 ms</span>
+                <span class="method-start">31802 ms</span>
               </div> <!-- configuration-method after -->
               <div class="configuration-method before">
                 <span class="method-name">setUpBrowser</span>
-                <span class="method-start">31998 ms</span>
+                <span class="method-start">32133 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
                 <span class="method-name">verifyImplicitAndExplicitWaits</span>
-                <span class="method-start">34908 ms</span>
+                <span class="method-start">35984 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
                 <span class="method-name">tearDownBrowser</span>
-                <span class="method-start">39495 ms</span>
+                <span class="method-start">41416 ms</span>
               </div> <!-- configuration-method after -->
             </div> <!-- chronological-class -->
             <div class="chronological-class">
               <div class="chronological-class-name">tests.AlertPopupTest</div> <!-- chronological-class-name -->
               <div class="configuration-method before">
                 <span class="method-name">setUpBrowser</span>
-                <span class="method-start">40319 ms</span>
+                <span class="method-start">41648 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
                 <span class="method-name">handleAlertsAndPopups</span>
-                <span class="method-start">43862 ms</span>
+                <span class="method-start">45029 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
                 <span class="method-name">tearDownBrowser</span>
-                <span class="method-start">57137 ms</span>
+                <span class="method-start">58643 ms</span>
               </div> <!-- configuration-method after -->
             </div> <!-- chronological-class -->
             <div class="chronological-class">
               <div class="chronological-class-name">tests.RegistrationTest</div> <!-- chronological-class-name -->
               <div class="configuration-method before">
                 <span class="method-name">setUpBrowser</span>
-                <span class="method-start">57487 ms</span>
+                <span class="method-start">58941 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
                 <span class="method-name">automateUserRegistrationFlow</span>
-                <span class="method-start">60923 ms</span>
+                <span class="method-start">61775 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
                 <span class="method-name">tearDownBrowser</span>
-                <span class="method-start">74877 ms</span>
+                <span class="method-start">76143 ms</span>
               </div> <!-- configuration-method after -->
               <div class="configuration-method before">
                 <span class="method-name">setUpBrowser</span>
-                <span class="method-start">75296 ms</span>
+                <span class="method-start">76488 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
                 <span class="method-name">validateEmailFormatAndInvalidInputMessages</span>
-                <span class="method-start">78632 ms</span>
+                <span class="method-start">79342 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
                 <span class="method-name">tearDownBrowser</span>
-                <span class="method-start">92462 ms</span>
+                <span class="method-start">93693 ms</span>
               </div> <!-- configuration-method after -->
               <div class="configuration-method before">
                 <span class="method-name">setUpBrowser</span>
-                <span class="method-start">93097 ms</span>
+                <span class="method-start">94151 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
                 <span class="method-name">validateInvalidInputMessage</span>
-                <span class="method-start">96826 ms</span>
+                <span class="method-start">97546 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
                 <span class="method-name">tearDownBrowser</span>
-                <span class="method-start">110712 ms</span>
+                <span class="method-start">111973 ms</span>
               </div> <!-- configuration-method after -->
               <div class="configuration-method before">
                 <span class="method-name">setUpBrowser</span>
-                <span class="method-start">111063 ms</span>
+                <span class="method-start">112352 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
                 <span class="method-name">validateMandatoryAndBlankFieldMessages</span>
-                <span class="method-start">114066 ms</span>
+                <span class="method-start">115768 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
                 <span class="method-name">tearDownBrowser</span>
-                <span class="method-start">117111 ms</span>
+                <span class="method-start">118861 ms</span>
               </div> <!-- configuration-method after -->
             </div> <!-- chronological-class -->
             <div class="chronological-class">
               <div class="chronological-class-name">tests.LoginTest</div> <!-- chronological-class-name -->
               <div class="configuration-method before">
                 <span class="method-name">setUpBrowser</span>
-                <span class="method-start">117444 ms</span>
+                <span class="method-start">119107 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
                 <span class="method-name">automateLoginWithInvalidCredentials</span>
-                <span class="method-start">121132 ms</span>
+                <span class="method-start">122863 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
                 <span class="method-name">tearDownBrowser</span>
-                <span class="method-start">131951 ms</span>
+                <span class="method-start">133629 ms</span>
               </div> <!-- configuration-method after -->
               <div class="configuration-method before">
                 <span class="method-name">setUpBrowser</span>
-                <span class="method-start">132343 ms</span>
+                <span class="method-start">133885 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
                 <span class="method-name">automateLoginWithValidCredentials</span>
-                <span class="method-start">135254 ms</span>
+                <span class="method-start">137508 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
                 <span class="method-name">tearDownBrowser</span>
-                <span class="method-start">160103 ms</span>
+                <span class="method-start">162141 ms</span>
               </div> <!-- configuration-method after -->
               <div class="configuration-method before">
                 <span class="method-name">setUpBrowser</span>
-                <span class="method-start">162016 ms</span>
+                <span class="method-start">162375 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
                 <span class="method-name">implementAssertionsForLoginLogoutStatus</span>
-                <span class="method-start">165018 ms</span>
+                <span class="method-start">165750 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
                 <span class="method-name">tearDownBrowser</span>
-                <span class="method-start">202603 ms</span>
+                <span class="method-start">202665 ms</span>
               </div> <!-- configuration-method after -->
               <div class="configuration-method before">
                 <span class="method-name">setUpBrowser</span>
-                <span class="method-start">202998 ms</span>
+                <span class="method-start">202917 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
                 <span class="method-name">validateErrorMessagesAndMandatoryFields</span>
-                <span class="method-start">206748 ms</span>
+                <span class="method-start">206248 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
                 <span class="method-name">tearDownBrowser</span>
-                <span class="method-start">222320 ms</span>
+                <span class="method-start">221299 ms</span>
               </div> <!-- configuration-method after -->
             </div> <!-- chronological-class -->
             <div class="chronological-class">
               <div class="chronological-class-name">tests.ProductListingTest</div> <!-- chronological-class-name -->
               <div class="configuration-method before">
                 <span class="method-name">setUpBrowser</span>
-                <span class="method-start">222615 ms</span>
+                <span class="method-start">221682 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
                 <span class="method-name">validateProductDetailsInListing</span>
-                <span class="method-start">225469 ms</span>
+                <span class="method-start">224887 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
                 <span class="method-name">captureScreenshotOnFailure([TestResult name=validateProductDetailsInListing status=SUCCESS method=ProductListingTest.validatePr...)</span>
-                <span class="method-start">264523 ms</span>
+                <span class="method-start">264142 ms</span>
               </div> <!-- configuration-method after -->
               <div class="configuration-method after">
                 <span class="method-name">tearDownBrowser</span>
-                <span class="method-start">264529 ms</span>
+                <span class="method-start">264146 ms</span>
               </div> <!-- configuration-method after -->
               <div class="configuration-method before">
                 <span class="method-name">setUpBrowser</span>
-                <span class="method-start">264785 ms</span>
+                <span class="method-start">264423 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
                 <span class="method-name">validateProductListingPageLoadsSuccessfully</span>
-                <span class="method-start">267826 ms</span>
+                <span class="method-start">267761 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
                 <span class="method-name">captureScreenshotOnFailure([TestResult name=validateProductListingPageLoadsSuccessfully status=SUCCESS method=ProductListingTes...)</span>
-                <span class="method-start">316188 ms</span>
+                <span class="method-start">317382 ms</span>
               </div> <!-- configuration-method after -->
               <div class="configuration-method after">
                 <span class="method-name">tearDownBrowser</span>
-                <span class="method-start">316189 ms</span>
+                <span class="method-start">317383 ms</span>
               </div> <!-- configuration-method after -->
               <div class="configuration-method before">
                 <span class="method-name">setUpBrowser</span>
-                <span class="method-start">316617 ms</span>
+                <span class="method-start">318869 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
                 <span class="method-name">verifyProductNavigationToDetailsPage</span>
-                <span class="method-start">320197 ms</span>
+                <span class="method-start">323236 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
-                <span class="method-name">tearDownBrowser</span>
-                <span class="method-start">355743 ms</span>
+                <span class="method-name">captureScreenshotOnFailure([TestResult name=verifyProductNavigationToDetailsPage status=SUCCESS method=ProductListingTest.verif...)</span>
+                <span class="method-start">360299 ms</span>
               </div> <!-- configuration-method after -->
               <div class="configuration-method after">
-                <span class="method-name">captureScreenshotOnFailure([TestResult name=verifyProductNavigationToDetailsPage status=SUCCESS method=ProductListingTest.verif...)</span>
-                <span class="method-start">355743 ms</span>
+                <span class="method-name">tearDownBrowser</span>
+                <span class="method-start">360300 ms</span>
               </div> <!-- configuration-method after -->
             </div> <!-- chronological-class -->
             <div class="chronological-class">
               <div class="chronological-class-name">tests.ProductSearchTest</div> <!-- chronological-class-name -->
               <div class="configuration-method before">
                 <span class="method-name">setUpBrowser</span>
-                <span class="method-start">356020 ms</span>
+                <span class="method-start">360778 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
                 <span class="method-name">testProductSearchValidAndInvalid</span>
-                <span class="method-start">358948 ms</span>
+                <span class="method-start">363802 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
                 <span class="method-name">tearDownBrowser</span>
-                <span class="method-start">418973 ms</span>
+                <span class="method-start">423656 ms</span>
               </div> <!-- configuration-method after -->
             </div> <!-- chronological-class -->
             <div class="chronological-class">
               <div class="chronological-class-name">tests.ProductFilterTest</div> <!-- chronological-class-name -->
               <div class="configuration-method before">
                 <span class="method-name">setUpBrowser</span>
-                <span class="method-start">419392 ms</span>
+                <span class="method-start">424060 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
                 <span class="method-name">testFiltering</span>
-                <span class="method-start">423308 ms</span>
+                <span class="method-start">427578 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
                 <span class="method-name">tearDownBrowser</span>
-                <span class="method-start">486967 ms</span>
+                <span class="method-start">491893 ms</span>
+              </div> <!-- configuration-method after -->
+            </div> <!-- chronological-class -->
+            <div class="chronological-class">
+              <div class="chronological-class-name">tests.AddToCartTest</div> <!-- chronological-class-name -->
+              <div class="configuration-method before">
+                <span class="method-name">setUpBrowser</span>
+                <span class="method-start">492177 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">automateAddToCartFunctionality</span>
+                <span class="method-start">496981 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDownBrowser</span>
+                <span class="method-start">549812 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setUpBrowser</span>
+                <span class="method-start">550367 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">validateProductAddition</span>
+                <span class="method-start">553796 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDownBrowser</span>
+                <span class="method-start">596807 ms</span>
               </div> <!-- configuration-method after -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->

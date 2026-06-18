@@ -16,6 +16,7 @@
         <classes>
             <class name="tests.ProductSearchTest"/>
             <class name="tests.ProductFilterTest"/>
+            <class name="tests.AddToCartTest"/>
         </classes>
     </test>
 </suite>
