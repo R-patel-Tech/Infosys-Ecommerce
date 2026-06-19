@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Ecommerce Automation Suite" verbose="1" parallel="false">
     <test name="US013-US015">
@@ -17,6 +17,7 @@
             <class name="tests.ProductSearchTest"/>
             <class name="tests.ProductFilterTest"/>
             <class name="tests.AddToCartTest"/>
+            <class name="tests.CartTest"/>
         </classes>
     </test>
 </suite>

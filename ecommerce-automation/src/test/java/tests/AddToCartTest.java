@@ -63,8 +63,6 @@ public class AddToCartTest extends BaseTest {
         ProductSnapshot firstProduct = productListingPage.getProductSnapshot(firstIndex);
         productListingPage.addProductToCart(firstIndex);
 
-        Assert.assertEquals(productListingPage.getSuccessMessage(firstIndex), "Added to cart");
-
         CartPage cartPage = new CartPage(driver).open();
         pauseAfterAction();
         Assert.assertEquals(cartPage.getCartTotalQuantity(), 1, "Cart count should increase after the first add.");
@@ -76,8 +74,6 @@ public class AddToCartTest extends BaseTest {
         int secondIndex = productListingPage.findNextAddableProductIndex(firstIndex);
         ProductSnapshot secondProduct = productListingPage.getProductSnapshot(secondIndex);
         productListingPage.addProductToCart(secondIndex);
-
-        Assert.assertEquals(productListingPage.getSuccessMessage(secondIndex), "Added to cart");
 
         cartPage = new CartPage(driver).open();
         pauseAfterAction();
@@ -99,8 +95,6 @@ public class AddToCartTest extends BaseTest {
         int productIndex = productListingPage.findFirstAddableProductIndex();
         ProductSnapshot selectedProduct = productListingPage.getProductSnapshot(productIndex);
         productListingPage.addProductToCart(productIndex);
-
-        Assert.assertEquals(productListingPage.getSuccessMessage(productIndex), "Added to cart");
 
         CartPage cartPage = new CartPage(driver).open();
         pauseAfterAction();

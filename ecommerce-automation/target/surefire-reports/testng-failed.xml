@@ -3,13 +3,13 @@
 <suite name="Failed suite [Ecommerce Automation Suite]" guice-stage="DEVELOPMENT" verbose="0">
   <test thread-count="5" name="Product Feature Tests(failed)" verbose="0">
     <classes>
-      <class name="tests.ProductFilterTest">
+      <class name="tests.CartTest">
         <methods>
           <include name="setUpBrowser"/>
           <include name="tearDownBrowser"/>
-          <include name="testFiltering"/>
+          <include name="handleCartEdgeCases"/>
         </methods>
-      </class> <!-- tests.ProductFilterTest -->
+      </class> <!-- tests.CartTest -->
     </classes>
   </test> <!-- Product Feature Tests(failed) -->
 </suite> <!-- Failed suite [Ecommerce Automation Suite] -->

@@ -60,7 +60,7 @@ export function useProducts(queryString = '') {
       writeCachedProducts(queryString, nextProducts)
       setProducts(nextProducts)
       return nextProducts
-    } catch (requestError) {
+    } catch {
       const cachedProducts = readCachedProducts(queryString)
       const fallbackProducts = getFallbackProducts(queryString)
 
@@ -97,7 +97,7 @@ export function useProducts(queryString = '') {
         if (!cancelled) {
           setProducts(nextProducts)
         }
-      } catch (requestError) {
+      } catch {
         if (!cancelled) {
           const cachedProducts = readCachedProducts(queryString)
           const fallbackProducts = getFallbackProducts(queryString)

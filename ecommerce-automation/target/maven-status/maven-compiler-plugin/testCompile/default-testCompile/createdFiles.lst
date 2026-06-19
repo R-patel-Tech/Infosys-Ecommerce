@@ -1,4 +1,9 @@
+tests\AddToCartTest.class
+tests\CartTest.class
+tests\ProductSearchTest.class
 tests\WaitTest.class
+tests\ProductListingTest.class
+tests\ProductFilterTest.class
 tests\LoginTest.class
 tests\AlertPopupTest.class
 base\BaseTest.class
