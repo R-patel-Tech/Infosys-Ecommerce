@@ -14,6 +14,7 @@ public class CartPage extends BasePage {
     private final By cartItem = By.cssSelector(".cart-item-card");
     private final By cartSubtotal = By.xpath("//aside[contains(@class,'cart-summary')]//div[.//span[normalize-space()='Subtotal']]//strong");
     private final By cartTotalQuantity = By.xpath("//aside[contains(@class,'cart-summary')]//div[.//span[normalize-space()='Total quantity']]//strong");
+    private final By checkoutButton = By.xpath("//aside[contains(@class,'cart-summary')]//button[normalize-space()='Checkout']");
     private final By emptyCartMessage = By.xpath("//p[normalize-space()='Your cart is empty.']");
     private final By actionSuccessMessage = By.cssSelector(".form-message.success");
     private final WebDriverWait explicitWait;
@@ -196,6 +197,11 @@ public class CartPage extends BasePage {
 
         buttons.get(buttons.size() - 1).click();
         return this;
+    }
+
+    public CheckoutPage clickCheckout() {
+        click(checkoutButton);
+        return new CheckoutPage(driver);
     }
 
     public boolean isCartEmpty() {

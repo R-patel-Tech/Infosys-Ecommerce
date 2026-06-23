@@ -5,7 +5,6 @@ utils\AlertUtils.class
 pages\LoginPage.class
 pages\ProductListingPage.class
 utils\ScreenshotUtility.class
-pages\CartPage.class
 pages\HomePage.class
 utils\ConfigReader.class
 components\FilterComponent.class
