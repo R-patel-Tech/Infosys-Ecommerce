@@ -19,6 +19,7 @@
             <class name="tests.AddToCartTest"/>
             <class name="tests.CartTest"/>
             <class name="tests.CheckoutTest"/>
+            <class name="tests.OrderSummaryTest"/>
         </classes>
     </test>
 </suite>

@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
-Test set: TestSuite
+Test set: tests.OrderSummaryTest
 -------------------------------------------------------------------------------
-Tests run: 25, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1132 s -- in TestSuite
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 430.4 s -- in tests.OrderSummaryTest

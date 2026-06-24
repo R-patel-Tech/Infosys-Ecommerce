@@ -5,12 +5,16 @@ utils\AlertUtils.class
 pages\LoginPage.class
 pages\ProductListingPage.class
 utils\ScreenshotUtility.class
+pages\CartPage.class
 pages\HomePage.class
+pages\OrderSummaryPage$SummaryItem.class
 utils\ConfigReader.class
 components\FilterComponent.class
 utils\WaitUtils.class
 base\BasePage.class
 base\DriverFactory.class
+pages\OrderSummaryPage.class
+pages\CheckoutPage.class
 pages\PopupPage.class
 pages\ProductListingPage$ProductSnapshot.class
 pages\RegistrationPage.class

@@ -1,12 +1,17 @@
+tests\OrderSummaryTest.class
 tests\AddToCartTest.class
 tests\CartTest.class
+tests\OrderSummaryTest$SelectedItem.class
 tests\ProductSearchTest.class
+tests\CheckoutTest.class
 tests\WaitTest.class
 tests\ProductListingTest.class
 tests\ProductFilterTest.class
 tests\LoginTest.class
 tests\AlertPopupTest.class
+tests\TestDataProvider$CheckoutDataset.class
 base\BaseTest.class
 tests\NavigationTest.class
 tests\RegistrationTest.class
+tests\TestDataProvider.class
 tests\LogoutSessionTests.class
