@@ -1,6 +1,7 @@
 package pages;
 
 import base.BasePage;
+import java.math.BigDecimal;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,10 @@ public class CheckoutPage extends BasePage {
     private final By checkoutSummary = By.cssSelector(".checkout-summary");
     private final By checkoutSummaryHeading = By.xpath("//aside[contains(@class,'checkout-summary')]//h2[normalize-space()='Cart summary']");
     private final By checkoutSummaryItem = By.cssSelector(".checkout-summary-item");
+    private final By checkoutSummaryTotalQuantity = By.xpath("//aside[contains(@class,'checkout-summary')]//div[.//span[normalize-space()='Total quantity']]//strong");
+    private final By checkoutSummaryTotalAmount = By.xpath("//aside[contains(@class,'checkout-summary')]//div[.//span[normalize-space()='Total']]//strong");
     private final By placeOrderButton = By.xpath("//form[contains(@class,'checkout-form')]//button[@type='submit']");
+    private final By orderSuccessHeading = By.xpath("//h1[normalize-space()='Your order has been placed']");
 
     private final By nameInput = By.id("name");
     private final By phoneInput = By.id("phone");
@@ -66,6 +70,10 @@ public class CheckoutPage extends BasePage {
         return isVisibleNow(checkoutSummary) && isVisibleNow(checkoutSummaryHeading);
     }
 
+    public boolean isOrderSuccessDisplayed() {
+        return isVisibleNow(orderSuccessHeading);
+    }
+
     public boolean areMandatoryFieldsDisplayed() {
         return isVisibleNow(nameInput)
                 && isVisibleNow(phoneInput)
@@ -79,6 +87,14 @@ public class CheckoutPage extends BasePage {
 
     public int getSelectedProductCount() {
         return driver.findElements(checkoutSummaryItem).size();
+    }
+
+    public int getCheckoutSummaryTotalQuantity() {
+        return Integer.parseInt(textOf(checkoutSummaryTotalQuantity));
+    }
+
+    public BigDecimal getCheckoutSummaryTotalAmount() {
+        return parseMoney(textOf(checkoutSummaryTotalAmount));
     }
 
     public List<String> getSelectedProductNames() {
@@ -114,9 +130,17 @@ public class CheckoutPage extends BasePage {
         return this;
     }
 
+    public String getFullNameValue() {
+        return visible(nameInput).getAttribute("value");
+    }
+
     public CheckoutPage enterPhoneNumber(String value) {
         type(phoneInput, value);
         return this;
+    }
+
+    public String getPhoneNumberValue() {
+        return visible(phoneInput).getAttribute("value");
     }
 
     public CheckoutPage enterAddress(String value) {
@@ -124,9 +148,17 @@ public class CheckoutPage extends BasePage {
         return this;
     }
 
+    public String getAddressValue() {
+        return visible(addressInput).getAttribute("value");
+    }
+
     public CheckoutPage enterCity(String value) {
         type(cityInput, value);
         return this;
+    }
+
+    public String getCityValue() {
+        return visible(cityInput).getAttribute("value");
     }
 
     public CheckoutPage enterState(String value) {
@@ -134,14 +166,26 @@ public class CheckoutPage extends BasePage {
         return this;
     }
 
+    public String getStateValue() {
+        return visible(stateInput).getAttribute("value");
+    }
+
     public CheckoutPage enterPincode(String value) {
         type(pincodeInput, value);
         return this;
     }
 
+    public String getPincodeValue() {
+        return visible(pincodeInput).getAttribute("value");
+    }
+
     public CheckoutPage selectPaymentMethod(String paymentMethod) {
         new Select(visible(paymentMethodSelect)).selectByValue(paymentMethod);
         return this;
+    }
+
+    public String getPaymentMethodValue() {
+        return new Select(visible(paymentMethodSelect)).getFirstSelectedOption().getAttribute("value");
     }
 
     public CheckoutPage fillCheckoutForm(String fullName, String phoneNumber, String address, String city, String state, String pincode, String paymentMethod) {
@@ -167,6 +211,11 @@ public class CheckoutPage extends BasePage {
         return this;
     }
 
+    public CheckoutPage waitUntilOrderSuccessDisplayed() {
+        explicitWait.until(driver -> isVisibleNow(orderSuccessHeading));
+        return this;
+    }
+
     public CheckoutPage waitUntilRequiredFieldErrorsVisible() {
         waitUntilFieldErrorVisible(nameError);
         waitUntilFieldErrorVisible(phoneError);
@@ -180,6 +229,19 @@ public class CheckoutPage extends BasePage {
     public CheckoutPage waitUntilInvalidInputErrorsVisible() {
         waitUntilFieldErrorVisible(phoneError);
         waitUntilFieldErrorVisible(pincodeError);
+        return this;
+    }
+
+    public CheckoutPage waitUntilNameAddressPhonePincodeErrorsVisible() {
+        waitUntilFieldErrorVisible(nameError);
+        waitUntilFieldErrorVisible(addressError);
+        waitUntilFieldErrorVisible(phoneError);
+        waitUntilFieldErrorVisible(pincodeError);
+        return this;
+    }
+
+    public CheckoutPage waitUntilFormErrorVisible() {
+        explicitWait.until(driver -> isVisibleNow(formErrorBanner) && !getFormErrorMessage().isBlank());
         return this;
     }
 
@@ -215,6 +277,26 @@ public class CheckoutPage extends BasePage {
         return isVisibleNow(formErrorBanner) ? textOf(formErrorBanner) : "";
     }
 
+    public String getCheckoutSummaryItemDetails(String productName) {
+        for (WebElement item : driver.findElements(checkoutSummaryItem)) {
+            List<WebElement> names = item.findElements(By.xpath(".//div/strong[1]"));
+            if (names.isEmpty()) {
+                continue;
+            }
+
+            String selectedName = names.get(0).getText().trim();
+            if (selectedName.equals(productName)) {
+                return item.getText().trim();
+            }
+        }
+
+        return "";
+    }
+
+    public String getCheckoutSummaryTotalAmountText() {
+        return textOf(checkoutSummaryTotalAmount);
+    }
+
     private void waitUntilFieldErrorVisible(By locator) {
         explicitWait.until(driver -> {
             List<WebElement> elements = driver.findElements(locator);
@@ -234,5 +316,13 @@ public class CheckoutPage extends BasePage {
     private boolean isVisibleNow(By locator) {
         List<WebElement> elements = driver.findElements(locator);
         return !elements.isEmpty() && elements.get(0).isDisplayed();
+    }
+
+    private BigDecimal parseMoney(String value) {
+        String sanitized = value == null ? "" : value.replaceAll("[^0-9.]", "");
+        if (sanitized.isBlank()) {
+            return BigDecimal.ZERO;
+        }
+        return new BigDecimal(sanitized);
     }
 }

@@ -2,32 +2,32 @@
 <testng-results ignored="0" total="2" passed="2" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2026-06-23T07:39:52 IST" name="Surefire suite" finished-at="2026-06-23T07:43:04 IST" duration-ms="191550">
+  <suite started-at="2026-06-24T07:08:38 IST" name="Surefire suite" finished-at="2026-06-24T07:11:55 IST" duration-ms="196997">
     <groups>
     </groups>
-    <test started-at="2026-06-23T07:39:52 IST" name="Surefire test" finished-at="2026-06-23T07:43:04 IST" duration-ms="191550">
+    <test started-at="2026-06-24T07:08:38 IST" name="Surefire test" finished-at="2026-06-24T07:11:55 IST" duration-ms="196997">
       <class name="tests.CheckoutTest">
-        <test-method is-config="true" signature="setUpBrowser()[pri:0, instance:tests.CheckoutTest@8b96fde]" started-at="2026-06-23T07:39:52 IST" name="setUpBrowser" finished-at="2026-06-23T07:39:58 IST" duration-ms="5518" status="PASS">
+        <test-method is-config="true" signature="setUpBrowser()[pri:0, instance:tests.CheckoutTest@8b96fde]" started-at="2026-06-24T07:08:38 IST" name="setUpBrowser" finished-at="2026-06-24T07:08:44 IST" duration-ms="6012" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUpBrowser -->
-        <test-method signature="automateCheckoutInitiation()[pri:0, instance:tests.CheckoutTest@8b96fde]" started-at="2026-06-23T07:39:58 IST" name="automateCheckoutInitiation" description="T096: Automate Checkout Initiation" finished-at="2026-06-23T07:41:06 IST" duration-ms="68212" status="PASS">
+        <test-method signature="automateCheckoutInitiation()[pri:0, instance:tests.CheckoutTest@8b96fde]" started-at="2026-06-24T07:08:44 IST" name="automateCheckoutInitiation" description="T096: Automate Checkout Initiation" finished-at="2026-06-24T07:09:53 IST" duration-ms="69452" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- automateCheckoutInitiation -->
-        <test-method is-config="true" signature="tearDownBrowser()[pri:0, instance:tests.CheckoutTest@8b96fde]" started-at="2026-06-23T07:41:06 IST" name="tearDownBrowser" finished-at="2026-06-23T07:41:07 IST" duration-ms="401" status="PASS">
+        <test-method is-config="true" signature="tearDownBrowser()[pri:0, instance:tests.CheckoutTest@8b96fde]" started-at="2026-06-24T07:09:53 IST" name="tearDownBrowser" finished-at="2026-06-24T07:09:54 IST" duration-ms="588" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDownBrowser -->
-        <test-method is-config="true" signature="setUpBrowser()[pri:0, instance:tests.CheckoutTest@8b96fde]" started-at="2026-06-23T07:41:07 IST" name="setUpBrowser" finished-at="2026-06-23T07:41:10 IST" duration-ms="3487" status="PASS">
+        <test-method is-config="true" signature="setUpBrowser()[pri:0, instance:tests.CheckoutTest@8b96fde]" started-at="2026-06-24T07:09:54 IST" name="setUpBrowser" finished-at="2026-06-24T07:09:57 IST" duration-ms="3550" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUpBrowser -->
-        <test-method signature="validateFormInputs()[pri:0, instance:tests.CheckoutTest@8b96fde]" started-at="2026-06-23T07:41:10 IST" name="validateFormInputs" description="T097: Validate Form Inputs" finished-at="2026-06-23T07:43:04 IST" duration-ms="113591" status="PASS">
+        <test-method signature="validateFormInputs()[pri:0, instance:tests.CheckoutTest@8b96fde]" started-at="2026-06-24T07:09:57 IST" name="validateFormInputs" description="T097: Validate Form Inputs" finished-at="2026-06-24T07:11:54 IST" duration-ms="117047" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- validateFormInputs -->
-        <test-method is-config="true" signature="tearDownBrowser()[pri:0, instance:tests.CheckoutTest@8b96fde]" started-at="2026-06-23T07:43:04 IST" name="tearDownBrowser" finished-at="2026-06-23T07:43:04 IST" duration-ms="294" status="PASS">
+        <test-method is-config="true" signature="tearDownBrowser()[pri:0, instance:tests.CheckoutTest@8b96fde]" started-at="2026-06-24T07:11:54 IST" name="tearDownBrowser" finished-at="2026-06-24T07:11:55 IST" duration-ms="272" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDownBrowser -->
