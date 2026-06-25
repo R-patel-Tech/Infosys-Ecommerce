@@ -43,11 +43,6 @@ public class LoginPage extends BasePage {
     public void clickLogin() {
         click(signInButton);
         waitUtils.waitForPageLoad();
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
     }
 
     public LoginPage login(String email, String password) {

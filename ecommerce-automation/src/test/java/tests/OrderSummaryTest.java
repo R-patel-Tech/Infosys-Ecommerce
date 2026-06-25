@@ -37,14 +37,6 @@ public class OrderSummaryTest extends BaseTest {
         return email;
     }
 
-    private void pauseAfterAction() {
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-    }
-
     private BigDecimal parseMoney(String value) {
         String sanitized = value == null ? "" : value.replaceAll("[^0-9.]", "");
         if (sanitized.isBlank()) {
@@ -60,15 +52,12 @@ public class OrderSummaryTest extends BaseTest {
     private ProductSnapshot addProductTwice(ProductListingPage productListingPage, int index) {
         ProductSnapshot product = productListingPage.getProductSnapshot(index);
         productListingPage.addProductToCart(index);
-        pauseAfterAction();
         productListingPage.addProductToCart(index);
-        pauseAfterAction();
         return product;
     }
 
     private List<SelectedItem> addProductsToCart(TestDataProvider.CheckoutDataset dataset) {
         ProductListingPage productListingPage = new ProductListingPage(driver).open();
-        pauseAfterAction();
 
         List<SelectedItem> selectedItems = new ArrayList<>();
 
@@ -78,7 +67,6 @@ public class OrderSummaryTest extends BaseTest {
             firstProduct = addProductTwice(productListingPage, firstIndex);
         } else {
             productListingPage.addProductToCart(firstIndex);
-            pauseAfterAction();
         }
         selectedItems.add(new SelectedItem(firstProduct, dataset.getPrimaryQuantity()));
 
@@ -87,7 +75,6 @@ public class OrderSummaryTest extends BaseTest {
             ProductSnapshot secondProduct = productListingPage.getProductSnapshot(secondIndex);
             for (int i = 0; i < dataset.getSecondaryQuantity(); i++) {
                 productListingPage.addProductToCart(secondIndex);
-                pauseAfterAction();
             }
             selectedItems.add(new SelectedItem(secondProduct, dataset.getSecondaryQuantity()));
         }
@@ -97,12 +84,9 @@ public class OrderSummaryTest extends BaseTest {
 
     private CheckoutPage proceedToCheckout() {
         CartPage cartPage = new CartPage(driver).open();
-        pauseAfterAction();
         Assert.assertTrue(cartPage.isLoaded(), "Cart page should be loaded before checkout.");
         CheckoutPage checkoutPage = cartPage.clickCheckout();
-        pauseAfterAction();
         checkoutPage.waitUntilLoaded();
-        pauseAfterAction();
         return checkoutPage;
     }
 
@@ -112,7 +96,6 @@ public class OrderSummaryTest extends BaseTest {
         String email = seedRegisteredUser(dataset.getFullName(), dataset.getPhoneNumber());
         LoginUtils loginUtils = new LoginUtils(driver);
         loginUtils.loginWithValidCredentials(email, PASSWORD);
-        pauseAfterAction();
 
         List<SelectedItem> selectedItems = addProductsToCart(dataset);
         CheckoutPage checkoutPage = proceedToCheckout();
@@ -126,10 +109,8 @@ public class OrderSummaryTest extends BaseTest {
                 dataset.getPincode(),
                 dataset.getPaymentMethod()
         );
-        pauseAfterAction();
 
         OrderSummaryPage orderSummaryPage = new OrderSummaryPage(driver).waitUntilLoaded();
-        pauseAfterAction();
 
         Assert.assertTrue(orderSummaryPage.isDisplayed(), "Order summary section should be displayed.");
         Assert.assertTrue(orderSummaryPage.getSummaryItemCount() > 0, "Order summary should contain items.");

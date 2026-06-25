@@ -186,11 +186,6 @@ public class ProductListingPage extends BasePage {
         scrollToElement(card);
         button.click();
         waitUtils.waitForText(successMessage, "Added to cart");
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
 
         return getProductSnapshot(index);
     }
@@ -263,11 +258,6 @@ public class ProductListingPage extends BasePage {
     }
 
     private void pauseForObservation() {
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException ex) {
-            Thread.currentThread().interrupt();
-        }
     }
 
     public static class ProductSnapshot {

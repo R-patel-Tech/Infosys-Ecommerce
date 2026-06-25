@@ -70,17 +70,29 @@ public class OrderSummaryPage extends BasePage {
 
     public Optional<BigDecimal> getOptionalChargeAmount(String label) {
         By row = By.xpath("//aside[contains(@class,'checkout-summary')]//div[.//span[normalize-space()='" + label + "']]//strong");
-        List<WebElement> elements = driver.findElements(row);
-        if (elements.isEmpty()) {
-            return Optional.empty();
+        java.time.Duration originalWait = java.time.Duration.ofSeconds(configReader.getIntProperty("implicitWait", 2));
+        try {
+            driver.manage().timeouts().implicitlyWait(java.time.Duration.ZERO);
+            List<WebElement> elements = driver.findElements(row);
+            if (elements.isEmpty()) {
+                return Optional.empty();
+            }
+            return Optional.of(parseMoney(elements.get(0).getText()));
+        } finally {
+            driver.manage().timeouts().implicitlyWait(originalWait);
         }
-        return Optional.of(parseMoney(elements.get(0).getText()));
     }
 
     public boolean isChargeDisplayed(String label) {
         By row = By.xpath("//aside[contains(@class,'checkout-summary')]//div[.//span[normalize-space()='" + label + "']]//strong");
-        List<WebElement> elements = driver.findElements(row);
-        return !elements.isEmpty() && elements.get(0).isDisplayed();
+        java.time.Duration originalWait = java.time.Duration.ofSeconds(configReader.getIntProperty("implicitWait", 2));
+        try {
+            driver.manage().timeouts().implicitlyWait(java.time.Duration.ZERO);
+            List<WebElement> elements = driver.findElements(row);
+            return !elements.isEmpty() && elements.get(0).isDisplayed();
+        } finally {
+            driver.manage().timeouts().implicitlyWait(originalWait);
+        }
     }
 
     public BigDecimal calculateExpectedTotal() {

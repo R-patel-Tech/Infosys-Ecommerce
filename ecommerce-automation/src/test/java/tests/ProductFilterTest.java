@@ -28,7 +28,7 @@ public class ProductFilterTest extends BaseTest {
         // Try apply a category if available (best-effort)
         try {
             filter.applyCategory("All"); // often exists; best-effort
-            Thread.sleep(2000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
@@ -40,7 +40,7 @@ public class ProductFilterTest extends BaseTest {
         // Clear filters and verify count restored (best-effort)
         filter.clearAllFilters();
         try {
-            Thread.sleep(2000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }

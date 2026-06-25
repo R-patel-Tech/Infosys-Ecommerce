@@ -2,65 +2,65 @@
 <testng-results ignored="0" total="3" passed="3" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2026-06-24T21:17:13 IST" name="Surefire suite" finished-at="2026-06-24T21:24:23 IST" duration-ms="430041">
+  <suite started-at="2026-06-25T08:41:45 IST" name="Surefire suite" finished-at="2026-06-25T08:42:26 IST" duration-ms="40899">
     <groups>
     </groups>
-    <test started-at="2026-06-24T21:17:13 IST" name="Surefire test" finished-at="2026-06-24T21:24:23 IST" duration-ms="430041">
+    <test started-at="2026-06-25T08:41:45 IST" name="Surefire test" finished-at="2026-06-25T08:42:26 IST" duration-ms="40899">
       <class name="tests.OrderSummaryTest">
-        <test-method is-config="true" signature="setUpBrowser()[pri:0, instance:tests.OrderSummaryTest@8b96fde]" started-at="2026-06-24T21:17:13 IST" name="setUpBrowser" finished-at="2026-06-24T21:17:16 IST" duration-ms="3452" status="PASS">
+        <test-method is-config="true" signature="setUpBrowser()[pri:0, instance:tests.OrderSummaryTest@8b96fde]" started-at="2026-06-25T08:41:45 IST" name="setUpBrowser" finished-at="2026-06-25T08:41:48 IST" duration-ms="2751" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUpBrowser -->
-        <test-method signature="validateOrderSummary(tests.TestDataProvider$CheckoutDataset)[pri:0, instance:tests.OrderSummaryTest@8b96fde]" started-at="2026-06-24T21:17:16 IST" name="validateOrderSummary" description="T101/T102/T103/T104: Validate order summary and total calculation" data-provider="orderSummaryData" finished-at="2026-06-24T21:19:31 IST" duration-ms="135264" status="PASS">
+        <test-method signature="validateOrderSummary(tests.TestDataProvider$CheckoutDataset)[pri:0, instance:tests.OrderSummaryTest@8b96fde]" started-at="2026-06-25T08:41:48 IST" name="validateOrderSummary" description="T101/T102/T103/T104: Validate order summary and total calculation" data-provider="orderSummaryData" finished-at="2026-06-25T08:41:58 IST" duration-ms="10076" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[tests.TestDataProvider$CheckoutDataset@1b7c473a]]>
+                <![CDATA[tests.TestDataProvider$CheckoutDataset@344f4dea]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- validateOrderSummary -->
-        <test-method is-config="true" signature="tearDownBrowser()[pri:0, instance:tests.OrderSummaryTest@8b96fde]" started-at="2026-06-24T21:19:31 IST" name="tearDownBrowser" finished-at="2026-06-24T21:19:32 IST" duration-ms="237" status="PASS">
+        <test-method is-config="true" signature="tearDownBrowser()[pri:0, instance:tests.OrderSummaryTest@8b96fde]" started-at="2026-06-25T08:41:58 IST" name="tearDownBrowser" finished-at="2026-06-25T08:41:59 IST" duration-ms="1220" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDownBrowser -->
-        <test-method is-config="true" signature="setUpBrowser()[pri:0, instance:tests.OrderSummaryTest@8b96fde]" started-at="2026-06-24T21:19:32 IST" name="setUpBrowser" finished-at="2026-06-24T21:19:34 IST" duration-ms="2822" status="PASS">
+        <test-method is-config="true" signature="setUpBrowser()[pri:0, instance:tests.OrderSummaryTest@8b96fde]" started-at="2026-06-25T08:41:59 IST" name="setUpBrowser" finished-at="2026-06-25T08:42:01 IST" duration-ms="2062" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUpBrowser -->
-        <test-method signature="validateOrderSummary(tests.TestDataProvider$CheckoutDataset)[pri:0, instance:tests.OrderSummaryTest@8b96fde]" started-at="2026-06-24T21:19:34 IST" name="validateOrderSummary" description="T101/T102/T103/T104: Validate order summary and total calculation" data-provider="orderSummaryData" finished-at="2026-06-24T21:21:56 IST" duration-ms="141649" status="PASS">
+        <test-method signature="validateOrderSummary(tests.TestDataProvider$CheckoutDataset)[pri:0, instance:tests.OrderSummaryTest@8b96fde]" started-at="2026-06-25T08:42:01 IST" name="validateOrderSummary" description="T101/T102/T103/T104: Validate order summary and total calculation" data-provider="orderSummaryData" finished-at="2026-06-25T08:42:13 IST" duration-ms="11273" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[tests.TestDataProvider$CheckoutDataset@5a9800f8]]>
+                <![CDATA[tests.TestDataProvider$CheckoutDataset@72ed9aad]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- validateOrderSummary -->
-        <test-method is-config="true" signature="tearDownBrowser()[pri:0, instance:tests.OrderSummaryTest@8b96fde]" started-at="2026-06-24T21:21:56 IST" name="tearDownBrowser" finished-at="2026-06-24T21:21:57 IST" duration-ms="437" status="PASS">
+        <test-method is-config="true" signature="tearDownBrowser()[pri:0, instance:tests.OrderSummaryTest@8b96fde]" started-at="2026-06-25T08:42:13 IST" name="tearDownBrowser" finished-at="2026-06-25T08:42:13 IST" duration-ms="230" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDownBrowser -->
-        <test-method is-config="true" signature="setUpBrowser()[pri:0, instance:tests.OrderSummaryTest@8b96fde]" started-at="2026-06-24T21:21:57 IST" name="setUpBrowser" finished-at="2026-06-24T21:22:00 IST" duration-ms="3378" status="PASS">
+        <test-method is-config="true" signature="setUpBrowser()[pri:0, instance:tests.OrderSummaryTest@8b96fde]" started-at="2026-06-25T08:42:13 IST" name="setUpBrowser" finished-at="2026-06-25T08:42:15 IST" duration-ms="2195" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUpBrowser -->
-        <test-method signature="validateOrderSummary(tests.TestDataProvider$CheckoutDataset)[pri:0, instance:tests.OrderSummaryTest@8b96fde]" started-at="2026-06-24T21:22:00 IST" name="validateOrderSummary" description="T101/T102/T103/T104: Validate order summary and total calculation" data-provider="orderSummaryData" finished-at="2026-06-24T21:24:22 IST" duration-ms="142508" status="PASS">
+        <test-method signature="validateOrderSummary(tests.TestDataProvider$CheckoutDataset)[pri:0, instance:tests.OrderSummaryTest@8b96fde]" started-at="2026-06-25T08:42:15 IST" name="validateOrderSummary" description="T101/T102/T103/T104: Validate order summary and total calculation" data-provider="orderSummaryData" finished-at="2026-06-25T08:42:26 IST" duration-ms="10636" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[tests.TestDataProvider$CheckoutDataset@48d293ee]]>
+                <![CDATA[tests.TestDataProvider$CheckoutDataset@512575e9]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- validateOrderSummary -->
-        <test-method is-config="true" signature="tearDownBrowser()[pri:0, instance:tests.OrderSummaryTest@8b96fde]" started-at="2026-06-24T21:24:22 IST" name="tearDownBrowser" finished-at="2026-06-24T21:24:23 IST" duration-ms="256" status="PASS">
+        <test-method is-config="true" signature="tearDownBrowser()[pri:0, instance:tests.OrderSummaryTest@8b96fde]" started-at="2026-06-25T08:42:26 IST" name="tearDownBrowser" finished-at="2026-06-25T08:42:26 IST" duration-ms="389" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDownBrowser -->

@@ -28,7 +28,7 @@ public class ProductSearchTest extends BaseTest {
 
         search.search(keyword);
         try {
-            Thread.sleep(2000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
@@ -40,7 +40,7 @@ public class ProductSearchTest extends BaseTest {
         String invalid = "no_such_product_12345";
         search.search(invalid);
         try {
-            Thread.sleep(2000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }

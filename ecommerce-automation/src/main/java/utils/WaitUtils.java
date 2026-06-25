@@ -39,7 +39,7 @@ public class WaitUtils {
 
     public boolean isElementVisible(By locator) {
         try {
-            WebDriverWait quickWait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            WebDriverWait quickWait = new WebDriverWait(driver, Duration.ofSeconds(2));
             quickWait.until(ExpectedConditions.visibilityOfElementLocated(locator));
             return true;
         } catch (Exception e) {

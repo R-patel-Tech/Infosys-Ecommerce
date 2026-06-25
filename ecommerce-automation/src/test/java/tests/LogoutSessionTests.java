@@ -34,7 +34,7 @@ public class LogoutSessionTests extends BaseTest {
 
         driver.get(baseUrl + "/dashboard");
         try {
-            Thread.sleep(2000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
@@ -63,13 +63,13 @@ public class LogoutSessionTests extends BaseTest {
 
         driver.switchTo().newWindow(WindowType.TAB);
         try {
-            Thread.sleep(2000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
         driver.get(baseUrl);
         try {
-            Thread.sleep(2000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
@@ -84,7 +84,7 @@ public class LogoutSessionTests extends BaseTest {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(configReader.getIntProperty("implicitWait", 10)));
         driver.get(baseUrl);
         try {
-            Thread.sleep(2000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
@@ -112,7 +112,7 @@ public class LogoutSessionTests extends BaseTest {
 
         driver.get(baseUrl + "/dashboard");
         try {
-            Thread.sleep(2000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }

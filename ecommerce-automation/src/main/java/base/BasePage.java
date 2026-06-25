@@ -35,24 +35,12 @@ public abstract class BasePage {
 
     protected void click(By locator) {
         clickable(locator).click();
-        // Wait for 2 seconds to observe execution
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
     }
 
     protected void type(By locator, String text) {
         WebElement element = visible(locator);
         element.clear();
         element.sendKeys(text);
-        // Wait for 2 seconds to observe execution
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
     }
 
     protected String textOf(By locator) {
@@ -66,11 +54,6 @@ public abstract class BasePage {
     protected void navigateTo(String relativePath) {
         driver.get(getBaseUrl() + relativePath);
         waitUtils.waitForPageLoad();
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
     }
 
     public String getCurrentUrl() {
@@ -96,10 +79,5 @@ public abstract class BasePage {
 
     protected void scrollToElement(WebElement element) {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center', inline:'nearest'});", element);
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
     }
 }

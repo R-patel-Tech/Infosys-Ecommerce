@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: tests.OrderSummaryTest
 -------------------------------------------------------------------------------
-Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 430.4 s -- in tests.OrderSummaryTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 41.46 s -- in tests.OrderSummaryTest

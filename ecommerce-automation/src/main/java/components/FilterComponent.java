@@ -40,7 +40,7 @@ public class FilterComponent extends BasePage {
         }
         waitUtils.waitForPageLoad();
         try {
-            Thread.sleep(2000);
+            Thread.sleep(1000);
         } catch (InterruptedException ex) {
             Thread.currentThread().interrupt();
         }
@@ -58,7 +58,7 @@ public class FilterComponent extends BasePage {
         }
         waitUtils.waitForPageLoad();
         try {
-            Thread.sleep(2000);
+            Thread.sleep(1000);
         } catch (InterruptedException ex) {
             Thread.currentThread().interrupt();
         }
@@ -70,7 +70,7 @@ public class FilterComponent extends BasePage {
         }
         waitUtils.waitForPageLoad();
         try {
-            Thread.sleep(2000);
+            Thread.sleep(1000);
         } catch (InterruptedException ex) {
             Thread.currentThread().interrupt();
         }

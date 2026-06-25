@@ -21,7 +21,7 @@ public class SearchComponent extends BasePage {
         waitUtils.waitForVisibility(searchInput);
         sendKeys(searchInput, keyword);
         try {
-            Thread.sleep(2000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }

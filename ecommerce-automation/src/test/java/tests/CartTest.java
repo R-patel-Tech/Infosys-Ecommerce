@@ -37,7 +37,7 @@ public class CartTest extends BaseTest {
 
     private void pauseAfterAction() {
         try {
-            Thread.sleep(2000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
